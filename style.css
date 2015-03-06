@@ -1,0 +1,70 @@
+body {
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background-color: #EEE;
+	font-weight: 900;
+	padding: 0;
+	margin: 0;
+}
+
+header {
+	height: 100vh;
+	width: 100vw;
+}
+
+#logo {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	overflow: hidden;
+	transition: right 1s;
+}
+
+nav {
+	position: fixed;
+	height: 100vh;
+	width: 580px;
+	background: #DDD;
+	z-index: 1;
+	padding-right: 25px;
+	left: -580px;
+	overflow: hidden;
+	transition: left 1s;
+}
+
+#headr {
+	position: fixed;
+	top: 0;
+	right: 40px;
+	color: #333;
+	font-size: 1.2em;
+	transition: right 1s;
+}
+
+nav:hover {
+	left: 0;
+	overflow-y: scroll;
+}
+
+nav:hover ~ header #logo {
+	right: -10vw;
+}
+
+nav:hover ~ #headr {
+	right: -555px;
+}
+
+ul {
+	padding: 0px;
+	list-style: none;
+	direction: rtl;
+}
+
+ul a {
+	font-size: 8em;
+	line-height: 100%;
+	text-decoration: none;
+	color: #333;
+}
