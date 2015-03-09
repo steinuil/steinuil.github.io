@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url("opensans.woff") format('woff');
+}
+
 /* Colours */
 #headr, ul a {
 	color: #EEE;
@@ -42,10 +49,10 @@ header {
 nav {
 	position: fixed;
 	height: 100vh;
-	width: 580px;
+	width: 780px;
 	z-index: 1;
 	padding-right: 25px;
-	left: -580px;
+	left: -780px;
 	overflow: hidden;
 	transition: left 1s;
 }
@@ -68,7 +75,7 @@ nav:hover ~ header #logo {
 }
 
 nav:hover ~ #headr {
-	right: -555px;
+	right: -780px;
 }
 
 ul {
