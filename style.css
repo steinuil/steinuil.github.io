@@ -1,91 +1,108 @@
 @font-face {
-  font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 800;
-  src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url("opensans.woff") format('woff');
+	font-family: "Gidole";
+	src: url("https://github.com/duemunk/sans/raw/master/Releases/WebFont/gidole-regular.eot");
 }
 
-/* Colours */
-#headr, ul a {
-	color: #EEE;
-}
-
-#logo {
-	fill: #EEE;
-}
-
-nav {
-	background: #222;
-}
-
-body {
-	background-color: #333;
-}
-
-/* Other stuff */
-body {
-	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-weight: 900;
+* {
 	padding: 0;
 	margin: 0;
 }
 
-header {
-	height: 100vh;
-	width: 100vw;
+@keyframes colors {
+	0% { background-color: #CACF85; }
+	25% { background-color: #8CBA80; }
+	50% { background-color: #658E9C; }
+	75% { background-color: #4D5382; }
+	100% { background-color: #ECF39E; }
+	
+}
+
+body {
+	display: flex;
+	animation: colors 20s infinite linear alternate;
+}
+
+#card {
+	font-family: "Gidole";
+	width: 450px;
+	height: 320px;
+	border: 1px solid #000;
+	box-shadow: 3px 3px 0 #000;
+	position: relative;
+	margin: auto;
+	color: #EEE;
+	background-color: #444;
+}
+
+a {
+	text-decoration: none;
+	transition: 0.2s;
+	color: #CCC;
 }
 
 #logo {
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
-	overflow: hidden;
-	transition: right 1s;
+	margin: 30px;
+	display: inline-block;
 }
 
-nav {
-	position: fixed;
-	height: 100vh;
-	width: 780px;
-	z-index: 1;
-	padding-right: 25px;
-	left: -780px;
-	overflow: hidden;
-	transition: left 1s;
+#logo img {
+	width: 3rem;
+	height: auto;
+	margin: 5px 5px 5px 5px;
+	float: left; 
 }
 
-#headr {
-	position: fixed;
-	top: 0;
+#logo #name {
+	font-size: 3rem;
+	margin: 5px;
+	border-left: 3px solid #EEE;
+	padding-left: 10px;
+}
+
+#links {
+	font-size: 1.45rem;
+	position: absolute;
+	top: 30px;
 	right: 40px;
-	font-size: 1.2em;
-	transition: right 1s;
-}
-
-nav:hover {
-	left: 0;
-	overflow-y: scroll;
-}
-
-nav:hover ~ header #logo {
-	right: -10vw;
-}
-
-nav:hover ~ #headr {
-	right: -780px;
-}
-
-ul {
-	padding: 0px;
 	list-style: none;
-	direction: rtl;
+	text-align: right;
 }
 
-ul a {
-	font-size: 8em;
-	line-height: 100%;
-	text-decoration: none;
+#links li {
+	padding: 5px;
 }
+
+#twitter { color: #b1f0ff; }
+#github { color: #e9e9e9; }
+#email { color: #dfbaf2; }
+#imgboard { color: #d8f0ff; }
+#medium { color: #d1ffe5; }
+#steam { color: #979797; }
+#lastfm { color: #ffdbde; }
+
+#twitter:hover,
+#github:hover,
+#email:hover,
+#imgboard:hover,
+#medium:hover,
+#steam:hover,
+#lastfm:hover {
+	transition: 0.2s;
+	color: #CCC;
+}
+
+#description {
+	margin: 0 30px;
+	font-size: 1.2rem;
+	line-height: 1.15rem;
+	color: #EEE;
+}
+
+#powered {
+	position: absolute;
+	bottom: 30px;
+	left: 30px;
+	color: #888;
+}
+
+
