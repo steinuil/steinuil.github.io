@@ -36,4 +36,5 @@
          "Have some links instead.")
 
     (ul (@ (id "links")) ,(linkify links))
-    (div (@ (id "powered")) "Powered by " (a (@ (href "index.scm")) "λ"))))))
+    (div (@ (id "powered")) "Powered by " (a (@ (href "index.scm")) "λ")))
+    (div (@ (id ps)) "Protip: hold down a mouse button."))))

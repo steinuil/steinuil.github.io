@@ -14,12 +14,15 @@
 	50% { background-color: #658E9C; }
 	75% { background-color: #4D5382; }
 	100% { background-color: #ECF39E; }
-	
 }
 
 body {
 	display: flex;
-	animation: colors .2s infinite linear alternate;
+	animation: colors 30s infinite linear alternate;
+}
+
+body:active {
+	animation-duration: .2s;
 }
 
 #card {
@@ -105,4 +108,11 @@ a {
 	color: #888;
 }
 
+#ps {
+	font-family: "Gidole";
+	color: rgba(0,0,0,0.1);
+	position: fixed;
+	bottom: 5px;
+	left: 5px;
+}
 
