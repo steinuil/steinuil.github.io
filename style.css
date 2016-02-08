@@ -1,6 +1,7 @@
 @font-face {
 	font-family: "Gidole";
-	src: url("https://github.com/duemunk/sans/raw/master/Releases/WebFont/gidole-regular.eot");
+	font-style: normal;
+	src: local("Gidole"), url("gidole.woff") format("woff");
 }
 
 * {
