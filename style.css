@@ -19,7 +19,7 @@
 
 body {
 	display: flex;
-	animation: colors 20s infinite linear alternate;
+	animation: colors .2s infinite linear alternate;
 }
 
 #card {
