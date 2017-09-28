@@ -2,7 +2,10 @@
         (scheme process-context)
         (chibi sxml))
 
-(define script-name (car (command-line)))
+
+(define script-name
+  (car (command-line)))
+
 
 (define links
   '((github   . "https://github.com/steinuil")
@@ -13,15 +16,24 @@
 
 
 (define (linkify links)
-  (let ((pad (apply max (map (lambda (x) (string-length (symbol->string (car x)))) links))))
+  (define (name-length tup)
+    (let ((name (symbol->string (car tup))))
+      (cons (string-length name)
+            (cons name (cdr tup)))))
+  (let* ((links+length (map name-length links))
+         (pad (apply max (map car links+length))))
     (let loop ((first-char "[")
-               (ls links))
-      (if (null? ls) '()
-        (let* ((name (symbol->string (caar ls)))
-               (padded-name (string-append name (make-string (- pad (string-length name)) #\space)))
+               (ls links+length)
+               (acc '()))
+      (if (null? ls) (reverse acc)
+        (let* ((name (cadar ls))
+               (name-pad (make-string (- pad (caar ls)) #\space))
+               (link (cddar ls))
+               (padded-name (string-append name name-pad))
                (term (if (null? (cdr ls)) " ]" #\newline))
-               (line `(,first-char " " ,padded-name " => " (a (@ (href ,(cdar ls))) ,(cdar ls)) ,term)))
-          (cons line (loop ";" (cdr ls))))))))
+               (line `(,first-char " " ,padded-name " => "
+                       (a (@ (href ,link)) ,link) ,term)))
+          (loop ";" (cdr ls) (cons line acc)))))))
 
 
 (define index
@@ -42,13 +54,14 @@
                         "(* I'm no good at writing bios." " Have some links instead. *)")
                    (div (@ (id "links")) (pre ,@(linkify links)))
                    (div (@ (id "powered") (class comment))
-                        "(* Powered by " (a (@ (href ,script-path)) "Scheme") " *)")))))))
+                        "(* Powered by " (a (@ (href ,script-name))
+                                            "Scheme") " and make(1) *)")))))))
 
-(guard (err
+(guard (error-condition
          (else (display "Usage: ")
                (display script-name)
                (display " <output-file>")
                (newline)))
        (let ((file (cadr (command-line))))
          (with-output-to-file file
-                              (lambda () (display (sxml->xml index))))))
+            (lambda () (display (sxml->xml index))))))
