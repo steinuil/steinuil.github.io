@@ -1,109 +1,184 @@
+/* Font boilerplate */
 @font-face {
-	font-family: "Iosevka";
-	font-style: normal;
-	src: url("iosevka-regular.woff2") format("woff2");
+  font-family: "Archivo Black";
+  src: local("Archivo Black"), local("ArchivoBlack"),
+    url("/assets/fonts/ArchivoBlack-Regular.woff2") format("woff2");
+  font-weight: bold;
 }
 
 @font-face {
-	font-family: "Iosevka";
-	font-style: italic;
-	src: url("iosevka-italic.woff2") format("woff2");
+  font-family: "Bitter";
+  src: local("Bitter"), local("Bitter Regular"),
+    url("/assets/fonts/Bitter-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
 }
 
+@font-face {
+  font-family: "Bitter";
+  src: local("Bitter Italic"),
+    url("/assets/fonts/Bitter-Italic.woff2") format("woff2");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Bitter";
+  src: local("Bitter Bold"),
+    url("/assets/fonts/Bitter-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Bitter";
+  src: local("Bitter Bold Italic"), local("Bitter BoldItalic"),
+    url("/assets/fonts/Bitter-BoldItalic.woff2") format("woff2");
+  font-weight: bold;
+  font-style: italic;
+}
+
+
+/* Here we go */
 * {
-	padding: 0;
-	margin: 0;
+  padding: 0;
+  margin: 0;
   border: 0;
 }
 
-html {
-	font-size: 20px;
-}
-
-@media (max-width: 700px) {
-	html {
-		font-size: 16px;
-	}
-}
-
-@media (max-width: 500px) {
-	html {
-		font-size: 14px;
-	}
-}
-
 body {
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-flow: column;
+  background:
+    no-repeat center fixed
+    url("/assets/images/terezin-tunnel.jpg")
+    #161616
+    ;
 
-  font-family: Iosevka, monospace;
-	font-feature-settings: 'XV00' 1;
+  color: #ddd;
 
-	line-height: 1.5em;
+  font-size: 20px;
+  font-family: "Bitter", serif;
 
-	color: #333;
-	background-color: darkseagreen;
+  line-height: 1.5em;
+
+  /* Borders around the edges of the page at thinner screen sizes */
+  margin: 0 1em;
 }
 
-.comment {
-	font-style: italic;
+@media (max-width: 600px) {
+  body {
+    font-size: 18px;
+  }
 }
+
 
 a {
-	text-decoration: unset;
-	color: inherit;
-	box-shadow: inset 0 -.3em rgba(200,255,0,.5);
+  text-decoration: unset;
+  color: inherit;
+  box-shadow: inset 0 -.4em rgba(200,255,0,.4);
 }
 
 a:hover {
-	background-color: rgba(200,255,0,.5);
+  background-color: rgba(200,255,0,.4);
+  box-shadow: none;
 }
 
-#name {
-	display: block;
-	margin: 100px 0 10px;
-	font-size: 3em;
-}
 
-#cont {
-  flex-grow: 1;
-	position: relative;
-	width: 100%;
-}
+#body-container {
+  max-width: 700px;
 
-#logo {
-	position: absolute;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 100%;
-	z-index: -5;
-}
+  margin: auto;
+  min-height: 100vh;
 
-#logo img {
-	max-width: 80%;
-}
-
-#text {
-	display: flex;
+  display: flex;
+  flex-flow: column nowrap;
   justify-content: center;
-	align-items: center;
-	flex-flow: column;
-  height: 100%;
+  align-items: center;
 }
 
-pre {
-	font-size: 1rem;
+#body-container>header {
+  width: 100%;
+  margin: 1em 0;
 }
 
-#text > * {
-	margin: 1em;
+#body-container>header>nav {
+  font-family: "Archivo Black", sans-serif;
+  font-weight: bold;
 }
 
-#powered {
-	font-size: .8em;
+nav li {
+  list-style: none;
+  display: inline-block;
+
+  margin-right: 1em;
+
+  /* So that if the screen is very small and
+     the links many there's some space between
+     rows of links. */
+  margin-top: .5em;
+}
+
+nav a {
+  box-shadow: none;
+  border-bottom: 2px solid;
+  padding: 0 .3em .1em;
+}
+
+.text header {
+  font-family: "Archivo Black";
+  margin-top: 2em;
+  font-size: 1.2em;
+}
+
+nav a.selected {
+  background-color: rgba(255,255,255,.2);
+}
+
+nav a:hover {
+  /* The rule above trumps the general one set above, so we need to reset it
+     here. */
+  background-color: rgba(200,255,0,.4);
+}
+
+
+#body-container>main {
+  margin-bottom: auto;
+  width: 100%;
+}
+
+main p {
+  margin: .8em 0;
+}
+
+
+.table {
+  display: grid;
+  grid: auto / max-content 1fr;
+  grid-gap: 0 1em;
+  font-size: .85em;
+}
+
+/* I should probably use classes here */
+.table div:nth-child(2n+1) {
+  text-align: right;
+  font-weight: bold;
+}
+
+@media (max-width: 500px) {
+  .table {
+    grid: auto / 1fr;
+  }
+
+  .table div:nth-child(2n+1) {
+    text-align: initial;
+  }
+
+  .table div:nth-child(2n) {
+    padding-left: .5em;
+  }
+}
+
+
+#body-container>footer {
+  margin: 1em;
+  font-size: .8em;
 }
