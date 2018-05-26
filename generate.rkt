@@ -8,8 +8,11 @@
     (head
      (title "steenuil's page")
      (meta ([charset "UTF-8"]))
+     (meta ([name "viewport"]
+            [content "width=device-width, initial-scale=1, viewport-fit=cover"]))
      (link ([rel "stylesheet"]
-            [href "assets/style.css"])))
+            [href "assets/style.css"]
+            [type "text/css"])))
     (body
      (div ([id "body-container"])
           (header
