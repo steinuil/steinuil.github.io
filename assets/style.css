@@ -1,7 +1,7 @@
 /* Font boilerplate */
 @font-face {
   font-family: "Archivo Black";
-  src: local("Archivo Black"), local("ArchivoBlack"),
+  src: local("Archivo Black Regular"),
     url("/assets/fonts/ArchivoBlack-Regular.woff2") format("woff2");
   font-weight: bold;
 }
