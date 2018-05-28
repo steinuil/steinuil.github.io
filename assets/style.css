@@ -87,7 +87,7 @@ a:hover {
 }
 
 
-#body-container {
+.body-container {
   max-width: 700px;
 
   margin: auto;
@@ -100,12 +100,12 @@ a:hover {
   align-items: center;
 }
 
-#body-container>header {
+.body-container>header {
   width: 100%;
   margin: 1em 0;
 }
 
-#body-container>header>nav {
+.body-container>header>nav {
   font-family: "Archivo Black", sans-serif;
   font-weight: bold;
 }
@@ -145,7 +145,7 @@ nav a:hover {
 }
 
 
-#body-container>main {
+.body-container>main {
   margin-bottom: auto;
   width: 100%;
 }
@@ -183,7 +183,7 @@ main p {
 }
 
 
-#body-container>footer {
+.body-container>footer {
   margin: 1em;
   font-size: .8em;
 }

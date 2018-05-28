@@ -33,11 +33,10 @@
             [type "text/css"])))
     (body
      (div
-      ([id "body-container"])
-      (header
-       ,(navbar curr-page))
-      (main
-       ,@body)
+      ([class "body-container"]
+       [id ,(string-append (symbol->string curr-page) "-page")])
+      (header ,(navbar curr-page))
+      (main ,@body)
       (footer
        "this web sight was made with " (a ([href "https://racket-lang.org/"]) "Racket") ".")))))
 
