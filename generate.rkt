@@ -64,29 +64,76 @@
                (p "I currently dwell in " (strong "Italy") ", not too far from the Alps. "
                   "I speak English and Italian, and I know enough French to get by.")))))
 
-#|
-           #;(div ([class "text"]
-                   [id "legal"])
-                  (header "Legal " (a ([href "#legal"]) "#"))
-                  (p "This is a static website. It doesn't store any of your data nor use tracking cookies, scripts or anything of the sort. "
-                     "It doesn't load resources from other websites.")
-                  (p "All text and pictures on this website are licensed under "
-                     (a ([href "https://creativecommons.org/licenses/by-sa/4.0/"]) "Creative Commons Attribution-ShareAlike 4.0 International")
-                     " (CC BY-SA 4.0), unless otherwise noted. "
-                     (br)
-                     "The code snippets written by me are licensed under the "
-                     (a ([href "https://unlicense.org/"]) "Unlicense")
-                     ", unless otherwise noted.")
-                  (p "This website uses some fonts licensed under the "
-                     (a ([href "http://scripts.sil.org/OFL"]) "SIL Open Font License, version 1.1")
-                     ". These are their copyright notices.")
-                  (div ([class "table"])
-                       (div (a ([href "https://www.huertatipografica.com/en/fonts/bitter-ht"]) "Bitter"))
-                       (div "Copyright (c) 2013, Sol Matas (sol@huertatipografica.com.ar), with Reserved Font Names 'Bitter'")
-                       (div (a ([href "http://www.omnibus-type.com/fonts/archivo-black/"]) "Archivo Black"))
-                       (div "Copyright 2017 The Archivo Black Project Authors (https://github.com/Omnibus-Type/ArchivoBlack)"))
-                  )
-|#
 
-(write-xml/content
- (xexpr->xml about-page))
+(struct blog-post
+  (title
+   date
+   id
+   tags
+   [series #:auto])
+  #:auto-value '())
+
+(struct pdate
+  (year month day))
+
+(define (pdate->string d)
+  (string-append (number->string (pdate-year d))
+                 "-"
+                 (number->string (pdate-month d))
+                 "-"
+                 (number->string (pdate-day d))))
+
+
+(define blog-posts
+  (list (blog-post "The TTY Protocol"
+                   (pdate 2017 2 10)
+                   "tty"
+                   '(programming))))
+
+
+
+(define blog-index
+  (page 'blog "Molten Matter"
+        `((div
+           (ul
+            ,@(map (λ (p)
+                     `(li ([class "post"])
+                          (span ([class "name"]) ,(blog-post-title p))
+                          (span ([class "date"]) ,(pdate->string (blog-post-date p)))))
+                   blog-posts))))))
+
+(define legal-page
+  (page 'legal "the legal stuffs page"
+        `(div ([class "text"]
+               [id "legal"])
+              (header "Legal " (a ([href "#legal"]) "#"))
+              (p "This is a static website. It doesn't store any of your data nor use tracking cookies, scripts or anything of the sort. "
+                 "It doesn't load resources from other websites.")
+              (p "All text and pictures on this website are licensed under "
+                 (a ([href "https://creativecommons.org/licenses/by-sa/4.0/"]) "Creative Commons Attribution-ShareAlike 4.0 International")
+                 " (CC BY-SA 4.0), unless otherwise noted. "
+                 (br)
+                 "The code snippets written by me are licensed under the "
+                 (a ([href "https://unlicense.org/"]) "Unlicense")
+                 ", unless otherwise noted.")
+              (p "This website uses some fonts licensed under the "
+                 (a ([href "http://scripts.sil.org/OFL"]) "SIL Open Font License, version 1.1")
+                 ". These are their copyright notices.")
+              (div ([class "table"])
+                   (div (a ([href "https://www.huertatipografica.com/en/fonts/bitter-ht"]) "Bitter"))
+                   (div "Copyright (c) 2013, Sol Matas (sol@huertatipografica.com.ar), with Reserved Font Names 'Bitter'")
+                   (div (a ([href "http://www.omnibus-type.com/fonts/archivo-black/"]) "Archivo Black"))
+                   (div "Copyright 2017 The Archivo Black Project Authors (https://github.com/Omnibus-Type/ArchivoBlack)")))))
+
+
+(call-with-output-file "index.html" #:exists 'replace
+  (λ (out)
+    (write-xml/content
+     (xexpr->xml about-page)
+     out)))
+
+#;(call-with-output-file "molten-matter/index.html" #:exists 'replace
+  (λ (out)
+    (write-xml/content
+     (xexpr->xml blog-index)
+     out)))

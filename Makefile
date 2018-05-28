@@ -1,4 +1,4 @@
 RACKET = racket
 
-index.html: generate.rkt
-	racket $< > $@
+all: generate.rkt
+	racket $<
