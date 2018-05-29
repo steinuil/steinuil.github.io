@@ -46,7 +46,8 @@
   border: 0;
 }
 
-body {
+
+#about-page {
   background:
     fixed
     #161616
@@ -54,9 +55,17 @@ body {
     center no-repeat
     ;
 
-  height: 100vh;
-
   color: #ddd;
+}
+
+#blog-page {
+  color: #ddd;
+  background-color: #183935;
+}
+
+body {
+
+  height: 100vh;
 
   font-size: 20px;
   font-family: "Bitter", serif;
@@ -128,12 +137,6 @@ nav a {
   padding: 0 .3em .1em;
 }
 
-.text header {
-  font-family: "Archivo Black";
-  margin-top: 2em;
-  font-size: 1.2em;
-}
-
 nav a.selected {
   background-color: rgba(255,255,255,.2);
 }
@@ -144,14 +147,42 @@ nav a:hover {
   background-color: rgba(200,255,0,.4);
 }
 
+figure img {
+  max-width: 100%;
+}
+
+figcaption {
+  font-size: .8em;
+  font-style: italic;
+  padding: .2em .4em;
+  line-height: 1.5em;
+}
+
+.text header {
+  font-family: "Archivo Black";
+  margin-top: 1.5em;
+  font-size: 1.2em;
+}
 
 .body-container>main {
   margin-bottom: auto;
   width: 100%;
 }
 
-main p {
+.text p,
+figure,
+.post-list .post {
   margin: .8em 0;
+}
+
+
+.post-list .post .name {
+  font-weight: bold;
+  margin-right: .5em;
+}
+
+.post-list .post .date {
+  font-size: .75em;
 }
 
 
@@ -186,4 +217,5 @@ main p {
 .body-container>footer {
   margin: 1em;
   font-size: .8em;
+  font-style: italic;
 }

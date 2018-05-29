@@ -31,14 +31,13 @@
      (link ([rel "stylesheet"]
             [href "/assets/style.css"]
             [type "text/css"])))
-    (body
-     (div
-      ([class "body-container"]
-       [id ,(string-append (symbol->string curr-page) "-page")])
-      (header ,(navbar curr-page))
-      (main ,@body)
-      (footer
-       "this web sight was made with " (a ([href "https://racket-lang.org/"]) "Racket") ".")))))
+    (body ([id ,(string-append (symbol->string curr-page) "-page")])
+          (div
+           ([class "body-container"])
+           (header ,(navbar curr-page))
+           (main ,@body)
+           (footer
+            "this web sight was made with " (a ([href "https://racket-lang.org/"]) "Racket") ".")))))
 
 
 (define about-page
@@ -73,34 +72,79 @@
    [series #:auto])
   #:auto-value '())
 
+
 (struct pdate
   (year month day))
 
-(define (pdate->string d)
-  (string-append (number->string (pdate-year d))
-                 "-"
-                 (number->string (pdate-month d))
-                 "-"
-                 (number->string (pdate-day d))))
+(define (string-pad-left str n x)
+  (let ([pad (- n (string-length str))])
+    (if (> pad 0)
+        (string-append (make-string pad x) str)
+        str)))
+
+(define (pdate->string d [sep "-"])
+  (string-append
+   (number->string (pdate-year d))
+   sep
+   (string-pad-left (number->string (pdate-month d)) 2 #\0)
+   sep
+   (string-pad-left (number->string (pdate-day d)) 2 #\0)))
+
+(define (pdate>? pd1 pd2)
+  (let ([y1 (pdate-year pd1)]
+        [y2 (pdate-year pd2)]
+        [m1 (pdate-month pd1)]
+        [m2 (pdate-month pd2)]
+        [d1 (pdate-day pd1)]
+        [d2 (pdate-day pd2)])
+    (cond [(not (= y1 y2)) (> y1 y2)]
+          [(not (= m1 m2)) (> m1 m2)]
+          [(not (= d1 d2)) (> d1 d2)]
+          [else #f])))
 
 
 (define blog-posts
-  (list (blog-post "The TTY Protocol"
-                   (pdate 2017 2 10)
-                   "tty"
-                   '(programming))))
+  (list
+   (blog-post "The TTY Protocol"
+              (pdate 2017 2 10)
+              "tty"
+              '(programming))
+   (blog-post "Continuations, Promises, and call/cc"
+              (pdate 2017 10 27)
+              "call-cc"
+              '(programming, javascript))
+   (blog-post "The social issues of programming languages"
+              (pdate 2017 10 29)
+              "bikeshed"
+              '(programming))
+   (blog-post "I survived Ur/Web"
+              (pdate 2018 1 22)
+              "urweb"
+              '(programming urweb))
+   (blog-post "An introduction to typeclasses"
+              (pdate 2018 02 14)
+              "typeclasses"
+              '(programming urweb plt))
+   ))
 
 
 
 (define blog-index
-  (page 'blog "Molten Matter"
-        `((div
-           (ul
-            ,@(map (λ (p)
-                     `(li ([class "post"])
-                          (span ([class "name"]) ,(blog-post-title p))
-                          (span ([class "date"]) ,(pdate->string (blog-post-date p)))))
-                   blog-posts))))))
+  (let ([blog-posts (sort blog-posts (λ (p1 p2) (pdate>? (blog-post-date p1)
+                                                         (blog-post-date p2))))])
+    (page 'blog "Molten Matter"
+          `((div ([class "text"])
+                 (p "This is my blog. I called it Molten Matter because I thought it sounded good. "
+                    "I might dump my thoughts on here every now and then."))
+            (figure (img ([src "/assets/images/greenhouse.jpg"]))
+                    (figcaption "the exterior of the greenhouse at the Royal Palace in Wien"))
+            (div ([class "post-list"])
+                 (ul
+                  ,@(map (λ (p)
+                           `(li ([class "post"])
+                                (a ([class "name"] [href ,(string-append "/molten-matter/" (blog-post-id p))]) ,(blog-post-title p))
+                                (span ([class "date"]) ,(pdate->string (blog-post-date p) "/"))))
+                         blog-posts)))))))
 
 (define legal-page
   (page 'legal "the legal stuffs page"
@@ -132,7 +176,7 @@
      (xexpr->xml about-page)
      out)))
 
-#;(call-with-output-file "molten-matter/index.html" #:exists 'replace
+(call-with-output-file "molten-matter/index.html" #:exists 'replace
   (λ (out)
     (write-xml/content
      (xexpr->xml blog-index)
