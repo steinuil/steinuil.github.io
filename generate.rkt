@@ -1,38 +1,23 @@
-#lang typed/racket
+#lang racket
 
-(require/typed xml
-               [#:opaque XmlElement element?]
-               [write-xml/content (XmlElement Output-Port -> Void)]
-               [xexpr->xml (Any -> XmlElement)])
+(require xml)
 
 
-(define pages
-  '(about
-    blog
-    legal))
+(struct page-info (id url title))
 
-
-(struct page-info
-  ([id : Symbol]
-   [url : String]
-   [title : String]))
-
-
-(: navbar (-> Symbol Any))
 (define (navbar page)
   (define pages
     (list (page-info 'blog "/molten-matter/" "Molten Matter")
           (page-info 'about "/" "About")))
   `(nav
     (ul
-     ,@(map (λ ([p : page-info])
+     ,@(map (λ (p)
               `(li (a ([href ,(page-info-url p)]
                        ,@(if (eq? page (page-info-id p)) '([class "selected"]) '()))
                       ,(page-info-title p))))
             pages))))
 
 
-(: page (-> Symbol String Any Any))
 (define (page curr-page title body)
   `(html
     (head
@@ -78,26 +63,22 @@
 
 
 (struct pdate
-  ([year : Positive-Integer]
-   [month : Positive-Integer]
-   [day : Positive-Integer]))
+  (year month day))
 
 (struct blog-post
-  ([title : String]
-   [date : pdate]
-   [id : String]
-   [tags : (Listof String)]
-   [series : (Option String)]))
+  (title
+   date
+   id
+   tags
+   series))
 
 
-(: string-pad-left (-> String Integer Char String))
 (define (string-pad-left str n x)
   (let ([pad (- n (string-length str))])
     (if (> pad 0)
         (string-append (make-string pad x) str)
         str)))
 
-(: pdate->string (-> pdate String String))
 (define (pdate->string d [sep "-"])
   (string-append
    (number->string (pdate-year d))
@@ -106,7 +87,6 @@
    sep
    (string-pad-left (number->string (pdate-day d)) 2 #\0)))
 
-(: pdate>? (-> pdate pdate Boolean))
 (define (pdate>? pd1 pd2)
   (let ([y1 (pdate-year pd1)]
         [y2 (pdate-year pd2)]
@@ -119,7 +99,6 @@
           [(not (= d1 d2)) (> d1 d2)]
           [else #f])))
 
-(: blog-post>? (-> blog-post blog-post Boolean))
 (define (blog-post>? p1 p2)
   (pdate>? (blog-post-date p1)
            (blog-post-date p2)))
@@ -164,10 +143,10 @@
                     " because I thought it sounded good. "
                     "I might dump my thoughts on here every now and then."))
             (figure (img ([src "/assets/images/greenhouse.jpg"]))
-                    (figcaption "the exterior of the greenhouse at the Royal Palace in Wien"))
+                    (figcaption "the exterior of the greenhouse at the Royal Palace in Wien, Austria"))
             (div ([class "post-list"])
                  (ul
-                  ,@(map (λ ([p : blog-post])
+                  ,@(map (λ (p)
                            `(li ([class "post"])
                                 (a ([class "name"] [href ,(string-append "/molten-matter/" (blog-post-id p))]) ,(blog-post-title p))
                                 (span ([class "date"]) ,(pdate->string (blog-post-date p) "/"))))
@@ -198,13 +177,13 @@
 
 
 (call-with-output-file "index.html" #:exists 'replace
-  (λ ([out : Output-Port])
+  (λ (out)
     (write-xml/content
      (xexpr->xml about-page)
      out)))
 
 (call-with-output-file "molten-matter/index.html" #:exists 'replace
-  (λ ([out : Output-Port])
+  (λ (out)
     (write-xml/content
      (xexpr->xml blog-index)
      out)))
