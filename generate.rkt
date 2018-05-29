@@ -1,6 +1,9 @@
-#lang racket
+#lang typed/racket
 
-(require xml)
+(require/typed xml
+               [#:opaque XmlElement element?]
+               [write-xml/content (XmlElement Output-Port -> Void)]
+               [xexpr->xml (Any -> XmlElement)])
 
 
 (define pages
@@ -9,18 +12,27 @@
     legal))
 
 
+(struct page-info
+  ([id : Symbol]
+   [url : String]
+   [title : String]))
+
+
+(: navbar (-> Symbol Any))
 (define (navbar page)
   (define pages
-    '([blog "/molten-matter/" "Molten Matter"]
-      [about "/" "About"]))
+    (list (page-info 'blog "/molten-matter/" "Molten Matter")
+          (page-info 'about "/" "About")))
   `(nav
     (ul
-     ,@(map (λ (p) `(li (a ([href ,(cadr p)]
-                            ,@(if (eq? page (car p)) '([class "selected"]) '()))
-                           ,(caddr p))))
+     ,@(map (λ ([p : page-info])
+              `(li (a ([href ,(page-info-url p)]
+                       ,@(if (eq? page (page-info-id p)) '([class "selected"]) '()))
+                      ,(page-info-title p))))
             pages))))
 
 
+(: page (-> Symbol String Any Any))
 (define (page curr-page title body)
   `(html
     (head
@@ -64,24 +76,28 @@
                   "I speak English and Italian, and I know enough French to get by.")))))
 
 
-(struct blog-post
-  (title
-   date
-   id
-   tags
-   [series #:auto])
-  #:auto-value '())
-
 
 (struct pdate
-  (year month day))
+  ([year : Positive-Integer]
+   [month : Positive-Integer]
+   [day : Positive-Integer]))
 
+(struct blog-post
+  ([title : String]
+   [date : pdate]
+   [id : String]
+   [tags : (Listof String)]
+   [series : (Option String)]))
+
+
+(: string-pad-left (-> String Integer Char String))
 (define (string-pad-left str n x)
   (let ([pad (- n (string-length str))])
     (if (> pad 0)
         (string-append (make-string pad x) str)
         str)))
 
+(: pdate->string (-> pdate String String))
 (define (pdate->string d [sep "-"])
   (string-append
    (number->string (pdate-year d))
@@ -90,6 +106,7 @@
    sep
    (string-pad-left (number->string (pdate-day d)) 2 #\0)))
 
+(: pdate>? (-> pdate pdate Boolean))
 (define (pdate>? pd1 pd2)
   (let ([y1 (pdate-year pd1)]
         [y2 (pdate-year pd2)]
@@ -102,45 +119,55 @@
           [(not (= d1 d2)) (> d1 d2)]
           [else #f])))
 
+(: blog-post>? (-> blog-post blog-post Boolean))
+(define (blog-post>? p1 p2)
+  (pdate>? (blog-post-date p1)
+           (blog-post-date p2)))
+
 
 (define blog-posts
   (list
    (blog-post "The TTY Protocol"
               (pdate 2017 2 10)
               "tty"
-              '(programming))
+              '("programming")
+              #f)
    (blog-post "Continuations, Promises, and call/cc"
               (pdate 2017 10 27)
               "call-cc"
-              '(programming, javascript))
+              '("programming" "javascript")
+              #f)
    (blog-post "The social issues of programming languages"
               (pdate 2017 10 29)
               "bikeshed"
-              '(programming))
+              '("programming")
+              #f)
    (blog-post "I survived Ur/Web"
               (pdate 2018 1 22)
               "urweb"
-              '(programming urweb))
+              '("programming" "urweb")
+              #f)
    (blog-post "An introduction to typeclasses"
               (pdate 2018 02 14)
               "typeclasses"
-              '(programming urweb plt))
+              '("programming" "urweb" "plt")
+              #f)
    ))
 
 
-
 (define blog-index
-  (let ([blog-posts (sort blog-posts (λ (p1 p2) (pdate>? (blog-post-date p1)
-                                                         (blog-post-date p2))))])
+  (let ([blog-posts (sort blog-posts blog-post>?)])
     (page 'blog "Molten Matter"
           `((div ([class "text"])
-                 (p "This is my blog. I called it Molten Matter because I thought it sounded good. "
+                 (p "This is my blog. I called it "
+                    (strong "Molten Matter")
+                    " because I thought it sounded good. "
                     "I might dump my thoughts on here every now and then."))
             (figure (img ([src "/assets/images/greenhouse.jpg"]))
                     (figcaption "the exterior of the greenhouse at the Royal Palace in Wien"))
             (div ([class "post-list"])
                  (ul
-                  ,@(map (λ (p)
+                  ,@(map (λ ([p : blog-post])
                            `(li ([class "post"])
                                 (a ([class "name"] [href ,(string-append "/molten-matter/" (blog-post-id p))]) ,(blog-post-title p))
                                 (span ([class "date"]) ,(pdate->string (blog-post-date p) "/"))))
@@ -171,13 +198,13 @@
 
 
 (call-with-output-file "index.html" #:exists 'replace
-  (λ (out)
+  (λ ([out : Output-Port])
     (write-xml/content
      (xexpr->xml about-page)
      out)))
 
 (call-with-output-file "molten-matter/index.html" #:exists 'replace
-  (λ (out)
+  (λ ([out : Output-Port])
     (write-xml/content
      (xexpr->xml blog-index)
      out)))
