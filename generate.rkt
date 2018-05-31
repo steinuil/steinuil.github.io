@@ -43,9 +43,9 @@
                (p "I welcome you to my humble abode. "
                   "Make yourself comfortable. Have a link, if you'd like.")
                (div ([class "table"])
-                    (div "github")   (div (a ([href "https://github.com/steinuil"]) "github.com/steinuil"))
-                    (div "twitter")  (div (a ([href "https://twitter.com/steinuil"]) "@steinuil"))
-                    (div "email")    (div (a ([href "mailto:steenuil.owl@gmail.com"]) "steenuil.owl@gmail.com")))
+                    (div "github")  (div (a ([href "https://github.com/steinuil"]) "github.com/steinuil"))
+                    (div "twitter") (div (a ([href "https://twitter.com/steinuil"]) "@steinuil"))
+                    (div "email")   (div (a ([href "mailto:steenuil.owl@gmail.com"]) "steenuil.owl@gmail.com")))
                (p "I go by the name of " (strong "steenuil") ". "
                   "You might recognize it as the dutch name of the "
                   (a ([href "https://en.wikipedia.org/wiki/Athene_noctua"]) "Athene Noctua")
@@ -70,7 +70,8 @@
    date
    id
    tags
-   series))
+   [series #:auto])
+  #:auto-value #f)
 
 
 (define (string-pad-left str n x)
@@ -109,29 +110,23 @@
    (blog-post "The TTY Protocol"
               (pdate 2017 2 10)
               "tty"
-              '("programming")
-              #f)
+              '(programming))
    (blog-post "Continuations, Promises, and call/cc"
               (pdate 2017 10 27)
               "call-cc"
-              '("programming" "javascript")
-              #f)
+              '(programming javascript))
    (blog-post "The social issues of programming languages"
               (pdate 2017 10 29)
               "bikeshed"
-              '("programming")
-              #f)
+              '(programming))
    (blog-post "I survived Ur/Web"
               (pdate 2018 1 22)
               "urweb"
-              '("programming" "urweb")
-              #f)
+              '(programming urweb))
    (blog-post "An introduction to typeclasses"
               (pdate 2018 02 14)
               "typeclasses"
-              '("programming" "urweb" "plt")
-              #f)
-   ))
+              '(programming urweb plt))))
 
 
 (define blog-index
@@ -142,7 +137,7 @@
                     (strong "Molten Matter")
                     " because I thought it sounded good. "
                     "I might dump my thoughts on here every now and then."))
-            (figure (img ([src "/assets/images/greenhouse.jpg"]))
+            (figure (img ([width "1400"] [height "787"] [src "/assets/images/greenhouse.jpg"]))
                     (figcaption "the exterior of the greenhouse at the Royal Palace in Wien, Austria"))
             (div ([class "post-list"])
                  (ul
