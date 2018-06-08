@@ -137,7 +137,7 @@
                     (strong "Molten Matter")
                     " because I thought it sounded good. "
                     "I might dump my thoughts on here every now and then."))
-            (figure (img ([width "1400"] [height "787"] [src "/assets/images/greenhouse.jpg"]
+            (figure (img ([width "700"] [height "394"] [src "/assets/images/greenhouse.jpg"]
                           [srcset "/assets/images/greenhouse@2x.jpg 2x"]))
                     (figcaption "the exterior of the greenhouse at the Royal Palace in Wien, Austria"))
             (div ([class "post-list"])
