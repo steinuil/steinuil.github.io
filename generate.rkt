@@ -115,10 +115,6 @@
               (pdate 2017 10 27)
               "call-cc"
               '(programming javascript))
-   (blog-post "The social issues of programming languages"
-              (pdate 2017 10 29)
-              "bikeshed"
-              '(programming))
    (blog-post "I survived Ur/Web"
               (pdate 2018 1 22)
               "urweb"
