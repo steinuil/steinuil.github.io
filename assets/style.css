@@ -46,6 +46,10 @@
   border: 0;
 }
 
+body {
+  color: #ddd;
+  background-color: #333;
+}
 
 #about-page {
   background:
@@ -54,17 +58,17 @@
     url("/assets/images/terezin-tunnel.jpg")
     center no-repeat
     ;
-
-  color: #ddd;
 }
 
 #blog-page {
-  color: #ddd;
   background-color: #183935;
 }
 
-body {
+#legal-page {
+  background-color: #3b331a;
+}
 
+body {
   height: 100vh;
 
   font-size: 20px;
@@ -145,6 +149,10 @@ nav a:hover {
   /* The rule above trumps the general one set above, so we need to reset it
      here. */
   background-color: rgba(200,255,0,.4);
+}
+
+figure {
+  text-align: center;
 }
 
 figure img {

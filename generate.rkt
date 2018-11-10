@@ -216,7 +216,10 @@
   (page 'legal page-infos "Legal"
         `((div ([class "text"])
                (p "This is a static website. It doesn't store any of your data nor use tracking cookies, scripts or anything of the sort. "
-                  "It doesn't load resources from other websites.")
+                  "It doesn't load resources from other websites."))
+          (figure (img ([width "394"] [height "700"] [src "/assets/images/vlc.jpg"]
+                                      [srcset "/assets/images/vlc@2x.jpg 2x"])))
+          (div ([class "text"])
                (p "All text and pictures on this website are licensed under "
                   (a ([href "https://creativecommons.org/licenses/by-sa/4.0/"]) "Creative Commons Attribution-ShareAlike 4.0 International")
                   " (CC BY-SA 4.0), unless otherwise noted. ")
