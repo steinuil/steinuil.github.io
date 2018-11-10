@@ -115,7 +115,7 @@ type EuroAmount = EuroCoinAmount | EuroBanknoteAmount;
 
 Then we can fill in the maps.
 
-```typescriptArgument of type '3' is not assignable to parameter of type 'EuroAmount'.
+```typescript
 const euroCoinsByAmount: CoinMap<EuroCoinAmount> = {
   1: {
     amount: 1,

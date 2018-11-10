@@ -1,7 +1,7 @@
 #lang racket
 
-(require xml)
-(require markdown/parse)
+(require xml
+         markdown/parse)
 
 ;;;
 ;;; Blog stuffs
@@ -70,12 +70,12 @@
 (struct page-info (id url title))
 
 (define (navbar page page-infos)
-  `(nav
-    (ul
-     ,@(for/list ([pinfo page-infos])
-         `(li (a ([href ,(page-info-url pinfo)]
-                  ,@(if (eq? page (page-info-id pinfo)) '([class "selected"]) '()))
-                 ,(page-info-title pinfo)))))))
+  (define items
+    (for/list ([pinfo page-infos])
+      `(li (a ([href ,(page-info-url pinfo)]
+               ,@(if (eq? page (page-info-id pinfo)) '([class "selected"]) '()))
+              ,(page-info-title pinfo)))))
+  `(nav (ul ,@items)))
 
 (define (page curr-page page-infos title body)
   `(html
@@ -93,7 +93,16 @@
            (header ,(navbar curr-page page-infos))
            (main ,@body)
            (footer
-            "this web sight made with " (a ([href "https://racket-lang.org/"]) "Racket") ".")))))
+            "this web sight made with " (a ([href "https://racket-lang.org/"])"Racket")".")))))
+
+(define (image width height src [src2x #f] #:description [description ""])
+  `(figure
+    (img ([width ,(number->string width)]
+          [height ,(number->string height)]
+          [src ,src]
+          [alt ,description]
+          ,@(if src2x `([srcset ,(string-append src2x " 2x")]) '())))
+    (figcaption ,description)))
 
 ;;;
 ;;; Generation
@@ -109,13 +118,45 @@
         (xexpr->xml page)
         out))))
 
+(define (transform-post-body post)
+  (define (take-paragraphs elts)
+    (let loop ([elts elts]
+               [out '()])
+      (if (empty? elts)
+          (values (reverse out) '())
+          (match (car elts)
+            [(cons 'p _)
+             (loop (cdr elts)
+                   (cons (car elts) out))]
+            [_ (values (reverse out) elts)]))))
+
+  (let loop ([elts post]
+             [out '()])
+    (if (empty? elts)
+        (reverse out)
+        (match (car elts)
+          [(cons 'p rest)
+           (let-values ([(text rest) (take-paragraphs elts)])
+             (loop rest
+                   (cons `(div ([class "text"])
+                               ,@text)
+                         out)))]
+          [(cons 'h1 rest)
+           (loop (cdr elts)
+                 (cons (cons 'header rest)
+                       out))]
+          [_ (loop (cdr elts)
+                   (cons (car elts) out))]))))
+
 (define (post-page page-infos post)
   (define post-body
     (parse-markdown (file->string (string-append "posts/" (blog-post-id post) ".md"))))
 
   (page 'blog-post page-infos (blog-post-title post)
         `((header ,(blog-post-title post))
-          ,@post-body)))
+          ,(image 700 523 "/assets/images/shells.jpg" "/assets/images/shells@2x.jpg"
+                  #:description "cicada shells on a tree near a beach in Marina di Cecina, Italy")
+          ,@(transform-post-body post-body))))
 
 ;;;
 ;;; Content
@@ -198,9 +239,8 @@
                   (strong "Molten Matter")
                   " because I thought it sounded good. "
                   "I might dump my thoughts on here every now and then."))
-          (figure (img ([width "700"] [height "394"] [src "/assets/images/greenhouse.jpg"]
-                                      [srcset "/assets/images/greenhouse@2x.jpg 2x"]))
-                  (figcaption "the exterior of the greenhouse at the Royal Palace in Wien, Austria"))
+          ,(image 700 394 "/assets/images/greenhouse.jpg" "/assets/images/greenhouse@2x.jpg"
+                  #:description "the exterior of the greenhouse at the Royal Palace in Wien, Austria")
           (div ([class "post-list"])
                (ul
                 ,@(for/list ([p (sort blog-posts blog-post>?)]
@@ -217,9 +257,8 @@
         `((div ([class "text"])
                (p "This is a static website. It doesn't store any of your data nor use tracking cookies, scripts or anything of the sort. "
                   "It doesn't load resources from other websites."))
-          (figure (img ([width "394"] [height "700"] [src "/assets/images/vlc.jpg"]
-                                      [srcset "/assets/images/vlc@2x.jpg 2x"]))
-                  (figcaption "an old traffic cone on a hill just behind Cuenca, Spain"))
+          ,(image 394 700 "/assets/images/vlc.jpg" "/assets/images/vlc@2x.jpg"
+                  #:description "an old traffic cone on a hill just behind Cuenca, Spain")
           (div ([class "text"])
                (p "All text and pictures on this website are licensed under "
                   (a ([href "https://creativecommons.org/licenses/by-sa/4.0/"]) "Creative Commons Attribution-ShareAlike 4.0 International")
@@ -234,7 +273,9 @@
                (div (a ([href "https://www.huertatipografica.com/en/fonts/bitter-ht"]) "Bitter"))
                (div "Copyright (c) 2013, Sol Matas (sol@huertatipografica.com.ar), with Reserved Font Names 'Bitter'")
                (div (a ([href "http://www.omnibus-type.com/fonts/archivo-black/"]) "Archivo Black"))
-               (div "Copyright 2017 The Archivo Black Project Authors (https://github.com/Omnibus-Type/ArchivoBlack)")))))
+               (div "Copyright 2017 The Archivo Black Project Authors (https://github.com/Omnibus-Type/ArchivoBlack)")
+               (div (a ([href "https://www.ibm.com/plex/"]) "IBM Plex Mono"))
+               (div "Copyright © 2017 IBM Corp. with Reserved Font Name \"Plex\"")))))
 
 
 ;;;

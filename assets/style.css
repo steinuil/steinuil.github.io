@@ -38,6 +38,14 @@
   font-style: italic;
 }
 
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: local("IBM Plex Mono Text"), local("IBMPlexMono-Text"),
+    url("/assets/fonts/IBMPlexMono-Text.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+}
+
 
 /* Here we go */
 * {
@@ -66,6 +74,14 @@ body {
 
 #legal-page {
   background-color: #3b331a;
+}
+
+#blog-post-page {
+  background-color: #413e34;
+}
+
+#blog-post-page nav a.selected {
+  background-color: rgba(0,0,0,.2);
 }
 
 body {
@@ -151,12 +167,17 @@ nav a:hover {
   background-color: rgba(200,255,0,.4);
 }
 
+.text {
+  line-height: 1.75em;
+}
+
 figure {
   text-align: center;
 }
 
 figure img {
   max-width: 100%;
+  max-height: 700px;
   height: auto;
 }
 
@@ -165,10 +186,31 @@ figcaption {
   font-style: italic;
   padding: .2em .4em;
   line-height: 1.5em;
+  text-align: left;
+}
+
+pre {
+  overflow-y: auto;
+  background-color: #333;
+  padding: .3em .6em;
+  line-height: 1.5em;
+}
+
+code {
+  font-size: .8em;
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+}
+
+.text code {
+  font-size: .9em;
+  padding: .1em .2em;
+  box-decoration-break: clone;
+  background-color: #333;
 }
 
 main > header {
-  font-family: "Archivo Black";
+  font-family: "Archivo Black", sans-serif;
   margin-top: 1.5em;
   font-size: 1.2em;
 }
