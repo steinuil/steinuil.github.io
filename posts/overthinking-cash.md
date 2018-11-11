@@ -1,14 +1,16 @@
-Part of a project I'm working on involves handling monetary values as cash,
-and since I recently started going through the trouble of converting the
-codebase to TypeScript, I thought it'd be fun to see how much I could encode in
-TS's quirky type system.
+Part of my current project at work deals monetary values in the form of cash,
+making change, and displaying the bills and coins on the screen.
 
-I decided to parametrize the types on the amounts of money, so it'd be somewhat
-easy to plug in another currency.
+Since I recently started adding types to certain parts of the codebase with
+TypeScript, I thought it'd be fun to see how elaborately I could model the
+types of the values and of the functions using TypeScript's more advanced
+features, and while I was at it, how easy it would be to parametrize the types
+based on the currency you're dealing with.
 
-First of all, we're gonna need to define what we mean by "coin" and "banknote".
-Other than showing the amount of money they represent, I also need to display
-both on the screen at scale, so I added a color, width, and height for banknotes.
+First of all, I'm gonna define what I mean by "cash". Since I need to show
+the bills and coins on the screen at scale, I need to know their color and
+their dimensions, and here comes the first issue: coins only need a width, but
+banknotes also need a height, so I can't use the same type for both.
 
 ```typescript
 interface Coin<Amount> {
