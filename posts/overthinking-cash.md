@@ -1,4 +1,4 @@
-Part of my current project at work deals iwith monetary values in the form of
+Part of my current project at work deals with monetary values in the form of
 cash, making change, and displaying the bills and coins on the screen.
 
 Since I recently started adding types to certain parts of the codebase with
@@ -9,8 +9,8 @@ based on the currency you're dealing with.
 
 First of all, I'm gonna define what I mean by "cash". Since I need to show
 the bills and coins on the screen at scale, I need to know their color and
-their dimensions, and here comes the first issue: coins only need a width, but
-banknotes also need a height, so I can't use the same type for both.
+their dimensions, and here's the issue: coins only need a width, but banknotes
+also need a height, so I can't use the same type for both.
 
 ```typescript
 interface Coin<Amount> {
