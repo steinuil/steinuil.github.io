@@ -145,6 +145,13 @@
            (loop (cdr elts)
                  (cons (cons 'header rest)
                        out))]
+          [(list 'div
+                 '([class "figure"])
+                 img
+                 (list 'p '([class "caption"]) caption))
+           (loop (cdr elts)
+                 (cons `(figure ,img (figcaption ,caption))
+                       out))]
           [_ (loop (cdr elts)
                    (cons (car elts) out))]))))
 
