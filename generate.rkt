@@ -233,10 +233,9 @@
          #:tags '(programming urweb plt)
          #:generate? #f)
    (post "Overthinking cash in TypeScript"
-         #:date (pdate 2018 11 09)
+         #:date (pdate 2018 11 11)
          #:id "overthinking-cash"
-         #:tags '(programming typescript)
-         #:unlisted? #t)))
+         #:tags '(programming typescript))))
 
 
 (define blog-index
