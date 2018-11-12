@@ -172,7 +172,7 @@ took the types out, even if I had written this in TS to begin with.
 
 # Further reading
 - [How to Handle Monetary Values in JavaScript](https://frontstuff.io/how-to-handle-monetary-values-in-javascript)
-- [Money in the type system where it belongs)[https://ren.zone/articles/safe-money]
+- [Money in the type system where it belongs](https://ren.zone/articles/safe-money)
 - [Dinero.js](https://github.com/sarahdayan/dinero.js) - An immutable library to create, calculate and format money.
 
 [ts-2.8]: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
