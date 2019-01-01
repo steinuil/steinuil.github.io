@@ -1,3 +1,5 @@
+![cicada shells on a tree near a beach in Marina di Cecina, Italy](/assets/images/shells.jpg)
+
 Part of my current project at work deals with monetary values in the form of
 cash, making change, and displaying the bills and coins on the screen.
 

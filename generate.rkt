@@ -161,8 +161,6 @@
 
   (page 'blog-post page-infos (blog-post-title post)
         `((header ,(blog-post-title post))
-          ,(image 700 523 "/assets/images/shells.jpg" "/assets/images/shells@2x.jpg"
-                  #:description "cicada shells on a tree near a beach in Marina di Cecina, Italy")
           ,@(transform-post-body post-body))))
 
 ;;;
@@ -203,8 +201,7 @@
    (post "The TTY Protocol"
          #:date (pdate 2017 2 10)
          #:id "tty"
-         #:tags '(programming)
-         #:generate? #f)
+         #:tags '(programming))
    (post "Continuations, Promises, and call/cc"
          #:date (pdate 2017 10 27)
          #:id "call-cc"
