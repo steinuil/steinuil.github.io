@@ -172,6 +172,11 @@ This is TypeScript's biggest strength, in my opinion: I barely had to change
 my code when adding types to this module, and it would still make sense if you
 took the types out, even if I had written this in TS to begin with.
 
+# Further reading
+- [How to Handle Monetary Values in JavaScript](https://frontstuff.io/how-to-handle-monetary-values-in-javascript)
+- [Money in the type system where it belongs](https://ren.zone/articles/safe-money)
+- [Dinero.js](https://github.com/sarahdayan/dinero.js) - An immutable library to create, calculate and format money.
+
 [ts-2.8]: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html
 [ur-types]: http://www.impredicative.com/ur/tutorial/tlc.html
 [money-js]: https://frontstuff.io/how-to-handle-monetary-values-in-javascript
