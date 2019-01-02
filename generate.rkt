@@ -211,7 +211,6 @@
          #:date (pdate 2017 10 29)
          #:id "bikeshed"
          #:tags '(programming)
-         #:generate? #f
          #:unlisted? #t)
    (post "I survived Ur/Web"
          #:date (pdate 2018 1 22)
