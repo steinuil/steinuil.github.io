@@ -107,12 +107,12 @@
 ;;;
 ;;; Generation
 
-(define (generate-page url page)
+(define (generate-page url page #:filename [filename "index.html"])
   (define dir-path (string-append "." url))
   (unless (directory-exists? dir-path)
     (make-directory dir-path))
 
-  (call-with-output-file (string-append dir-path "index.html") #:exists 'replace
+  (call-with-output-file (string-append dir-path filename) #:exists 'replace
     (lambda (out)
       (write-xml/content
         (xexpr->xml page)
@@ -142,7 +142,6 @@
                                ,@text)
                          out)))]
           [(list-rest 'h1 attrs rest)
-          #| [(cons 'h1 (cons attrs rest)) |#
            (loop (cdr elts)
                  (cons `(header ([class "heading"] ,@attrs) ,@rest)
                        out))]
@@ -278,6 +277,11 @@
                (div (a ([href "https://www.ibm.com/plex/"]) "IBM Plex Mono"))
                (div "Copyright © 2017 IBM Corp. with Reserved Font Name \"Plex\"")))))
 
+(define 404-page
+  (page 'notfound page-infos "404"
+        `((header (div ([class "post-title"]) "Not found"))
+          ,(image 700 394 "/assets/images/swap.jpg" "/assets/images/swap@2x.jpg"))))
+
 
 ;;;
 ;;; Generate the pages
@@ -285,6 +289,8 @@
 (for ([page (list blog-index about-page legal-page)]
       [pinfo page-infos])
   (generate-page (page-info-url pinfo) page))
+
+(generate-page "/" #:filename "404.html" 404-page)
 
 (for ([post blog-posts]
       #:when (blog-post-generate? post))

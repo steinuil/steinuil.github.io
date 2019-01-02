@@ -188,8 +188,8 @@ to override it.
 
 # Further reading
 
-* [Leo White, Frédéric Bour, Jeremy Yallop: Modular implicits](https://arxiv.org/pdf/1512.01895.pdf), the paper presenting OCaml's modular implicits
-* [Implementing, and Understanding Type Classes](http://okmij.org/ftp/Computation/typeclass.html) by Oleg Kiselyov
-* [Scrap your type classes](http://www.haskellforall.com/2012/05/scrap-your-type-classes.html) for an implementation of the more explicit kind of typeclasses in Haskell
-* [Elm type system extensions issue](https://github.com/elm-lang/elm-compiler/issues/1039) to admire the lack of discussion of this issue in the Elm language
-* [Critique of implicits](https://discuss.ocaml.org/t/critique-of-implicits/3031)
+- [Leo White, Frédéric Bour, Jeremy Yallop: Modular implicits](https://arxiv.org/pdf/1512.01895.pdf), the paper presenting OCaml's modular implicits
+- [Implementing, and Understanding Type Classes](http://okmij.org/ftp/Computation/typeclass.html) by Oleg Kiselyov
+- [Scrap your type classes](http://www.haskellforall.com/2012/05/scrap-your-type-classes.html) for an implementation of the more explicit kind of typeclasses in Haskell
+- [Elm type system extensions issue](https://github.com/elm-lang/elm-compiler/issues/1039) to admire the lack of discussion of this issue in the Elm language
+- [Critique of implicits](https://discuss.ocaml.org/t/critique-of-implicits/3031)

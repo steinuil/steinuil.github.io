@@ -135,6 +135,6 @@ it a bit easier to get into the language.
 
 # Further reading:
 
-* [Polymorphic variants in Ur/Web](http://blog.ezyang.com/2012/07/polymorphic-variants-in-urweb/)
+- [Polymorphic variants in Ur/Web](http://blog.ezyang.com/2012/07/polymorphic-variants-in-urweb/)
 
 [adoption]: http://www.impredicative.com/pipermail/ur/2010-December/000329.html

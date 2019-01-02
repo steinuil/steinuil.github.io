@@ -53,21 +53,13 @@ with terminal graphics and line editing using nothing but `write`.
 
 # Further reading
 
-[Gary Bernhardt - A Whole New World](https://www.destroyallsoftware.com/talks/a-whole-new-world)
-
-[Four Column ASCII](https://garbagecollected.org/2017/01/31/four-column-ascii/)
-
-[The TTY demystified](http://www.linusakesson.net/programming/tty/)
-
-[Declarative terminal graphics for OCaml](https://github.com/pqwy/notty)
-
-[Playing with Tektronix emulation for vector graphics!](http://use.perl.org/use.perl.org/_scrottie/journal/39195.html)
-
-[notty: A new kind of terminal](https://github.com/withoutboats/notty)
-
-[Daniel Morsing - UTF-8](http://systemswe.love/videos/utf-8)
-
-[How Unix erases things when you type a backspace while entering text](https://utcc.utoronto.ca/~cks/space/blog/unix/HowUnixBackspaces)
-
-[When monospace fonts aren't: The Unicode character width nightmare](http://denisbider.blogspot.com/2015/09/when-monospace-fonts-arent-unicode.html)
+- [Gary Bernhardt - A Whole New World](https://www.destroyallsoftware.com/talks/a-whole-new-world)
+- [Four Column ASCII](https://garbagecollected.org/2017/01/31/four-column-ascii/)
+- [The TTY demystified](http://www.linusakesson.net/programming/tty/)
+- [Declarative terminal graphics for OCaml](https://github.com/pqwy/notty)
+- [Playing with Tektronix emulation for vector graphics!](http://use.perl.org/use.perl.org/_scrottie/journal/39195.html)
+- [notty: A new kind of terminal](https://github.com/withoutboats/notty)
+- [Daniel Morsing - UTF-8](http://systemswe.love/videos/utf-8)
+- [How Unix erases things when you type a backspace while entering text](https://utcc.utoronto.ca/~cks/space/blog/unix/HowUnixBackspaces)
+- [When monospace fonts aren't: The Unicode character width nightmare](http://denisbider.blogspot.com/2015/09/when-monospace-fonts-arent-unicode.html)
 
