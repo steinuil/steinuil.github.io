@@ -225,8 +225,7 @@
    (post "An introduction to typeclasses"
          #:date (pdate 2018 02 14)
          #:id "typeclasses"
-         #:tags '(programming urweb plt)
-         #:generate? #f)
+         #:tags '(programming urweb plt))
    (post "Overthinking cash in TypeScript"
          #:date (pdate 2018 11 11)
          #:id "overthinking-cash"

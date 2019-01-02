@@ -1,120 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>An introduction to typeclasses :: Molten Matter</title>
-    <meta name="description" content="An explaination of typeclasses and how they are implemented in various languages">
-    <meta name="viewport" content="width=320, initial-scale=1">
-    <link rel="stylesheet" href="/molten-matter/static/style.css">
-  </head>
-  <body>
-    <header><a href="/molten-matter/">Molten Matter</a></header>
-    <main><article>
-  <header><p>An introduction to typeclasses</p></header>
-  <time>- 2018-02-14 -</time>
-  <section class="body"><p>The other day I found myself trying to explain what I liked about Ur/Web typeclasses
-and how they worked, and I realized that my comment would probably end up long
-enough to be a half decent post, so here I am.</p>
-
-<p>The concept behind typeclasses is actually pretty simple, and it can be
-implemented in any language that supports generics and functions as arguments
-to other functions. Which is basically all modern languages (a category to
-which Go refuses to belong).
-Given a normal increase function:</p>
-
-<pre><code>const incr = (n) =&gt;
-  n + 1;
-</code></pre>
-
-<p>We can hoist the increment operation into the arguments to the function,
-letting us provide our own implementation.</p>
-
-<pre><code>const incr = (incrementor) =&gt; (n) =&gt;
+<html><head><title>An introduction to typeclasses</title><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" /><link rel="stylesheet" href="/assets/style.css" type="text/css" /></head><body id="blog-post-page"><div class="body-container"><header><nav><ul><li><a href="/molten-matter/">Molten Matter</a></li><li><a href="/">About</a></li><li><a href="/legal/">Legal</a></li></ul></nav></header><main><header>An introduction to typeclasses</header><div class="text"><p>The other day I found myself trying to explain what I liked about Ur/Web typeclasses and how they worked, and I realized that my comment would probably end up long enough to be a half decent post, so here I am.</p><p>The concept behind typeclasses is actually pretty simple, and it can be implemented in any language that supports generics and functions as arguments to other functions. Which is basically all modern languages. Given a normal increase function:</p></div><pre class="brush: javascript"><code>const incr = (n) =&gt;
+  n + 1;</code></pre><div class="text"><p>We can hoist the increment operation into the arguments to the function, letting us provide our own implementation.</p></div><pre class="brush: javascript"><code>const incr = (incrementor) =&gt; (n) =&gt;
   incrementor(n);
 
-incr(x =&gt; x + 1)(1)
-</code></pre>
-
-<p>The usefulness of this starts becoming clearer when you define more complex
-operations on top of of the basic ones:</p>
-
-<pre><code>const is_zero = (counter) =&gt; (n) =&gt; counter.is_zero(n);
+incr(x =&gt; x + 1)(1)</code></pre><div class="text"><p>The usefulness of this starts becoming clearer when you define more complex operations on top of of the basic ones:</p></div><pre class="brush: javascript"><code>const isZero = (counter) =&gt; (n) =&gt; counter.isZero(n);
 const incr = (counter) =&gt; (n) =&gt; counter.incr(n);
 const decr = (counter) =&gt; (n) =&gt; counter.decr(n);
 
 const add = (counter) =&gt; (n, m) =&gt;
-  is_zero(counter)(m) ? n :
+  isZero(counter)(m) ? n :
     add(counter)(incr(counter)(n), decr(counter)(m));
 
 const counter = {
-  is_zero: (n) =&gt; { return n === 0; },
+  isZero: (n) =&gt; { return n === 0; },
   incr: (n) =&gt; { return n + 1; },
   decr: (n) =&gt; { return n - 1; }
 };
 
-add(counter)(1, 2);
-</code></pre>
-
-<p>The arguments to <code>add</code> don’t necessarily have to be numbers: they can be
-anything, as long as you provide a suitable implementation of <code>counter</code>.</p>
-
-<pre><code>const screamer = {
-  is_zero: (s) =&gt; { return s.length === 0; },
+add(counter)(1, 2);</code></pre><div class="text"><p>The arguments to <code>add</code> don&rsquo;t necessarily have to be numbers: they can be anything, as long as you provide a suitable implementation of <code>counter</code>.</p></div><pre class="brush: javascript"><code>const screamer = {
+  isZero: (s) =&gt; { return s.length === 0; },
   incr: (s) =&gt; { return s + "A"; },
   decr: (s) =&gt; { return s.slice(0, -1); }
 };
 
-add(screamer)("AA", "AAAAAA");
-</code></pre>
-
-<p>We could also write a generic json encoding function (I know these are awful
-JSON encoding functions, just bear with me for a moment):</p>
-
-<pre><code>const json_encode = (encoder) =&gt; (j) =&gt;
+add(screamer)("AA", "AAAAAA");</code></pre><div class="text"><p>We could also write a generic json encoding function (I know these are awful JSON encoding functions, just bear with me for a moment):</p></div><pre class="brush: javascript"><code>const jsonEncode = (encoder) =&gt; (j) =&gt;
   encoder(j);
 
-const encode_string = (s) =&gt;
+const encodeString = (s) =&gt;
   "\"" + s.replace("\"", "\\\"") + "\"";
 
-const encode_int = (i) =&gt;
+const encodeInt = (i) =&gt;
   i.toString();
 
-const encode_pair = (e1, e2) =&gt;
+const encodePair = (e1, e2) =&gt;
   (p) =&gt;
     "[" + e1(p[0]) + "," + e2(p[1]) + "]";
 
-json_encode(encode_pair(encode_string, encode_int))
-  (["The sun went down with practiced bravado.", 451]);
-</code></pre>
-
-<p>If you’ve ever used Elm, this might remind you of Json.Decode’s interface,
-which has you building up a decoder implementation function with the right type
-for your desired object out of smaller decoder functions.</p>
-
-<hr />
-
-<p>Now imagine passing the implementation as the first argument to almost every
-function call in your codebase. Do you feel like gouging your eyes out yet?
-Fret not, for type classes are here to the rescue!</p>
-
-<p>Type classes are more or less a mechanism for inferring the right
-implementation based on the type of the arguments, so you don’t have
-to write it explicitly. Some languages that implement them at language level
-are Haskell, Scala and Ur/Web. There’s an ongoing effort to embed type classes
-into OCaml in the form of <a href="http://ocamllabs.io/doc/implicits.html">modular implicits</a>,
-but it seems to be progressing slowly.</p>
-
-<p>Ur/Web’s implementation introduces a keyword, <code>class</code>, with which you can
-declare a constructor type that will be specially marked by the compiler, and
-lets you defined implementations as normal values:</p>
-
-<pre><code>(* counter.mli *)
+jsonEncode(encodePair(encodeString, encodeInt))
+  (["The sun went down with practiced bravado.", 451]);</code></pre><div class="text"><p>If you&rsquo;ve ever used Elm, this might remind you of Json.Decode&rsquo;s interface, which has you building up a decoder implementation function with the right type for your desired object out of smaller decoder functions.</p></div><header id="typeclasses">Typeclasses</header><div class="text"><p>Now imagine passing the implementation as the first argument to almost every function call in your codebase. Do you feel like gouging your eyes out yet? Fret not, for type classes are here to the rescue!</p><p>Type classes are more or less a mechanism for inferring the right implementation based on the type of the arguments, so you don&rsquo;t have to write it explicitly. Some languages that implement them at language level are Haskell, Scala and Ur/Web. There&rsquo;s an ongoing effort to embed type classes into OCaml in the form of <a href="http://ocamllabs.io/doc/implicits.html">modular implicits</a>, but it seems to be progressing slowly.</p><p>Ur/Web&rsquo;s implementation introduces a keyword, <code>class</code>, with which you can declare a constructor type that will be specially marked by the compiler, and lets you defined implementations as normal values:</p></div><pre class="brush: ur"><code>(* counter.mli *)
 class counter
 
 val incr : t ::: Type -&gt; counter t -&gt; t -&gt; t
 val decr : t ::: Type -&gt; counter t -&gt; t -&gt; t
 val isZero : t ::: Type -&gt; counter t -&gt; t -&gt; bool
-val mkCounter : t ::: Type -&gt; { Incr : t -&gt; t, Decr : t -&gt; t, IsZero : t -&gt; bool } -&gt; counter t
+val mkCounter : t ::: Type
+  -&gt; { Incr : t -&gt; t, Decr : t -&gt; t, IsZero : t -&gt; bool }
+  -&gt; counter t
 
 val counter_int : counter int
 val counter_scream : counter string
@@ -124,7 +54,10 @@ con counter a = { Incr : a -&gt; a
                 , Decr : a -&gt; a
                 , IsZero : a -&gt; bool }
 
-fun mkCounter [a] (x : { Incr : a -&gt; a, Decr : a -&gt; a, IsZero : a -&gt; bool }) =
+fun mkCounter [a]
+  (x : { Incr : a -&gt; a
+       , Decr : a -&gt; a
+       , IsZero : a -&gt; bool }) =
   x
 
 fun incr [a] (c : counter a) : a -&gt; a = c.Incr
@@ -139,71 +72,12 @@ val counter_int =
 val counter_scream =
   mkCounter { Incr = fn x =&gt; x ^ "A"
             , Decr = fn x =&gt; substring x 0 ((strlen x) - 1)
-            , IsZero = fn x =&gt; x = "" }
-</code></pre>
-
-<p>Registering a function as a possible implementation for a typeclass is just
-a matter of calling it with a properly typed function. Now we can use <code>incr</code>,
-<code>decr</code> and <code>isZero</code> freely on the types we have provided an implementation for
-without specifying the implementations explicitly.</p>
-
-<pre><code>incr 1
-=&gt; 2
+            , IsZero = fn x =&gt; x = "" }</code></pre><div class="text"><p>Registering a function as a possible implementation for a typeclass is just a matter of calling it with a properly typed function. Now we can use <code>incr</code>, <code>decr</code> and <code>isZero</code> freely on the types we have provided an implementation for without specifying the implementations explicitly.</p></div><pre class="brush: ur"><code>incr 1
+(* =&gt; 2 *)
 
 decr "AAA"
-=&gt; "AA"
+(* =&gt; "AA" *)
 
 isZero True
-(* will not compile *)
-</code></pre>
-
-<p>We can provide multiple implementations for any given type, and Ur/Web will
-choose the last one we have registered. Since typeclass implementations here
-are just normal values, only typeclass implementations that are currently in
-scope will be available, and if we want to force a specific implementation we
-can pass it explicitly.</p>
-
-<pre><code>incr [some_counter_implementation] 1
-=&gt; 2
-</code></pre>
-
-<p>Haskell’s typeclasses work a little differently: typeclasses are not quite like
-normal types, and there’s a special syntax for defining implementations, here
-called <em>instances</em>, of a particular class. The compiler does not attempt any
-sort of instance resolution and will complain if it finds more than one
-implementation of a particular typeclass in the same program. This leads to a
-few annoyances, because a library is not allowed to define its own private
-implementation of a typeclass without polluting the global namespace. This
-is usually solved by using newtypes, which is kind of unwieldy.</p>
-
-<p>I don’t know Scala, but its type classes are called “implicits” and they seem
-to be similar to Ur/Web’s, save for not supporting multiple implementations in
-scope.</p>
-
-<p>OCaml’s modular implicits are a lot like Ur/Web’s, but their use is constrained
-to modules rather than any kind of value. As in Ur/Web, there’s a special
-syntax for forcing a specific implementation for a certain type to be used,
-but unlike Ur/Web and as in Scala only one implicit module is allowed in scope.
-It’s also possible to use a non-implicit module as implementation by passing it
-explicitly, so even if there is an implicit module already in scope it’s easy
-to override it.</p>
-
-<hr />
-
-<p>Further reading:</p>
-
-<ul>
-  <li><a href="https://arxiv.org/pdf/1512.01895.pdf">Leo White, Frédéric Bour, Jeremy Yallop: Modular implicits</a>, the paper presenting OCaml’s modular implicits</li>
-  <li><a href="http://okmij.org/ftp/Computation/typeclass.html">Implementing, and Understanding Type Classes</a> by Oleg Kiselyov</li>
-  <li><a href="http://www.haskellforall.com/2012/05/scrap-your-type-classes.html">Scrap your type classes</a> for an implementation of the more explicit kind of typeclasses in Haskell</li>
-  <li><a href="https://github.com/elm-lang/elm-compiler/issues/1039">Elm type system extensions issue</a> to admire the lack of discussion of this issue in the Elm language</li>
-</ul>
-
-<p><a href="https://www.youtube.com/watch?v=KpSps6-OXJQ"><em>#np Animals as Leaders - The Future That Awaited Me</em></a></p>
-</section>
-  <footer id="floron">❧</footer>
-</article>
-</main>
-    <footer>(c) <a href="https://github.com/steinuil">steenuil</a> 2017-2018, powered by <a href="https://github.com/steinuil/jnglblstr">JNGLBLSTR</a></footer>
-  </body>
-</html>
+(* will not compile *)</code></pre><div class="text"><p>We can provide multiple implementations for any given type, and Ur/Web will choose the last one we have registered. Since typeclass implementations here are just normal values, only typeclass implementations that are currently in scope will be available, and if we want to force a specific implementation we can pass it explicitly.</p></div><pre class="brush: ur"><code>incr [some_counter_implementation] 1
+(* =&gt; 2 *)</code></pre><div class="text"><p>Haskell&rsquo;s typeclasses work a little differently: typeclasses are not quite like normal types, and there&rsquo;s a special syntax for defining implementations, here called <em>instances</em>, of a particular class. The compiler does not attempt any sort of instance resolution and will complain if it finds more than one implementation of a particular typeclass in the same program. This leads to a few annoyances, because a library is not allowed to define its own private implementation of a typeclass without polluting the global namespace. This is usually solved by using newtypes, which is kind of unwieldy.</p><p>I don&rsquo;t know Scala, but its type classes are called &ldquo;implicits&rdquo; and they seem to be similar to Ur/Web&rsquo;s, save for not supporting multiple implementations in scope.</p><p>OCaml&rsquo;s modular implicits are a lot like Ur/Web&rsquo;s, but their use is constrained to modules rather than any kind of value. As in Ur/Web, there&rsquo;s a special syntax for forcing a specific implementation for a certain type to be used, but unlike Ur/Web and as in Scala only one implicit module is allowed in scope. It&rsquo;s also possible to use a non-implicit module as implementation by passing it explicitly, so even if there is an implicit module already in scope it&rsquo;s easy to override it.</p></div><header id="further-reading">Further reading</header><ul><li><a href="https://arxiv.org/pdf/1512.01895.pdf">Leo White, Frédéric Bour, Jeremy Yallop: Modular implicits</a>, the paper presenting OCaml&rsquo;s modular implicits</li><li><a href="http://okmij.org/ftp/Computation/typeclass.html">Implementing, and Understanding Type Classes</a> by Oleg Kiselyov</li><li><a href="http://www.haskellforall.com/2012/05/scrap-your-type-classes.html">Scrap your type classes</a> for an implementation of the more explicit kind of typeclasses in Haskell</li><li><a href="https://github.com/elm-lang/elm-compiler/issues/1039">Elm type system extensions issue</a> to admire the lack of discussion of this issue in the Elm language</li><li><a href="https://discuss.ocaml.org/t/critique-of-implicits/3031">Critique of implicits</a></li></ul></main><footer>this web sight made with <a href="https://racket-lang.org/">Racket</a>.</footer></div></body></html>
