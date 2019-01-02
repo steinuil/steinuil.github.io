@@ -205,8 +205,7 @@
    (post "Continuations, Promises, and call/cc"
          #:date (pdate 2017 10 27)
          #:id "call-cc"
-         #:tags '(programming javascript)
-         #:generate? #f)
+         #:tags '(programming javascript))
    (post "The social issues of programming languages"
          #:date (pdate 2017 10 29)
          #:id "bikeshed"

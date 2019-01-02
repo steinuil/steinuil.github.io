@@ -171,6 +171,20 @@ nav a:hover {
   background-color: rgba(200,255,0,.4);
 }
 
+.footnotes {
+  border-top: 1px dotted #ddd;
+  padding-top: .8em;
+  font-size: .85em;
+}
+
+.footnotes ol {
+  list-style: square outside;
+}
+
+.footnote-definition {
+  margin-left: 1.2em;
+}
+
 .text {
   line-height: 1.75em;
 }
@@ -194,11 +208,11 @@ figcaption {
 }
 
 main > ul {
-  list-style: square inside;
+  list-style: square outside;
 }
 
 main > ul > li {
-  margin: .4em 0;
+  margin: .4em 0 0 1em;
 }
 
 blockquote {
