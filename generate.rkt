@@ -222,7 +222,6 @@
          #:date (pdate 2018 1 29)
          #:id "week-001"
          #:series "Weekly log"
-         #:generate? #f
          #:unlisted? #t)
    (post "An introduction to typeclasses"
          #:date (pdate 2018 02 14)
