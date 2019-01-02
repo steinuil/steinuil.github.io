@@ -244,15 +244,18 @@ pre > code {
   padding: 0;
 }
 
-main > header {
-  margin-top: 1.5em;
-}
-
 main > header > .post-title,
 main > header.heading {
   font-family: "Archivo Black", sans-serif;
   font-size: 1.2em;
+}
+
+main > header > .post-title {
   display: inline-block;
+}
+
+main > header.heading {
+  margin-top: 1.5em;
 }
 
 main > header > time {
@@ -273,7 +276,6 @@ main > ul,
 .post-list .post {
   margin: .8em 0;
 }
-
 
 .post-list .post .name {
   font-weight: bold;
