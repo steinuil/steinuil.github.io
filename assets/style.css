@@ -245,9 +245,18 @@ pre > code {
 }
 
 main > header {
-  font-family: "Archivo Black", sans-serif;
   margin-top: 1.5em;
+}
+
+main > header > .post-title {
+  font-family: "Archivo Black", sans-serif;
   font-size: 1.2em;
+  display: inline-block;
+}
+
+main > header > time {
+  font-size: .85em;
+  margin-left: .5em;
 }
 
 .body-container>main {

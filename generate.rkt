@@ -158,9 +158,11 @@
 (define (post-page page-infos post)
   (define post-body
     (parse-markdown (file->string (string-append "posts/" (blog-post-id post) ".md"))))
+  (define pdate (blog-post-date post))
 
   (page 'blog-post page-infos (blog-post-title post)
-        `((header ,(blog-post-title post))
+        `((header (div ([class "post-title"]) ,(blog-post-title post))
+                  (time ([datetime ,(pdate->string pdate)]) ,(pdate->string pdate "/")))
           ,@(transform-post-body post-body))))
 
 ;;;
