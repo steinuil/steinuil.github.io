@@ -248,7 +248,8 @@ main > header {
   margin-top: 1.5em;
 }
 
-main > header > .post-title {
+main > header > .post-title,
+main > header.heading {
   font-family: "Archivo Black", sans-serif;
   font-size: 1.2em;
   display: inline-block;

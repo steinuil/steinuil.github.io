@@ -173,6 +173,7 @@ my code when adding types to this module, and it would still make sense if you
 took the types out, even if I had written this in TS to begin with.
 
 # Further reading
+
 - [How to Handle Monetary Values in JavaScript](https://frontstuff.io/how-to-handle-monetary-values-in-javascript)
 - [Money in the type system where it belongs](https://ren.zone/articles/safe-money)
 - [Dinero.js](https://github.com/sarahdayan/dinero.js) - An immutable library to create, calculate and format money.

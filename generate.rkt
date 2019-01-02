@@ -141,9 +141,10 @@
                    (cons `(div ([class "text"])
                                ,@text)
                          out)))]
-          [(cons 'h1 rest)
+          [(list-rest 'h1 attrs rest)
+          #| [(cons 'h1 (cons attrs rest)) |#
            (loop (cdr elts)
-                 (cons (cons 'header rest)
+                 (cons `(header ([class "heading"] ,@attrs) ,@rest)
                        out))]
           [(list 'div
                  '([class "figure"])
