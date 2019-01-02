@@ -201,6 +201,12 @@ main > ul > li {
   margin: .4em 0;
 }
 
+blockquote {
+  border-left: 3px solid #ddd;
+  padding-left: .8em;
+  font-style: italic;
+}
+
 pre {
   overflow-y: auto;
   background-color: #333;

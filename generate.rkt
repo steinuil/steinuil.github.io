@@ -216,8 +216,7 @@
    (post "I survived Ur/Web"
          #:date (pdate 2018 1 22)
          #:id "urweb"
-         #:tags '(programming urweb)
-         #:generate? #f)
+         #:tags '(programming urweb))
    (post "What the hell did I do this week, anyway?"
          #:date (pdate 2018 1 29)
          #:id "week-001"
