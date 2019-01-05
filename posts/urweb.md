@@ -1,9 +1,9 @@
-I don't remember when it was that I first tried Ur/Web, but I'm sure I didn't
-last long with it. As soon as I strayed a bit from the examples provided on the
-website (seemingly the only documentation available), I would hit a brick wall,
-in the form of unreadable compiler errors. I got so frustrated that I deleted
-all the files I was working on and the compiler with them, and I didn't touch
-the language for a while.
+I don't remember when it was that I first tried [Ur/Web][urweb], but I'm sure I
+didn't last long with it. As soon as I strayed a bit from the examples provided
+on the website (seemingly the only documentation available), I would hit a brick
+wall, in the form of unreadable compiler errors. I got so frustrated that I
+deleted all the files I was working on and the compiler with them, and I didn't
+touch the language for a while.
 
 I'd try again after a few months, once again lured in by the
 ludicrous promises listed on the front page of the website: no more complex
@@ -137,4 +137,5 @@ it a bit easier to get into the language.
 
 - [Polymorphic variants in Ur/Web](http://blog.ezyang.com/2012/07/polymorphic-variants-in-urweb/)
 
+[urweb]: http://www.impredicative.com/ur/
 [adoption]: http://www.impredicative.com/pipermail/ur/2010-December/000329.html
