@@ -162,6 +162,7 @@
 
   (page 'blog-post page-infos (blog-post-title post)
         `((header (div ([class "post-title"]) ,(blog-post-title post))
+                  " "
                   (time ([datetime ,(pdate->string pdate)]) ,(pdate->string pdate "/")))
           ,@(transform-post-body post-body))))
 
