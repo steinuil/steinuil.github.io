@@ -80,7 +80,7 @@ functions both on the server and the client (as long as they don't use any
 server- or client-specific features). Reactive page generation *à la React* is
 also supported through the `<dyn/>` tag, which lets you subscribe to a `source`
 (basically a mutable cell, similar to `ref` in OCaml) and automatically reacts
-when the source changes. You can also push data asynchronously to a client with
+when the source changes.  You can also push data asynchronously to a client with
 `channel` and call functions that need server features without reloading the
 page with `rpc` (which unfortunately doesn't support file inputs, but I'm
 working on an AJAX library that will let you do that).
@@ -109,9 +109,11 @@ correctness.
 That future, I think, is (or was) the end goal of the language's author, Adam
 Chlipala. He seems to have envisioned Ur as a language that allows syntactic
 and compiler extensions to fit any sort of application domain in a similar
-manner. He looks more interested in formal methods these days (though he's
+manner. He looks more interested in other projects these days (though he's
 still actively developing Ur/Web) so I doubt this will ever come to fruition,
-but it might be a goal worth pursuing. Eduardo Julian, the author of the
+but it might be a goal worth pursuing.
+
+Eduardo Julian, the author of the
 [Lux programming language](https://github.com/LuxLang/lux), gave a
 [talk at StrangeLoop](https://www.youtube.com/watch?v=T-BZvBWiamU) last year
 where he talked with the fervor of a madman about a similar dream of letting
