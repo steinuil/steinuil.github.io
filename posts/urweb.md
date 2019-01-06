@@ -135,7 +135,7 @@ even web development in the process.
 For my part, I'll try to contribute some documentation to the project to make
 it a bit easier to get into the language.
 
-# Further reading:
+# Further reading
 
 - [Polymorphic variants in Ur/Web](http://blog.ezyang.com/2012/07/polymorphic-variants-in-urweb/)
 
