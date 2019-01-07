@@ -61,7 +61,7 @@ val rev : a ::: Type -> list a -> list a
 As you might have guessed, `List.rev` is a function that takes a list of
 elements and returns another list with the elements of the first, in reverse
 order. `rev` can reverse lists that contain any element, so we say that it is
-`polymorphic`.
+*polymorphic*.
 
 `a` is the type of the values contained in the input and output list. The
 argument `a ::: Type` is just a way of saying that we don't know what type `a`
@@ -255,7 +255,7 @@ val eq : a ::: Type -> eq a -> eq (option a)
 ```
 
 This should be straightforward by now. `Option.eq` implicitly takes a witness
-of `eq a` and maps it to the value stored inside the option, if any. Let's take
+`eq a` and maps it to the value stored inside the option, if any. Let's take
 a look at its implementation.
 
 ```ur
@@ -273,9 +273,9 @@ doesn't use it directly. In a way, the witness argument is just there to
 exists an implementation of `eq`.
 
 Now the error message should make sense: the compiler is telling us that this
-invocation of `=`, which desugars to `eq`, has a constraint of type
-`eq {A : int}` on its arguments, so we need to implement a witness of `eq`
-for `{A : int}`. We'll have to use the `mkEq` function to do this.
+invocation of `=` has a constraint of type `eq {A : int}` on its arguments,
+so we need to implement a witness of `eq` for `{A : int}`. We'll have to use
+the `mkEq` function to do this.
 
 ```ur
 val eq_a_int = mkEq
