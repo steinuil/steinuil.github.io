@@ -172,7 +172,7 @@
 
 (define (generate-rss posts)
   (define items
-    (for/list ([post posts]
+    (for/list ([post (sort posts blog-post>?)]
                #:unless (blog-post-unlisted? post))
       (post->rss-item post)))
 
