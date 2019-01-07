@@ -191,6 +191,8 @@ nav a:hover {
 
 .warning {
   color: #cc241d;
+  font-size: .8em;
+  font-style: italic;
 }
 
 figure {

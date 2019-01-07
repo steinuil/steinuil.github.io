@@ -176,7 +176,7 @@
         `((header (div ([class "post-title"]) ,(blog-post-title post))
                   " "
                   (time ([datetime ,(pdate->string pdate)]) ,(pdate->string pdate "/")))
-          ,(if (blog-post-unlisted? post) "" unlisted-notice)
+          ,(if (blog-post-unlisted? post) unlisted-notice "")
           ,@(transform-post-body post-body))))
 
 ;;;
