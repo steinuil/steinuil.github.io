@@ -248,8 +248,7 @@
          #:date (pdate 2019 1 7)
          #:id "urweb-sig"
          #:tags '(programming urweb)
-         #:series "Ur/Web"
-         #:unlisted? #t)))
+         #:series "Ur/Web")))
 
 
 (define blog-index
