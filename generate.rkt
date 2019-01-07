@@ -1,7 +1,8 @@
 #lang racket
 
 (require xml
-         markdown/parse)
+         markdown/parse
+         racket/date)
 
 ;;;
 ;;; Blog stuffs
@@ -48,6 +49,27 @@
    sep
    (string-pad-left (number->string (pdate-day d)) 2 #\0)))
 
+(define (pdate->rfc822 d)
+  (define date (seconds->date
+                (find-seconds
+                 0 0 0
+                 (pdate-day d)
+                 (pdate-month d)
+                 (pdate-year d))))
+  (define days '("Sun" "Mon" "Tue" "Wed" "Thu" "Fri" "Sat"))
+  (define months '("" "Jan" "Feb" "Mar" "Apr"
+                      "May" "Jun" "Jul" "Aug"
+                      "Sep" "Oct" "Nov" "Dec"))
+  (string-append
+   (list-ref days (date-week-day date))
+   ", "
+   (string-pad-left (number->string (pdate-day d)) 2 #\0)
+   " "
+   (list-ref months (pdate-month d))
+   " "
+   (number->string (pdate-year d))
+   " 00:00:00 UT"))
+
 (define (pdate>? pd1 pd2)
   (let ([y1 (pdate-year pd1)]
         [y2 (pdate-year pd2)]
@@ -86,7 +108,10 @@
             [content "width=device-width, initial-scale=1, viewport-fit=cover"]))
      (link ([rel "stylesheet"]
             [href "/assets/style.css"]
-            [type "text/css"])))
+            [type "text/css"]))
+     (link ([rel "alternate"]
+            [href "/molten-matter/rss.xml"]
+            [type "application/rss+xml"])))
     (body ([id ,(string-append (symbol->string curr-page) "-page")])
           (div
            ([class "body-container"])
@@ -104,6 +129,33 @@
           ,@(if src2x `([srcset ,(string-append src2x " 2x")]) '())))
     (figcaption ,description)))
 
+(define (rss-page items)
+  (define rss-info
+    `((title "Molten Matter")
+      (link "https://sgt.hootr.club/molten-matter/")
+      (language "en-us")
+      (generator "generator.rkt")
+      #;(copyright "Copyright")
+      #;(description "desc")
+      ,@items))
+
+  (make-document
+   (make-prolog
+    (list (make-p-i #f #f 'xml "version=\"1.0\" encoding=\"UTF-8\""))
+    #f
+    null)
+   (xexpr->xml
+    `(rss ([version "2.0"])
+          (channel () ,@rss-info)))
+   null))
+
+(define (post->rss-item post)
+  `(item
+    (title ,(blog-post-title post))
+    (link  ,(string-append "https://sgt.hootr.club/molten-matter/" (blog-post-id post)))
+    (author "steinuil.owl@gmail.com (steenuil)")
+    (pubDate ,(pdate->rfc822 (blog-post-date post)))))
+
 ;;;
 ;;; Generation
 
@@ -117,6 +169,16 @@
       (write-xml/content
         (xexpr->xml page)
         out))))
+
+(define (generate-rss posts)
+  (define items
+    (for/list ([post posts]
+               #:unless (blog-post-unlisted? post))
+      (post->rss-item post)))
+
+  (call-with-output-file "molten-matter/rss.xml" #:exists 'replace
+    (lambda (out)
+      (write-xml (rss-page items) out))))
 
 (define (transform-post-body post)
   (define (take-paragraphs elts)
@@ -310,6 +372,8 @@
   (generate-page (page-info-url pinfo) page))
 
 (generate-page "/" #:filename "404.html" 404-page)
+
+(generate-rss blog-posts)
 
 (for ([post blog-posts]
       #:when (blog-post-generate? post))
