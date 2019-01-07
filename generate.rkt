@@ -70,6 +70,34 @@
    (number->string (pdate-year d))
    " 00:00:00 UT"))
 
+(define (pdate->rfc3339 d)
+  (string-append
+   (pdate->string d "-")
+   "T00:00:00Z"))
+
+(define (now->rfc3339)
+  (define d (seconds->date (current-seconds) #f))
+  (string-append
+   (number->string (date-year d))
+   "-"
+   (string-pad-left (number->string (date-month d)) 2 #\0)
+   "-"
+   (string-pad-left (number->string (date-day d)) 2 #\0)
+   "T"
+   (string-pad-left (number->string (date-hour d)) 2 #\0)
+   ":"
+   (string-pad-left (number->string (date-minute d)) 2 #\0)
+   ":"
+   (string-pad-left (number->string (date-second d)) 2 #\0)
+   "Z"))
+
+(define (post->atom-id p)
+  (string-append
+   "tag:sgt.hootr.club,"
+   (pdate->string (blog-post-date p) "-")
+   ":"
+   (blog-post-id p)))
+
 (define (pdate>? pd1 pd2)
   (let ([y1 (pdate-year pd1)]
         [y2 (pdate-year pd2)]
@@ -110,8 +138,13 @@
             [href "/assets/style.css"]
             [type "text/css"]))
      (link ([rel "alternate"]
-            [href "/molten-matter/rss.xml"]
-            [type "application/rss+xml"])))
+            [href "/rss.xml"]
+            [type "application/rss+xml"]
+            [title "RSS feed"]))
+     (link ([rel "alternate"]
+            [href "/feed.xml"]
+            [type "application/atom+xml"]
+            [title "Atom feed"])))
     (body ([id ,(string-append (symbol->string curr-page) "-page")])
           (div
            ([class "body-container"])
@@ -149,12 +182,49 @@
           (channel () ,@rss-info)))
    null))
 
+(define (atom-page entries)
+  (define atom-info
+    `((title ([type "text"]) "Molten Matter")
+      (id "https://sgt.hootr.club/molten-matter/")
+      (link ([rel "alternate"]
+             [type "text/html"]
+             [href "https://sgt.hootr.club/molten-matter/"]))
+      (link ([rel "self"]
+             [type "application/atom+xml"]
+             [href "https://sgt.hootr.club/feed.xml"]))
+      (updated ,(now->rfc3339))
+      (generator "generator.rkt")
+      ,@entries))
+
+  (make-document
+   (make-prolog
+    (list (make-p-i #f #f 'xml "version=\"1.0\" encoding=\"UTF-8\""))
+    #f
+    null)
+   (xexpr->xml
+    `(feed ([xmlns "http://www.w3.org/2005/Atom"])
+          ,@atom-info))
+   null))
+
 (define (post->rss-item post)
   `(item
     (title ,(blog-post-title post))
     (link  ,(string-append "https://sgt.hootr.club/molten-matter/" (blog-post-id post)))
-    (author "steinuil.owl@gmail.com (steenuil)")
+    (author "steenuil.owl@gmail.com (steenuil)")
     (pubDate ,(pdate->rfc822 (blog-post-date post)))))
+
+(define (post->atom-entry post)
+  `(entry
+    (title ,(blog-post-title post))
+    (id ,(post->atom-id post))
+    (link ([href ,(string-append "https://sgt.hootr.club/molten-matter/"
+                                 (blog-post-id post))]
+           [rel "alternate"]
+           [type "text/html"]))
+    (updated ,(pdate->rfc3339 (blog-post-date post)))
+    (author
+     (name "steenuil")
+     (email "steenuil.owl@gmail.com"))))
 
 ;;;
 ;;; Generation
@@ -176,9 +246,19 @@
                #:unless (blog-post-unlisted? post))
       (post->rss-item post)))
 
-  (call-with-output-file "molten-matter/rss.xml" #:exists 'replace
+  (call-with-output-file "rss.xml" #:exists 'replace
     (lambda (out)
       (write-xml (rss-page items) out))))
+
+(define (generate-atom posts)
+  (define entries
+    (for/list ([post (sort posts blog-post>?)]
+               #:unless (blog-post-unlisted? post))
+      (post->atom-entry post)))
+  
+  (call-with-output-file "feed.xml" #:exists 'replace
+    (lambda (out)
+      (write-xml (atom-page entries) out))))
 
 (define (transform-post-body post)
   (define (take-paragraphs elts)
@@ -374,6 +454,7 @@
 (generate-page "/" #:filename "404.html" 404-page)
 
 (generate-rss blog-posts)
+(generate-atom blog-posts)
 
 (for ([post blog-posts]
       #:when (blog-post-generate? post))
