@@ -141,6 +141,11 @@
                    (cons `(div ([class "text"])
                                ,@text)
                          out)))]
+          [(list-rest 'blockquote attrs rest)
+           (loop (cdr elts)
+                 (cons `(blockquote ([class "text"] ,@attrs)
+                                    ,@rest)
+                       out))]
           [(list-rest 'h1 attrs rest)
            (loop (cdr elts)
                  (cons `(header ([class "heading"] ,@attrs) ,@rest)
@@ -160,10 +165,18 @@
     (parse-markdown (file->string (string-append "posts/" (blog-post-id post) ".md"))))
   (define pdate (blog-post-date post))
 
+  (define unlisted-notice
+    '(div ([class "warning text"])
+          (p "This post is unlisted. "
+             "I keep it around to avoid breaking links, "
+             "but I might have some good reasons to keep it hidden. "
+             "Please don't repost it.")))
+
   (page 'blog-post page-infos (blog-post-title post)
         `((header (div ([class "post-title"]) ,(blog-post-title post))
                   " "
                   (time ([datetime ,(pdate->string pdate)]) ,(pdate->string pdate "/")))
+          ,(if (blog-post-unlisted? post) "" unlisted-notice)
           ,@(transform-post-body post-body))))
 
 ;;;

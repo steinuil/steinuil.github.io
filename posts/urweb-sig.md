@@ -1,7 +1,7 @@
 So you stumbled upon Ur/Web and you rather like what it's about, but after
 trudging through the tutorials and the examples in the few blog posts you've
 seen around you can't seem to find your own footing. The compiler errors are
-big and long and you're about to throw your computer out the window.
+long and life is short and you're about to throw your computer out the window.
 
 [I understand.](/molten-matter/urweb/)
 
@@ -14,7 +14,7 @@ can follow along.
 I'm going to be frank: given the current state of the ecosystem and of the
 documentation, you have close to no chance of learning Ur/Web if you don't
 already know some OCaml/ReasonML or another language in the ML family, so
-if you don't you might want to get acquainted with one first.
+if you don't you might want to get well acquainted with one first.
 [Elm](https://elm-lang.org/) is a good starting point.
 
 Open up `string.urs` and have a look around. I'm going to assume you can read

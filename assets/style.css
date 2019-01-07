@@ -189,6 +189,10 @@ nav a:hover {
   line-height: 1.75em;
 }
 
+.warning {
+  color: #cc241d;
+}
+
 figure {
   text-align: center;
 }
