@@ -7,9 +7,8 @@ long and life is short and you're about to throw your computer out the window.
 
 In this post, I'll walk you through the signatures of a few functions from the
 standard library, hopefully providing you with enough context to make it
-through the rest on your own. You might want to grab a copy of
-[the standard library][stdlib] or search for the one on your hard drive so you
-can follow along.
+through the rest on your own. You might want to grab [a copy][stdlib] or search
+for the one on your hard drive so you can follow along.
 
 I'm going to be frank: given the current state of the ecosystem and of the
 documentation, you have close to no chance of learning Ur/Web if you don't
@@ -59,11 +58,27 @@ something like this:
 val rev : a ::: Type -> list a -> list a
 ```
 
-As you might have guessed, `a` is an explicit type parameter that ensures
-`rev` is polymorphic. OCaml also has [a similar syntax][ocaml-poly] for
-ensuring the well-typedness of a polymorphic function, but while expliciting
-the polymorphic type parameters might be optional in OCaml, it is
-not in Ur/Web.
+As you might have guessed, `List.rev` is a function that takes a list of
+elements and returns another list with the elements of the first, in reverse
+order. `rev` can reverse lists that contain any element, so we say that it is
+`polymorphic`.
+
+As you might have guessed, `a` is the type of the values contained in the
+input and output list. The `a ::: Type` argument is just a way of saying that
+we don't know what type `a` will be when we declare the function; it's up to
+the caller to bind it to a valid type. The triple colon (`:::`) means that
+this type parameter is implicit, so the compiler will take care of inserting
+the correct type when calling it.
+
+OCaml and most other languages don't require you to explicitly declare these
+type parameter, but [sometimes it is useful][ocaml-poly] to ensure the
+well-typedness of a polymorphic function.
+
+Quoting from the [tutorial](http://www.impredicative.com/ur/tutorial/intro.html):
+
+> Unlike in ML and Haskell, polymorphic functions in Ur/Web often require full
+> type annotations. That is because more advanced features make Ur type
+> inference undecidable.
 
 Let's pull up the implementation for a moment (found in `list.ur`):
 
@@ -75,14 +90,8 @@ The `a` in square brackets here corresponds to `a ::: Type` in the signature
 above. We could also write it like `[a ::: Type]` if we wanted to be more
 explicit.
 
-Quoting from the [tutorial](http://www.impredicative.com/ur/tutorial/intro.html):
-
-> Unlike in ML and Haskell, polymorphic functions in Ur/Web often require full
-> type annotations. That is because more advanced features make Ur type
-> inference undecidable.
-
-Let's look at `List.mp` (which is just the `List.map` function, but it can't be
-called `map` because `map` is a keyword in Ur/Web).
+Now let's look at `List.mp`. (Which is just the `List.map` function, but it
+can't be called `map` because `map` is a keyword in Ur/Web. More on that later.)
 
 ```urs
 val mp : a ::: Type -> b ::: Type -> (a -> b) -> list a -> list b
@@ -92,8 +101,7 @@ val mp : a ::: Type -> b ::: Type -> (a -> b) -> list a -> list b
 the signature.
 
 Interestingly, we can write a function so that the type parameter has to be
-passed *explicitly* by replacing the triple colon (`:::`) with a double colon
-(`::`):
+passed *explicitly* by replacing `:::` with a double colon (`::`):
 
 ```ur
 (* id.urs *)
