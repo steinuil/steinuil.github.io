@@ -63,12 +63,12 @@ elements and returns another list with the elements of the first, in reverse
 order. `rev` can reverse lists that contain any element, so we say that it is
 `polymorphic`.
 
-As you might have guessed, `a` is the type of the values contained in the
-input and output list. The `a ::: Type` argument is just a way of saying that
-we don't know what type `a` will be when we declare the function; it's up to
-the caller to bind it to a valid type. The triple colon (`:::`) means that
-this type parameter is implicit, so the compiler will take care of inserting
-the correct type when calling it.
+`a` is the type of the values contained in the input and output list. The
+argument `a ::: Type` is just a way of saying that we don't know what type `a`
+will be when we declare the function; it's up to the caller to bind it to a
+valid type. The triple colon (`:::`) means that this type parameter is
+implicit, so the compiler will take care of inserting the correct type when
+calling it.
 
 OCaml and most other languages don't require you to explicitly declare these
 type parameter, but [sometimes it is useful][ocaml-poly] to ensure the
