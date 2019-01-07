@@ -231,10 +231,11 @@
          #:date (pdate 2018 11 11)
          #:id "overthinking-cash"
          #:tags '(programming typescript))
-   (post "How to read Ur/Web signatures, part 1"
-         #:date (pdate 2019 1 5)
+   (post "Reading Ur/Web signatures, part 1"
+         #:date (pdate 2019 1 7)
          #:id "urweb-sig"
          #:tags '(programming urweb)
+         #:series "Ur/Web"
          #:unlisted? #t)))
 
 

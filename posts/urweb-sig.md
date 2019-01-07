@@ -1,19 +1,24 @@
-So you've read [my post on Ur/Web](/molten-matter/urweb/) or you've stumbled
-across the language
+So you stumbled upon Ur/Web and you rather like what it's about, but after
+trudging through the tutorials and the examples in the few blog posts you've
+seen around you can't seem to find your own footing. The compiler errors are
+big and long and you're about to throw your computer out the window.
+
+[I understand.](/molten-matter/urweb/)
 
 In this post, I'll walk you through the signatures of a few functions from the
-standard library, hopefully providing some help in understanding the most
-unreadable ones.
+standard library, hopefully providing you with enough context to make it
+through the rest on your own. You might want to grab a copy of
+[the standard library][stdlib] or search for the one on your hard drive so you
+can follow along.
 
-I'll assume you already know how to read basic type signatures in
-OCaml/ReasonML or SML (which you should be familiar with if you actually want
-to learn Ur/Web).
+I'm going to be frank: given the current state of the ecosystem and of the
+documentation, you have close to no chance of learning Ur/Web if you don't
+already know some OCaml/ReasonML or another language in the ML family, so
+if you don't you might want to get acquainted with one first.
+[Elm](https://elm-lang.org/) is a good starting point.
 
-You might want to grab a copy of [the standard library][stdlib] or search for
-the one on your hard drive so you can follow along.
-
-Open up `string.urs` and have a look around. You should be able to tell what
-these functions do:
+Open up `string.urs` and have a look around. I'm going to assume you can read
+these signatures:
 
 ```urs
 type t = string
@@ -34,7 +39,7 @@ val index : string -> char -> option int
 If you come from OCaml or SML you might notice that the argument of the type
 constructor `option` is to the right of the constructor, as in normal function
 application. This unification of function and type constructor application is
-not just a matter of syntax like in [ReasonML][reason-params]; put it in the
+not just a matter of syntax like in [ReasonML][reason-params]; put this in the
 back of your mind for the moment, we'll come back to it later.
 
 ```urs
@@ -47,15 +52,20 @@ with a capital letter like the members of a variant.
 
 # Generics
 
-Let's kick things up a notch. Open up `list.urs` and you'll be greeted with
+Let's kick things up a notch. Open up `list.urs` and you'll be greeted by
 something like this:
 
 ```urs
 val rev : a ::: Type -> list a -> list a
 ```
 
-I think looking at the implementation might make it a bit easier on the eyes,
-so let's pull it up for a moment before going back to its signature.
+As you might have guessed, `a` is an explicit type parameter that ensures
+`rev` is polymorphic. OCaml also has [a similar syntax][ocaml-poly] for
+ensuring the well-typedness of a polymorphic function, but while expliciting
+the polymorphic type parameters might be optional in OCaml, it is
+not in Ur/Web.
+
+Let's pull up the implementation for a moment (found in `list.ur`):
 
 ```ur
 fun rev [a] (ls : list a) = ...
@@ -64,12 +74,6 @@ fun rev [a] (ls : list a) = ...
 The `a` in square brackets here corresponds to `a ::: Type` in the signature
 above. We could also write it like `[a ::: Type]` if we wanted to be more
 explicit.
-
-As you might have guessed, `a` is an explicit type parameter that ensures
-`rev` is polymorphic. OCaml also has [a similar syntax][ocaml-poly] for
-ensuring the well-typedness of a polymorphic function, but while expliciting
-the polymorphic type parameters might be optional in OCaml, it is
-not in Ur/Web.
 
 Quoting from the [tutorial](http://www.impredicative.com/ur/tutorial/intro.html):
 
@@ -88,7 +92,7 @@ val mp : a ::: Type -> b ::: Type -> (a -> b) -> list a -> list b
 the signature.
 
 Interestingly, we can write a function so that the type parameter has to be
-passed **explicitly** by replacing the triple colon (`:::`) with a double colon
+passed *explicitly* by replacing the triple colon (`:::`) with a double colon
 (`::`):
 
 ```ur
@@ -108,9 +112,9 @@ we'll see later you'll have to be explicit and use the double colon.
 
 # Basics of type constructors
 
-At this point I should introduce type constructors, because they can do
-a lot more than those in other languages. Open up `json.ur` (not `json.urs`)
-and the first thing you'll see will be this:
+At this point I should introduce Ur/Web's type constructors, because they're
+a lot more powerful than those in most other languages. Open up `json.ur`
+(not `json.urs`) and the first thing you'll see will be this:
 
 ```ur
 con json a = {ToJson : a -> string,
@@ -127,17 +131,18 @@ The `json` type constructor is simply a record with an encoder function which
 takes an `a` and returns a JSON string, and a decoder function which takes a
 JSON string and returns an `a` and the remaining JSON string.
 
-Remember what I said earlier about unifying function application and type
-constructor application? As it turns out, **type constructors are actually
-type-level functions**, and the purpose of this unification is just to make
-this similarity more apparent.
+Remember that thing earlier about unifying function application and type
+constructor application syntax? The two are actually very closely related:
+just as normal functions are functions from values to values, type constructors
+can be thought of as **type-level functions from types to types**, and the
+purpose of this unification is just to make the similarity more apparent.
 
-This insight will not net you much in OCaml or SML because type constructors
+This insight might not net you much in OCaml or SML because type constructors
 have a lot of limitations compared to functions: they can't be curried, and
-you can perform very few operations on them.
+you can perform very few operations inside them.
 
-Ur/Web's type constructors don't have these limitations. In fact, the `json`
-declaration above is actually syntactic sugar for a type-level function:
+Ur/Web's type constructors are much more interesting. The `json` declaration
+above is actually syntactic sugar for a type-level function:
 
 ```ur
 con json = fn (a :: Type) =>
@@ -194,8 +199,8 @@ implementation isn't specified in its signature so that only the underlying
 module can access it. If you don't know what that is, you can think of it as an
 opaque pointer in C.
 
-In this case we can't look at its implementation because `Basis` is implemented
-in C, but it would look somewhat like this:
+In this case we can't look at its actual implementation because `Basis` is
+implemented directly in C, but it would look somewhat like this:
 
 ```ur
 con eq t = t -> t -> bool
@@ -205,8 +210,8 @@ So now we should have all the pieces to understand the `eq` function above.
 Or do we?
 
 If you were to define your own `eq` constructor and your own `eq` function,
-you'd always have to pass a function of type `eq t` as first argument (also
-called *witness*):
+you'd always have to pass a function of type `eq t` as first argument.
+(This kind of function can also be called **witness**.)
 
 ```ur
 con eq' t = t -> t -> bool
@@ -223,9 +228,12 @@ fun eq'_bool (a : bool) (b : bool) =
 val test = eq' eq'_bool True False
 ```
 
+But if we were to do the same with eq, we would get a compiler error.
+
 Turns out that the `eq` function is just the desugared name of the `=`
-operator, and we used it above without having to worry about the witness
-function. This is where the `class` keyword comes into play.
+operator, and as we've seen above, we can use it transparently without having
+to worry about the witness function.
+This is where the `class` keyword comes into play.
 
 When we mark `eq` with the `class` keyword in a signature file, the compiler
 will automatically search for a fitting implementation of `eq t` every time we
@@ -238,33 +246,52 @@ This is its signature:
 val eq : a ::: Type -> eq a -> eq (option a)
 ```
 
-This should be straightforward by now. But how is it implemented?
+This should be straightforward by now. `Option.eq` implicitly takes a witness
+of `eq a` and maps it to the value stored inside the option, if any. Let's take
+a look at its implementation.
 
 ```ur
-fun eq [a] (_ : eq a) = ...
+fun eq [a] (_ : eq a) =
+    mkEq (fn x y =>
+             case (x, y) of
+                 (None, None) => True
+               | (Some x, Some y) => x = y
+               | _ => False)
 ```
 
-Even though we might not actually use the witness function, Ur/Web still
-requires us to specify it in the implementation, hence the wildcard. This
-argument can also be called a **constraint** on `a`.
+The wildcard corresponds to the witness argument, even though the function
+doesn't use it directly. In a way, the witness argument is just there to
+**constrain** the types we can call `Option.eq` with to those for which there
+exists an implementation of `eq`.
 
-Now the error message should make sense: the compiler is telling us that the
-`=` function has a constraint of type `eq {A : int}` on its arguments, so we
-need to implement `eq` for `{A : int}`. Since `eq` is an opaque type, we need
-to use the `mkEq` function to do this.
+Now the error message should make sense: the compiler is telling us that this
+invocation of `=`, which desugars to `eq`, has a constraint of type
+`eq {A : int}` on its arguments, so we need to implement a witness of `eq`
+for `{A : int}`. We'll have to use the `mkEq` function to do this.
 
 ```ur
 val eq_a_int = mkEq
   (fn (a : {A : int}) (b : {B : int}) =>
     a.A = b.A)
 
+(* this will compile now *)
 val ok = { A = 1 } = { A = 1 }
 ```
 
+# To be continued...
 
+This post is getting pretty long, so I'll wrap it up here for this week.
+If you already knew most of the things I covered here, don't worry, the next
+one is gonna cover some of the most foreign parts of the type system.
+
+Watch this space for part 2! (I promise I'll implement an RSS feed soon.)
+In the meantime, you might want to brush up on [monads][ocaml-monad],
+or take a look at the more dense [official tutorial][ur-tutorial].
 
 [stdlib]: https://github.com/urweb/urweb/tree/master/lib/ur
 [reason-params]: https://reasonml.github.io/docs/en/comparison-to-ocaml#type-parameters
 [ocaml-poly]: https://blog.janestreet.com/ensuring-that-a-function-is-polymorphic-in-ocaml-3-12/
 [ocaml-eq]: https://blog.janestreet.com/the-perils-of-polymorphic-compare/
 [ocaml-abstract]: https://caml.inria.fr/pub/docs/manual-ocaml/moduleexamples.html#sec20
+[ur-tutorial]: http://impredicative.com/ur/tutorial/
+[ocaml-monad]: http://blog.haberkucharsky.com/technology/2015/07/21/more-monads-in-ocaml.html
