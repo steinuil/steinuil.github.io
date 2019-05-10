@@ -332,26 +332,15 @@
 (define about-page
   (page 'about page-infos "steenuil's page"
         '((div ([class "text"])
-               (p "I welcome you to my humble abode. "
-                  "Make yourself comfortable. Have a link, if you'd like."))
+               (p "The steenuil (Athene noctua) is a bird that inhabits "
+                  "a small town in " (strong "Italy") " not too far from the Alps. "
+                  "This owl is a member of the typical or true owl family, "
+                  (strong "programmers") ", which contains most species of owl."))
+          (header ([class "heading"]) "External links")
           (div ([class "table"])
                (div "github")  (div (a ([href "https://github.com/steinuil"]) "github.com/steinuil"))
                (div "twitter") (div (a ([href "https://twitter.com/steinuil"]) "@steinuil"))
-               (div "email")   (div (a ([href "mailto:steenuil.owl@gmail.com"]) "steenuil.owl@gmail.com")))
-          (div ([class "text"])
-               (p "I go by the name of " (strong "steenuil") ". "
-                  "You might recognize it as the dutch name of the "
-                  (a ([href "https://en.wikipedia.org/wiki/Athene_noctua"]) "Athene Noctua")
-                  ", also known as the " (em "little owl") " in english.")
-               (p "I write software every now and then, "
-                  "most of which could be classified as "
-                  (a ([href "http://catb.org/jargon/html/Y/yak-shaving.html"]) "yak shaving")
-                  " around small issues I have with the programs I use every day.")
-               (p "I like revisiting old things using new tools, "
-                  "so I often end up spelunking through old, semi-abandoned codebases as research. "
-                  "Sometimes I even try to get them working again.")
-               (p "I currently dwell in " (strong "Italy") ", not too far from the Alps. "
-                  "I speak English and Italian, and I know enough French to get by.")))))
+               (div "email")   (div (a ([href "mailto:steenuil.owl@gmail.com"]) "steenuil.owl@gmail.com"))))))
 
 
 (define blog-posts
@@ -390,7 +379,11 @@
          #:date (pdate 2019 1 7)
          #:id "urweb-sig"
          #:tags '(programming urweb)
-         #:series "Ur/Web")))
+         #:series "Ur/Web")
+   (post "A data-fetching component in React"
+         #:date (pdate 2019 5 10)
+         #:id "data-fetching-react"
+         #:tags '(programming typescript react))))
 
 
 (define blog-index

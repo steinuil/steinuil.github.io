@@ -1,0 +1,103 @@
+<html><head><title>A data-fetching component in React</title><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" /><link rel="stylesheet" href="/assets/style.css" type="text/css" /><link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS feed" /><link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Atom feed" /></head><body id="blog-post-page"><div class="body-container"><header><nav><ul><li><a href="/molten-matter/">Molten Matter</a></li><li><a href="/">About</a></li><li><a href="/legal/">Legal</a></li></ul></nav></header><main><header><div class="post-title">A data-fetching component in React</div> <time datetime="2019-05-10">2019/05/10</time></header><div class="text"><p>Remember last year&rsquo;s <a href="https://www.youtube.com/watch?v=6g3g0Q_XVb4">talk</a> about Suspense by Dan Abramov? I was still mostly learning React when that was uploaded to youtube, and seeing him talk about just this issue and presenting this magic API that seemed to solve it without much effort got me really hooked. But then <a href="https://reactjs.org/docs/code-splitting.html#suspense">Suspense</a> actually comes out and (even an year later) it&rsquo;s just about code splitting. What gives?</p><p>Fast forward one year, I was refactoring parts of a smallish React app and taking the opportunity to learn hooks, and I noticed I had a lot of components that shared roughly this structure (plus some unrelated UI state sprinkled in for good measure):</p></div><pre class="brush: typescript"><code>class CookieCutter extends React.Component {
+  state = {
+    hasLoaded: false,
+    data: null,
+  };
+
+  componentDidMount() {
+    this.props.fetchData().then((data) =&gt; {
+      this.setState({
+        hasLoaded: true,
+        data,
+      });
+    });
+  }
+
+  render() {
+    const { hasLoaded, data } = this.state;
+
+    return hasLoaded ? (
+      &lt;div&gt;{data}&lt;/div&gt;
+    ) : (
+      &lt;div&gt;Loading...&lt;/div&gt;
+    );
+  }
+}</code></pre><div class="text"><p>And since I had just spent all day decomposing old monstrous class components and otherwise wasting time polishing parts of the app like an art project, I started thinking about how I could extract this pattern so it would look like the vague memory I had of Suspense. For reference, this (part of) Suspense&rsquo;s API:</p></div><pre class="brush: typescript"><code>&lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
+  &lt;NewComfort /&gt;
+&lt;/Suspense&gt;</code></pre><div class="text"><p>Something kind of bothers me about this API: where&rsquo;s the data? How does <code>Suspense</code> know that whatever data <code>NewComfort</code> needs has finished loading? It looks like the data flows downwards from <code>NewComfort</code>, but also upwards towards <code>Suspense</code>? I guess I&rsquo;m just not used to this stuff, but I thought it&rsquo;d be better to be a bit more explicit, even if it increased verbosity. I&rsquo;m also not a huge fan of higher-order components, so instead I decided to rely on the good old trick of <a href="https://reactjs.org/docs/render-props.html">render props</a>.</p></div><pre class="brush: typescript"><code>&lt;LazyLoaded provider={fetchData} fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
+  {(data) =&gt; (
+    &lt;ChocolateMatter data={data} /&gt;
+  )}
+&lt;/LazyLoaded&gt;</code></pre><div class="text"><p><code>LazyLoaded</code> is probably not a very good name, but I decided to go with that. I was still on the hooks hype train so I went out of my way to implement it using hooks:</p></div><pre class="brush: typescript"><code>interface Props&lt;T&gt; {
+  provider: () =&gt; Promise&lt;T&gt;;
+  fallback?: JSX.Element;
+  children: (data: T) =&gt; JSX.Element | null;
+}
+
+export function LazyLoaded&lt;T&gt;({ provider, fallback, children }: Props&lt;T&gt;) {
+  const [data, setData] = React.useState&lt;T | null&gt;(null);
+
+  React.useLayoutEffect(() =&gt; {
+    setData(null);
+    provider().then((data) =&gt; {
+      setData(data);
+    });
+  }, [provider]);
+
+  return data ? children(data) : fallback || null;
+}</code></pre><div class="text"><p>And this worked well enough. At first I implemented it using <code>useEffect</code>, but I noticed that <code>useLayoutEffect</code> would actually skip the split-second load that occurred when the <code>provider</code> resolved immediately if the data was already in the cache.</p><p>But there&rsquo;s a big issue with this implementation. Do you see it? I didn&rsquo;t until I actually tested the component on the real page. Consider this:</p></div><pre class="brush: typescript"><code>const Main = ({ cache }) =&gt; {
+  const [page, setPage] = React.useState&lt;'VELOCITY' | 'DESIGN' | 'COMFORT'&gt;('VELOCITY');
+
+  return (
+    &lt;div&gt;
+      {page === 'VELOCITY' ? (
+        &lt;LazyLoaded provider={cache.getTekka} fallback={&lt;div&gt;Loading tekka...&lt;/div&gt;}&gt;
+          {(data) =&gt; (
+            &lt;Velocity data={data} setPage={setPage} /&gt;
+          )}
+        &lt;/LazyLoaded&gt;
+      ) : page === 'DESIGN' ? (
+        &lt;LazyLoaded provider={cache.getDsco} fallback={&lt;div&gt;Loading dsco...&lt;/div&gt;}&gt;
+          {(data) =&gt; (
+            &lt;Design data={data} setPage={setPage} /&gt;
+          )}
+        &lt;/LazyLoaded&gt;
+      ) : (
+        &lt;Comfort setPage={setPage} /&gt;
+      )}
+    &lt;/div&gt;
+  );
+};</code></pre><div class="text"><p>We land on<code>'VELOCITY'</code> and switch to &rsquo;<code>COMFORT'</code> and then to <code>'DESIGN'</code> and everything is good. But then from <code>'DESIGN'</code> we switch the page back to <code>'VELOCITY'</code> and everything breaks. What just happened?</p><p>To understand this, you should know a bit about what React calls <a href="https://reactjs.org/docs/reconciliation.html">reconciliation</a>. To ensure that the whole page isn&rsquo;t unmounted and remounted every time something changes, React will look at the component tree and do some diffing to make sure that only what actually needs to be updated will be.</p><p>In particular, React will look at the &ldquo;type&rdquo; of component, and if it remains the same between two updates it will avoid unmounting and remounting it. In this case this is pretty bad news, because when we switch between the two pages above that have a LazyLoaded component at the same level of the render tree, <code>LazyLoaded</code> will not <em>not</em> get unmounted. In the first paint we end up with an invalid state in which the <code>children</code> function is the new one from <code>'VELOCITY'</code>, but the <code>data</code> is the old one we fetched in <code>'DESIGN'</code>.</p><p>So how do we fix it? The first and dumbest thing that came into mind was make sure that <code>LazyLoaded</code> is unmounted whenever we change the page. React provides a default prop on all components that just about does this this called <code>key</code>.</p></div><pre class="brush: typescript"><code>page === 'VELOCITY' ? (
+  &lt;LazyLoaded key="VELOCITY" provider={cache.getTekka} fallback={&lt;div&gt;Loading tekka...&lt;/div&gt;}&gt;
+    {(data) =&gt; (
+      &lt;Velocity data={data} setPage={setPage} /&gt;
+    )}
+  &lt;/LazyLoaded&gt;
+) : page === 'DESIGN' ? (
+  &lt;LazyLoaded key="DESIGN" provider={cache.getDsco} fallback={&lt;div&gt;Loading dsco...&lt;/div&gt;}&gt;
+    {(data) =&gt; (
+      &lt;Design data={data} setPage={setPage} /&gt;
+    )}
+  &lt;/LazyLoaded&gt;
+) : (
+  &lt;Comfort setPage={setPage} /&gt;
+)</code></pre><div class="text"><p>By making <code>key</code> required in <code>LazyLoaded</code>&rsquo;s prop type and adding a threatening doc comment I more or less ensured that users of this component would always add a &ldquo;reasonably unique&rdquo; <code>key</code> for the part of the render tree <code>LazyLoaded</code> would be used in. And this worked well and things were good.</p><p>It&rsquo;s kind of a hack though, so the other day I came back to this component and deleted both the key from the prop type and the threatening comment. Considering the relationship between all the bits that form the state of the component, it becomes obvious that a certain <code>data</code> can only be associated with the <code>children</code> function from the render from which we also got the data&rsquo;s <code>provider</code>. With that in mind, we should modify the component a bit:</p></div><pre class="brush: typescript"><code>interface State&lt;T&gt; {
+  data: T;
+  childrenSync: (data: T) =&gt; JSX.Element | null;
+}
+
+export function LazyLoaded&lt;T&gt;({ provider, fallback, children }: Props&lt;T&gt;) {
+  const [state, setState] = React.useState&lt;State&lt;T&gt; | null&gt;(null);
+
+  React.useLayoutEffect(() =&gt; {
+    setState(null);
+    provider().then((data) =&gt; {
+      setState({
+        data,
+        childrenSync: children,
+      });
+    });
+  }, [provider]);
+
+  return state ? state.childrenSync(state.data) : fallback || &lt;Loading /&gt;;
+}</code></pre><div class="text"><p>Remember that, being a closure, the useLayoutEffect callback will capture the value of <code>children</code> at the time it is defined, so since we defined our types correctly we can be sure that the value returned from the <code>provider</code> will always match the one expected from the <code>children</code>.</p><p>And now everything is good again. (The error handling and cancellation in this component are left as an exercise to the reader.)</p><p>I really like this pattern, but I haven&rsquo;t found anything similar to it online when I searched. Maybe I&rsquo;m just looking in the wrong places? Or maybe other people that came up with this thought it was too simple to warrant writing about it? Nevertheless, I thought it was worth sharing because it&rsquo;s nice and presented a problem with a non-obvious solution, unless you&rsquo;re familiar with some of React&rsquo;s internal workings. Maybe somebody will get a kick out of this.</p></div></main><footer>this web sight made with <a href="https://racket-lang.org/">Racket</a>.</footer></div></body></html>
