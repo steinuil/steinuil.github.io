@@ -24,7 +24,10 @@
   }
 }</code></pre><div class="text"><p>And since I had just spent all day decomposing old monstrous class components and otherwise wasting time polishing parts of the app like an art project, I started thinking about how I could extract this pattern so it would look like the vague memory I had of Suspense. For reference, this (part of) Suspense&rsquo;s API:</p></div><pre class="brush: typescript"><code>&lt;Suspense fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
   &lt;NewComfort /&gt;
-&lt;/Suspense&gt;</code></pre><div class="text"><p>Something kind of bothers me about this API: where&rsquo;s the data? How does <code>Suspense</code> know that whatever data <code>NewComfort</code> needs has finished loading? It looks like the data flows downwards from <code>NewComfort</code>, but also upwards towards <code>Suspense</code>? I guess I&rsquo;m just not used to this stuff, but I thought it&rsquo;d be better to be a bit more explicit, even if it increased verbosity. I&rsquo;m also not a huge fan of higher-order components, so instead I decided to rely on the good old trick of <a href="https://reactjs.org/docs/render-props.html">render props</a>.</p></div><pre class="brush: typescript"><code>&lt;LazyLoaded provider={fetchData} fallback={&lt;div&gt;Loading...&lt;/div&gt;}&gt;
+&lt;/Suspense&gt;</code></pre><div class="text"><p>Something kind of bothers me about this API: where&rsquo;s the data? How does <code>Suspense</code> know that whatever data <code>NewComfort</code> needs has finished loading? It looks like the data flows downwards from <code>NewComfort</code>, but also upwards towards <code>Suspense</code>? I guess I&rsquo;m just not used to this stuff, but I thought it&rsquo;d be better to be a bit more explicit, even if it increased verbosity. I&rsquo;m also not a huge fan of higher-order components, so instead I decided to rely on the good old trick of <a href="https://reactjs.org/docs/render-props.html">render props</a>.</p></div><pre class="brush: typescript"><code>&lt;LazyLoaded
+  provider={fetchData}
+  fallback={&lt;div&gt;Loading...&lt;/div&gt;}
+&gt;
   {(data) =&gt; (
     &lt;ChocolateMatter data={data} /&gt;
   )}
@@ -34,7 +37,11 @@
   children: (data: T) =&gt; JSX.Element | null;
 }
 
-export function LazyLoaded&lt;T&gt;({ provider, fallback, children }: Props&lt;T&gt;) {
+export function LazyLoaded&lt;T&gt;({
+  provider,
+  fallback,
+  children
+}: Props&lt;T&gt;) {
   const [data, setData] = React.useState&lt;T | null&gt;(null);
 
   React.useLayoutEffect(() =&gt; {
@@ -45,19 +52,27 @@ export function LazyLoaded&lt;T&gt;({ provider, fallback, children }: Props&lt;T
   }, [provider]);
 
   return data ? children(data) : fallback || null;
-}</code></pre><div class="text"><p>And this worked well enough. At first I implemented it using <code>useEffect</code>, but I noticed that <code>useLayoutEffect</code> would actually skip the split-second load that occurred when the <code>provider</code> resolved immediately if the data was already in the cache.</p><p>But there&rsquo;s a big issue with this implementation. Do you see it? I didn&rsquo;t until I actually tested the component on the real page. Consider this:</p></div><pre class="brush: typescript"><code>const Main = ({ cache }) =&gt; {
-  const [page, setPage] = React.useState&lt;'VELOCITY' | 'DESIGN' | 'COMFORT'&gt;('VELOCITY');
+}</code></pre><div class="text"><p>And this worked well enough. At first I implemented it using <code>useEffect</code>, but I noticed that <code>useLayoutEffect</code> would actually skip the split-second load that occurred when the <code>provider</code> resolved immediately if the data was already in the cache.</p><p>But there&rsquo;s a big issue with this implementation. Do you see it? I didn&rsquo;t until I actually tested the component on the real page. Consider this:</p></div><pre class="brush: typescript"><code>type Page = 'VELOCITY' | 'DESIGN' | 'COMFORT';
+
+const Main = ({ cache }) =&gt; {
+  const [page, setPage] = React.useState&lt;Page&gt;('VELOCITY');
 
   return (
     &lt;div&gt;
       {page === 'VELOCITY' ? (
-        &lt;LazyLoaded provider={cache.getTekka} fallback={&lt;div&gt;Loading tekka...&lt;/div&gt;}&gt;
+        &lt;LazyLoaded
+          provider={cache.getTekka}
+          fallback={&lt;div&gt;Loading tekka...&lt;/div&gt;}
+        &gt;
           {(data) =&gt; (
             &lt;Velocity data={data} setPage={setPage} /&gt;
           )}
         &lt;/LazyLoaded&gt;
       ) : page === 'DESIGN' ? (
-        &lt;LazyLoaded provider={cache.getDsco} fallback={&lt;div&gt;Loading dsco...&lt;/div&gt;}&gt;
+        &lt;LazyLoaded
+          provider={cache.getDsco}
+          fallback={&lt;div&gt;Loading dsco...&lt;/div&gt;}
+        &gt;
           {(data) =&gt; (
             &lt;Design data={data} setPage={setPage} /&gt;
           )}
@@ -68,13 +83,21 @@ export function LazyLoaded&lt;T&gt;({ provider, fallback, children }: Props&lt;T
     &lt;/div&gt;
   );
 };</code></pre><div class="text"><p>We land on<code>'VELOCITY'</code> and switch to &rsquo;<code>COMFORT'</code> and then to <code>'DESIGN'</code> and everything is good. But then from <code>'DESIGN'</code> we switch the page back to <code>'VELOCITY'</code> and everything breaks. What just happened?</p><p>To understand this, you should know a bit about what React calls <a href="https://reactjs.org/docs/reconciliation.html">reconciliation</a>. To ensure that the whole page isn&rsquo;t unmounted and remounted every time something changes, React will look at the component tree and do some diffing to make sure that only what actually needs to be updated will be.</p><p>In particular, React will look at the &ldquo;type&rdquo; of component, and if it remains the same between two updates it will avoid unmounting and remounting it. In this case this is pretty bad news, because when we switch between the two pages above that have a LazyLoaded component at the same level of the render tree, <code>LazyLoaded</code> will not <em>not</em> get unmounted. In the first paint we end up with an invalid state in which the <code>children</code> function is the new one from <code>'VELOCITY'</code>, but the <code>data</code> is the old one we fetched in <code>'DESIGN'</code>.</p><p>So how do we fix it? The first and dumbest thing that came into mind was make sure that <code>LazyLoaded</code> is unmounted whenever we change the page. React provides a default prop on all components that just about does this this called <code>key</code>.</p></div><pre class="brush: typescript"><code>page === 'VELOCITY' ? (
-  &lt;LazyLoaded key="VELOCITY" provider={cache.getTekka} fallback={&lt;div&gt;Loading tekka...&lt;/div&gt;}&gt;
+  &lt;LazyLoaded
+    key="VELOCITY"
+    provider={cache.getTekka}
+    fallback={&lt;div&gt;Loading tekka...&lt;/div&gt;}
+  &gt;
     {(data) =&gt; (
       &lt;Velocity data={data} setPage={setPage} /&gt;
     )}
   &lt;/LazyLoaded&gt;
 ) : page === 'DESIGN' ? (
-  &lt;LazyLoaded key="DESIGN" provider={cache.getDsco} fallback={&lt;div&gt;Loading dsco...&lt;/div&gt;}&gt;
+  &lt;LazyLoaded
+    key="DESIGN"
+    provider={cache.getDsco}
+    fallback={&lt;div&gt;Loading dsco...&lt;/div&gt;}
+  &gt;
     {(data) =&gt; (
       &lt;Design data={data} setPage={setPage} /&gt;
     )}
@@ -86,8 +109,13 @@ export function LazyLoaded&lt;T&gt;({ provider, fallback, children }: Props&lt;T
   childrenSync: (data: T) =&gt; JSX.Element | null;
 }
 
-export function LazyLoaded&lt;T&gt;({ provider, fallback, children }: Props&lt;T&gt;) {
-  const [state, setState] = React.useState&lt;State&lt;T&gt; | null&gt;(null);
+export function LazyLoaded&lt;T&gt;({
+  provider,
+  fallback,
+  children
+}: Props&lt;T&gt;) {
+  const [state, setState] =
+    React.useState&lt;State&lt;T&gt; | null&gt;(null);
 
   React.useLayoutEffect(() =&gt; {
     setState(null);
@@ -99,5 +127,7 @@ export function LazyLoaded&lt;T&gt;({ provider, fallback, children }: Props&lt;T
     });
   }, [provider]);
 
-  return state ? state.childrenSync(state.data) : fallback || &lt;Loading /&gt;;
+  return state
+    ? state.childrenSync(state.data)
+    : fallback || &lt;Loading /&gt;;
 }</code></pre><div class="text"><p>Remember that, being a closure, the useLayoutEffect callback will capture the value of <code>children</code> at the time it is defined, so since we defined our types correctly we can be sure that the value returned from the <code>provider</code> will always match the one expected from the <code>children</code>.</p><p>And now everything is good again. (The error handling and cancellation in this component are left as an exercise to the reader.)</p><p>I really like this pattern, but I haven&rsquo;t found anything similar to it online when I searched. Maybe I&rsquo;m just looking in the wrong places? Or maybe other people that came up with this thought it was too simple to warrant writing about it? Nevertheless, I thought it was worth sharing because it&rsquo;s nice and presented a problem with a non-obvious solution, unless you&rsquo;re familiar with some of React&rsquo;s internal workings. Maybe somebody will get a kick out of this.</p></div></main><footer>this web sight made with <a href="https://racket-lang.org/">Racket</a>.</footer></div></body></html>

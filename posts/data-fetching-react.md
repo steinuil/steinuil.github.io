@@ -59,7 +59,10 @@ I'm also not a huge fan of higher-order components, so instead I decided to
 rely on the good old trick of [render props][render-props].
 
 ```typescript
-<LazyLoaded provider={fetchData} fallback={<div>Loading...</div>}>
+<LazyLoaded
+  provider={fetchData}
+  fallback={<div>Loading...</div>}
+>
   {(data) => (
     <ChocolateMatter data={data} />
   )}
@@ -77,7 +80,11 @@ interface Props<T> {
   children: (data: T) => JSX.Element | null;
 }
 
-export function LazyLoaded<T>({ provider, fallback, children }: Props<T>) {
+export function LazyLoaded<T>({
+  provider,
+  fallback,
+  children
+}: Props<T>) {
   const [data, setData] = React.useState<T | null>(null);
 
   React.useLayoutEffect(() => {
@@ -100,19 +107,27 @@ But there's a big issue with this implementation. Do you see it? I didn't until
 I actually tested the component on the real page. Consider this:
 
 ```typescript
+type Page = 'VELOCITY' | 'DESIGN' | 'COMFORT';
+
 const Main = ({ cache }) => {
-  const [page, setPage] = React.useState<'VELOCITY' | 'DESIGN' | 'COMFORT'>('VELOCITY');
+  const [page, setPage] = React.useState<Page>('VELOCITY');
 
   return (
     <div>
       {page === 'VELOCITY' ? (
-        <LazyLoaded provider={cache.getTekka} fallback={<div>Loading tekka...</div>}>
+        <LazyLoaded
+          provider={cache.getTekka}
+          fallback={<div>Loading tekka...</div>}
+        >
           {(data) => (
             <Velocity data={data} setPage={setPage} />
           )}
         </LazyLoaded>
       ) : page === 'DESIGN' ? (
-        <LazyLoaded provider={cache.getDsco} fallback={<div>Loading dsco...</div>}>
+        <LazyLoaded
+          provider={cache.getDsco}
+          fallback={<div>Loading dsco...</div>}
+        >
           {(data) => (
             <Design data={data} setPage={setPage} />
           )}
@@ -150,13 +165,21 @@ called `key`.
 
 ```typescript
 page === 'VELOCITY' ? (
-  <LazyLoaded key="VELOCITY" provider={cache.getTekka} fallback={<div>Loading tekka...</div>}>
+  <LazyLoaded
+    key="VELOCITY"
+    provider={cache.getTekka}
+    fallback={<div>Loading tekka...</div>}
+  >
     {(data) => (
       <Velocity data={data} setPage={setPage} />
     )}
   </LazyLoaded>
 ) : page === 'DESIGN' ? (
-  <LazyLoaded key="DESIGN" provider={cache.getDsco} fallback={<div>Loading dsco...</div>}>
+  <LazyLoaded
+    key="DESIGN"
+    provider={cache.getDsco}
+    fallback={<div>Loading dsco...</div>}
+  >
     {(data) => (
       <Design data={data} setPage={setPage} />
     )}
@@ -184,8 +207,13 @@ interface State<T> {
   childrenSync: (data: T) => JSX.Element | null;
 }
 
-export function LazyLoaded<T>({ provider, fallback, children }: Props<T>) {
-  const [state, setState] = React.useState<State<T> | null>(null);
+export function LazyLoaded<T>({
+  provider,
+  fallback,
+  children
+}: Props<T>) {
+  const [state, setState] =
+    React.useState<State<T> | null>(null);
 
   React.useLayoutEffect(() => {
     setState(null);
@@ -197,7 +225,9 @@ export function LazyLoaded<T>({ provider, fallback, children }: Props<T>) {
     });
   }, [provider]);
 
-  return state ? state.childrenSync(state.data) : fallback || <Loading />;
+  return state
+    ? state.childrenSync(state.data)
+    : fallback || <Loading />;
 }
 ```
 
