@@ -151,7 +151,9 @@
            (header ,(navbar curr-page page-infos))
            (main ,@body)
            (footer
-            "this web sight made with " (a ([href "https://racket-lang.org/"])"Racket")".")))))
+            "made with " (a ([href "https://racket-lang.org/"])"racket")
+            " // " (a ([href "/rss.xml"]) "rss")
+            " // " (a ([href "/feed.xml"]) "atom"))))))
 
 (define (image width height src [src2x #f] #:description [description ""])
   `(figure
@@ -169,7 +171,10 @@
       (language "en-us")
       (generator "generator.rkt")
       #;(copyright "Copyright")
-      #;(description "desc")
+      (description "steenuil's blog")
+      (atom:link ([href"https://sgt.hootr.club/rss.xml"]
+                  [rel "self"]
+                  [type "application/rss+xml"]))
       ,@items))
 
   (make-document
@@ -178,7 +183,8 @@
     #f
     null)
    (xexpr->xml
-    `(rss ([version "2.0"])
+    `(rss ([version "2.0"]
+           [xmlns:atom "http://www.w3.org/2005/Atom"])
           (channel () ,@rss-info)))
    null))
 
@@ -211,6 +217,7 @@
     (title ,(blog-post-title post))
     (link  ,(string-append "https://sgt.hootr.club/molten-matter/" (blog-post-id post)))
     (author "steenuil.owl@gmail.com (steenuil)")
+    (guid ([isPermaLink "false"]) ,(post->atom-id post))
     (pubDate ,(pdate->rfc822 (blog-post-date post)))))
 
 (define (post->atom-entry post)
@@ -327,6 +334,7 @@
 (define page-infos
   (list (page-info 'blog "/molten-matter/" "Molten Matter")
         (page-info 'about "/" "About")
+        #;(page-info 'bookmarks "/bookmarks/" "Bookmarks")
         (page-info 'legal "/legal/" "Legal")))
 
 (define about-page
@@ -436,11 +444,16 @@
         `((header (div ([class "post-title"]) "Not found"))
           ,(image 700 394 "/assets/images/swap.jpg" "/assets/images/swap@2x.jpg"))))
 
+(define bookmarks-page
+  (page 'bookmarks page-infos "Bookmarks"
+        `((div ([class "text"])
+               (p "bookmarks")))))
+
 
 ;;;
 ;;; Generate the pages
 
-(for ([page (list blog-index about-page legal-page)]
+(for ([page (list blog-index about-page #;bookmarks-page legal-page)]
       [pinfo page-infos])
   (generate-page (page-info-url pinfo) page))
 
