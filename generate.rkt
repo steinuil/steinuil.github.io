@@ -152,8 +152,8 @@
            (main ,@body)
            (footer
             "made with " (a ([href "https://racket-lang.org/"])"racket")
-            " // " (a ([href "/rss.xml"]) "rss")
-            " // " (a ([href "/feed.xml"]) "atom"))))))
+            " :: " (a ([href "/rss.xml"]) "rss")
+            " :: " (a ([href "/feed.xml"]) "atom"))))))
 
 (define (image width height src [src2x #f] #:description [description ""])
   `(figure
@@ -322,7 +322,7 @@
              "Please don't repost it.")))
 
   (page 'blog-post page-infos (blog-post-title post)
-        `((header (div ([class "post-title"]) ,(blog-post-title post))
+        `((header (h1 ([class "post-title"]) ,(blog-post-title post))
                   " "
                   (time ([datetime ,(pdate->string pdate)]) ,(pdate->string pdate "/")))
           ,(if (blog-post-unlisted? post) unlisted-notice "")
@@ -391,7 +391,11 @@
    (post "A data-fetching component in React"
          #:date (pdate 2019 5 10)
          #:id "data-fetching-react"
-         #:tags '(programming typescript react))))
+         #:tags '(programming typescript react))
+   (post "A brief history of JAVAScript"
+          #:date (pdate 2019 8 30)
+          #:id "history-of-javas"
+          #:tags '(programming shitposting))))
 
 
 (define blog-index
@@ -443,6 +447,13 @@
   (page 'notfound page-infos "404"
         `((header (div ([class "post-title"]) "Not found"))
           ,(image 700 394 "/assets/images/swap.jpg" "/assets/images/swap@2x.jpg"))))
+
+(define bookmarks-list
+  '(("bugs" .
+     ("https://nedbatchelder.com/blog/200811/print_this_file_your_printer_will_jam.html"
+      "http://www.dkriesel.com/en/blog/2013/0802_xerox-workcentres_are_switching_written_numbers_when_scanning"
+      "https://bugs.launchpad.net/ubuntu/+source/cupsys/+bug/255161/comments/28"
+      "http://web.mit.edu/jemorris/humor/500-miles"))))
 
 (define bookmarks-page
   (page 'bookmarks page-infos "Bookmarks"
