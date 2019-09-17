@@ -13,7 +13,7 @@ interface Site {
 Our coworker Homer passes by and looks at our code.
 
 This is good enough, he might say, and we know he's wrong. We have a list of all the
-site names and supported locales ready to be used. What the hell is a string?, you ask him.
+site names and supported locales ready to be used. What the hell is a string?, we ask him.
 Is the empty string a valid site name? Is "dddsdsddddssddsdsd" a valid language?
 Is Wales a country? Does the pope shit in the woods?
 
@@ -56,7 +56,7 @@ type Site =
 ```
 
 Now we have an issue: if we were to add a new language, say "fr", we'd have to add it
-in two places, and too much typing is bad for your wrists. Let us reduce the risk
+in two places, and too much typing is bad for our wrists. Let us reduce the risk
 of carpal tunnel.
 
 ```typescript
@@ -150,7 +150,7 @@ parseSiteString("scylla|hr_HR"); // S<"scylla", "hr", "HR">
 
 The two assertions make us sick to the stomach, but after adding a few tests we feel better enough
 to move onwards. Seeing the function convert the string with 0 type information loss really is its
-own reward. A pleasure Homer will never understand.
+own reward.
 
 The reverse is a bit trickier, but fortunately the very nice [typelevel-ts](https://github.com/gcanti/typelevel-ts)
 library already has a similar type we can look up to help us on our journey to enlightenment, namely `KeysOfType`.
@@ -172,7 +172,7 @@ type _3 = StringOfSite<S<"scylla", "hr", "HR">>;
 // "scylla|it_IT" | "scylla|el_GR" | "scylla|hr_HR"
 ```
 
-But that only returns the `SiteString`s with the same name, you hear behind you.
+But that only returns the `SiteString`s with the same name, we hear a voice crying behind us.
 Patience, Homer. Design is an iterative process, and so let us iterate on the result
 of this first type with the other two parameters.
 
@@ -181,8 +181,8 @@ export type StringOfSite<S extends Site> = {
   [K in SiteString]: SiteOfString[K]["name"] extends S["name"]
     ? SiteOfString[K]["language"] extends S["language"]
       ? SiteOfString[K]["country"] extends S["country"]
-	    ? K
-		: never
+        ? K
+        : never
       : never
     : never
 }[SiteString];

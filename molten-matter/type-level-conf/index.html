@@ -2,7 +2,7 @@
   name: string;
   language: string;
   country: string;
-}</code></pre><div class="text"><p>Our coworker Homer passes by and looks at our code.</p><p>This is good enough, he might say, and we know he&rsquo;s wrong. We have a list of all the site names and supported locales ready to be used. What the hell is a string?, you ask him. Is the empty string a valid site name? Is &ldquo;dddsdsddddssddsdsd&rdquo; a valid language? Is Wales a country? Does the pope shit in the woods?</p></div><pre class="brush: typescript"><code>type SiteName = "scylla" | "charybdis";
+}</code></pre><div class="text"><p>Our coworker Homer passes by and looks at our code.</p><p>This is good enough, he might say, and we know he&rsquo;s wrong. We have a list of all the site names and supported locales ready to be used. What the hell is a string?, we ask him. Is the empty string a valid site name? Is &ldquo;dddsdsddddssddsdsd&rdquo; a valid language? Is Wales a country? Does the pope shit in the woods?</p></div><pre class="brush: typescript"><code>type SiteName = "scylla" | "charybdis";
 type Language = "it" | "de" | "el" | "hr";
 type Country = "IT" | "CH" | "GR" | "HR";
 
@@ -26,7 +26,7 @@ type Site =
   | S&lt;"scylla", "hr", "HR"&gt;
   | S&lt;"charybdis", "de", "CH"&gt;
   | S&lt;"charybdis", "it", "CH"&gt;
-  | S&lt;"charybdis", "hr", "HR"&gt;;</code></pre><div class="text"><p>Now we have an issue: if we were to add a new language, say &ldquo;fr&rdquo;, we&rsquo;d have to add it in two places, and too much typing is bad for your wrists. Let us reduce the risk of carpal tunnel.</p></div><pre class="brush: typescript"><code>interface S&lt;SiteName, Language, Country&gt; {
+  | S&lt;"charybdis", "hr", "HR"&gt;;</code></pre><div class="text"><p>Now we have an issue: if we were to add a new language, say &ldquo;fr&rdquo;, we&rsquo;d have to add it in two places, and too much typing is bad for our wrists. Let us reduce the risk of carpal tunnel.</p></div><pre class="brush: typescript"><code>interface S&lt;SiteName, Language, Country&gt; {
   name: SiteName;
   language: Language;
   country: Country;
@@ -73,17 +73,17 @@ type _2 = SiteOfString["scylla|hr_HR"]; // S&lt;"scylla", "hr", "HR"&gt;</code><
   return { name, language, country };
 };
 
-parseSiteString("scylla|hr_HR"); // S&lt;"scylla", "hr", "HR"&gt;</code></pre><div class="text"><p>The two assertions make us sick to the stomach, but after adding a few tests we feel better enough to move onwards. Seeing the function convert the string with 0 type information loss really is its own reward. A pleasure Homer will never understand.</p><p>The reverse is a bit trickier, but fortunately the very nice <a href="https://github.com/gcanti/typelevel-ts">typelevel-ts</a> library already has a similar type we can look up to help us on our journey to enlightenment, namely <code>KeysOfType</code>.</p></div><blockquote class="text"><p><code>KeysOfType</code>: Picks only the keys of a certain type</p></blockquote><pre><code>export type KeysOfType&lt;A extends object, B&gt; = { [K in keyof A]-?: A[K] extends B ? K : never }[keyof A]</code></pre><div class="text"><p>Let us adapt it for our use case.</p></div><pre class="brush: typescript"><code>export type StringOfSite&lt;S extends Site&gt; = {
+parseSiteString("scylla|hr_HR"); // S&lt;"scylla", "hr", "HR"&gt;</code></pre><div class="text"><p>The two assertions make us sick to the stomach, but after adding a few tests we feel better enough to move onwards. Seeing the function convert the string with 0 type information loss really is its own reward.</p><p>The reverse is a bit trickier, but fortunately the very nice <a href="https://github.com/gcanti/typelevel-ts">typelevel-ts</a> library already has a similar type we can look up to help us on our journey to enlightenment, namely <code>KeysOfType</code>.</p></div><blockquote class="text"><p><code>KeysOfType</code>: Picks only the keys of a certain type</p></blockquote><pre><code>export type KeysOfType&lt;A extends object, B&gt; = { [K in keyof A]-?: A[K] extends B ? K : never }[keyof A]</code></pre><div class="text"><p>Let us adapt it for our use case.</p></div><pre class="brush: typescript"><code>export type StringOfSite&lt;S extends Site&gt; = {
   [K in SiteString]: SiteOfString[K]["name"] extends S["name"] ? K : never
 }[SiteString];
 
 type _3 = StringOfSite&lt;S&lt;"scylla", "hr", "HR"&gt;&gt;;
-// "scylla|it_IT" | "scylla|el_GR" | "scylla|hr_HR"</code></pre><div class="text"><p>But that only returns the <code>SiteString</code>s with the same name, you hear behind you. Patience, Homer. Design is an iterative process, and so let us iterate on the result of this first type with the other two parameters.</p></div><pre class="brush: typescript"><code>export type StringOfSite&lt;S extends Site&gt; = {
+// "scylla|it_IT" | "scylla|el_GR" | "scylla|hr_HR"</code></pre><div class="text"><p>But that only returns the <code>SiteString</code>s with the same name, we hear a voice crying behind us. Patience, Homer. Design is an iterative process, and so let us iterate on the result of this first type with the other two parameters.</p></div><pre class="brush: typescript"><code>export type StringOfSite&lt;S extends Site&gt; = {
   [K in SiteString]: SiteOfString[K]["name"] extends S["name"]
     ? SiteOfString[K]["language"] extends S["language"]
       ? SiteOfString[K]["country"] extends S["country"]
-	    ? K
-		: never
+        ? K
+        : never
       : never
     : never
 }[SiteString];
