@@ -395,7 +395,11 @@
    (post "A brief history of JAVAScript"
           #:date (pdate 2019 8 30)
           #:id "history-of-javas"
-          #:tags '(programming shitposting))))
+          #:tags '(programming shitposting))
+   (post "Config constraints in the type system where they belong"
+         #:date (pdate 2019 9 17)
+         #:id "type-level-conf"
+         #:tags '(programming typescript))))
 
 
 (define blog-index

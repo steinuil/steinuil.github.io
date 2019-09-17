@@ -1,4 +1,5 @@
-# Review
+It's been a while since the last post, so I'd say a review of the stuff we
+covered in the last part is in order. This is `List.mapM`:
 
 ```urs
 val mapM :
@@ -17,4 +18,4 @@ is simply the type of the function.
 
 # Names and Records
 
-Record field names are a special case in Ur/Web's type system
+While normal types are of kind `Type`, record field names are a
