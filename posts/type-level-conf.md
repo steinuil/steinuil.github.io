@@ -1,5 +1,3 @@
-# Configuration permutations in the type system where they belong
-
 Suppose we're maintaining a frontend application. This application has to work
 across different sites, each identified by a triplet of name, language and country.
 Let us have a type for that.
