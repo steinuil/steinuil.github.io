@@ -250,6 +250,10 @@ pre > code {
   padding: 0;
 }
 
+hr {
+  border-bottom: 3px dotted #ddd;
+}
+
 main > header > .post-title,
 main > header.heading {
   font-family: "Archivo Black", sans-serif;
