@@ -1,0 +1,48 @@
+<html><head><title>Thoughts on Suspense for data fetching</title><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" /><link rel="stylesheet" href="/assets/style.css" type="text/css" /><link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS feed" /><link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Atom feed" /></head><body id="blog-post-page"><div class="body-container"><header><nav><ul><li><a href="/molten-matter/">Molten Matter</a></li><li><a href="/">About</a></li><li><a href="/legal/">Legal</a></li></ul></nav></header><main><header><h1 class="post-title">Thoughts on Suspense for data fetching</h1> <time datetime="2019-10-30">2019/10/30</time></header><div class="text"><p>React&rsquo;s <a href="https://reactjs.org/docs/concurrent-mode-intro.html">Concurrent Mode</a> has finally landed in React&rsquo;s experimental builds, and it just so happens that I have to start writing this new app at work to be used internally, so what better way to get my hands dirty with this new shiny stuff!</p><p><a href="/molten-matter/data-fetching-react/">In another post</a> I expressed some disconcert at what little I remembered of Suspense&rsquo;s API (kinda missed that .read() thingy in the fetch request), and that&hellip; is still there after seeing the full API. I think you&rsquo;ll see what I mean.</p></div><header class="heading" id="exceptions-for-control-flow">Exceptions for control flow</header><div class="text"><p>I happen to have here a sort of minimal working example of &ldquo;Suspense for data fetching&rdquo;.</p></div><pre class="brush: typescript"><code>const Hello = ({ resource }) =&gt; (
+  &lt;span&gt;Hello {resource()}&lt;/span&gt;
+);
+
+const SuspendTest = () =&gt; {
+  const resource = suspendPromise(async () =&gt; {
+    await sleep(3000);
+    return "from inside a shell";
+  });
+
+  return (
+    &lt;Suspense fallback="loading..."&gt;
+      &lt;Hello resource={resource} /&gt;
+    &lt;/Suspense&gt;
+  );
+};</code></pre><ul><li>This will display &ldquo;loading&hellip;&rdquo; for 3 seconds and then show &ldquo;Hello from inside a shell&rdquo;</li><li><code>sleep</code> is <code>(ms) =&gt; new Promise((resolve) =&gt; setTimeout(resolve, ms))</code></li><li>We&rsquo;ll call &ldquo;resource&rdquo; the thing that provides our <code>Hello</code> component with the data it needs to render</li></ul><div class="text"><p>The resource is clearly a promise but you don&rsquo;t have to await it; you just call it as if you already had the data inside it. How the hell does this work? The title of this section kinda spoiled it, but here it is anyway:</p></div><pre class="brush: typescript"><code>export function suspendPromise&lt;T&gt;(thunk: () =&gt; Promise&lt;T&gt;) {
+  let state = { status: "PENDING" };
+
+  const pendingPromise = (async () =&gt; {
+    try {
+      state = { status: "SUCCESS", data: await thunk() };
+    } catch (e) {
+      state = { status: "ERROR", error: e };
+    }
+  })();
+
+  return () =&gt; {
+    switch (state.status) {
+      case "PENDING":
+        throw pendingPromise;
+      case "ERROR":
+        throw state.error;
+      case "SUCCESS":
+        return state.data;
+    }
+  };
+}</code></pre><div class="text"><p>It fires the promise and then returns a function that will fetch the data, if it&rsquo;s available. And if it&rsquo;s not, it just <em>throws the promise</em>. That&rsquo;s it, that&rsquo;s the magic. <code>Suspense</code> then will act like an <a href="https://reactjs.org/docs/error-boundaries.html">error boundary</a> and catch the promise and then do whatever it is that it does to promises. Presumably await them and then retry with the rendering roughly when they&rsquo;re done.</p><p>This is the part where I pretend to know what algebraic effects are and say, gosh, this looks a lot like algebraic effects.</p><p>I grew to like fetching in useEffect, but I won&rsquo;t deny it&rsquo;s always looked a bit awkward, so I&rsquo;m glad this deprecates it. I&rsquo;m also glad this makes the API synchronous, because it means that error boundaries are finally useful. To be frank, I haven&rsquo;t implemented error handling in the data-fetching component I use in another app because if the request returns an error it can only mean the server is down, and that&rsquo;s a scenario I don&rsquo;t really want to entertain. That and the API wouldn&rsquo;t make it very pleasant to deal with errors.</p><p>I don&rsquo;t know what to make of <code>useTransition</code> yet, but I think I&rsquo;ll write another post about it when I figure it out. This is just a braindump of what I gathered so far.</p></div><header class="heading" id="another-thought">Another thought</header><div class="text"><p>One thing I&rsquo;ve learnt is that you <em>have</em> to read from the resource in a different component than the one you use <code>Suspense</code> in, so you can&rsquo;t inline Hello into SuspendTest.</p></div><pre class="brush: typescript"><code>const SuspendTest = () =&gt; {
+  const resource = suspendPromise(async () =&gt; {
+    await sleep(3000);
+    return "from inside a shell";
+  });
+
+  return (
+    &lt;Suspense fallback="loading..."&gt;
+      &lt;span&gt;Hello {resource()}&lt;/span&gt; // Bad!
+    &lt;/Suspense&gt;
+  );
+};</code></pre><div class="text"><p>And I&rsquo;m wondering how they will enforce this. Probably just with some error messages and a slap on the wrist like &ldquo;the rules of hooks&rdquo;.</p></div></main><footer>made with <a href="https://racket-lang.org/">racket</a> :: <a href="/rss.xml">rss</a> :: <a href="/feed.xml">atom</a></footer></div></body></html>

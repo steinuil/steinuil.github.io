@@ -399,7 +399,11 @@
    (post "Config constraints in the type system where they belong"
          #:date (pdate 2019 9 17)
          #:id "type-level-conf"
-         #:tags '(programming typescript))))
+         #:tags '(programming typescript))
+   (post "Thoughts on Suspense for data fetching"
+         #:date (pdate 2019 10 30)
+         #:id "thoughts-on-suspense"
+         #:tags '(programming typescript react))))
 
 
 (define blog-index
