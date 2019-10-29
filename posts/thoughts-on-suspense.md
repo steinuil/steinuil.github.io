@@ -104,3 +104,7 @@ const SuspendTest = () => {
 
 And I'm wondering how they will enforce this. Probably just with some error messages and
 a slap on the wrist like "the rules of hooks".
+
+---
+
+The full code for this post is available on [CodeSandbox](https://codesandbox.io/s/modest-rosalind-xdpgx).
