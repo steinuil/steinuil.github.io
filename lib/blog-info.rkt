@@ -1,12 +1,16 @@
 #lang racket
 
 
-(struct blog-info
+(provide (struct-out blog))
+
+
+(struct blog
   (title
-   blog-url
+   url
    rss-url
    atom-url
    author-name
    author-email
    language
-   description))
+   description)
+  #:constructor-name blog-info)
