@@ -1,9 +1,6 @@
 #lang racket/base
 
 
-(require racket/date)
-
-
 (provide pdate->string
          pdate>?
          pdate->rfc822
@@ -13,6 +10,9 @@
          post
          blog-post->atom-id
          blog-post>?)
+
+
+(require racket/date)
 
 
 (struct pdate

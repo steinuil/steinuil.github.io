@@ -1,12 +1,12 @@
 #lang racket/base
 
 
+(provide blog->atom-feed)
+
+
 (require xml
          "./blog-post.rkt"
          "./blog-info.rkt")
-
-
-(provide blog->atom-feed)
 
 
 (define (blog-post->atom-entry info post)
@@ -23,19 +23,20 @@
 
 
 (define (blog->atom-info info posts)
-  `([title ([type "text"]) ,(blog-title info)]
-    [id ,(blog-url info)]
-    [link ([rel "alternate"]
-           [type "text/html"]
-           [href ,(blog-url info)])]
-    [link ([rel "self"]
-           [type "application/atom+xml"]
-           [href ,(blog-atom-url info)])]
-    [updated ,(now->rfc3339)]
-    [generator "generator.rkt"]
-    ,@(for/list ([post (sort posts blog-post>?)]
-                 #:unless (blog-post-unlisted? post))
-        (blog-post->atom-entry info post))))
+  `(feed ([xmlns "http://www.w3.org/2005/Atom"])
+         [title ([type "text"]) ,(blog-title info)]
+         [id ,(blog-url info)]
+         [link ([rel "alternate"]
+                [type "text/html"]
+                [href ,(blog-url info)])]
+         [link ([rel "self"]
+                [type "application/atom+xml"]
+                [href ,(blog-atom-url info)])]
+         [updated ,(now->rfc3339)]
+         [generator "generator.rkt"]
+         ,@(for/list ([post (sort posts blog-post>?)]
+                      #:unless (blog-post-unlisted? post))
+             (blog-post->atom-entry info post))))
 
 
 (define (blog->atom-feed info posts)
@@ -44,7 +45,5 @@
     (list (make-p-i #f #f 'xml "version=\"1.0\" encoding=\"UTF-8\""))
     #f
     null)
-   (xexpr->xml
-    `(feed ([xmlns "http://www.w3.org/2005/Atom"])
-           ,@(blog->atom-info info posts)))
+   (xexpr->xml (blog->atom-info info posts))
    null))
