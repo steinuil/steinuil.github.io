@@ -42,6 +42,7 @@
                   [href "/feed.xml"]
                   [type "application/atom+xml"]
                   [title "Atom feed"])]
+           [link ([rel "apple-touch-icon-precomposed"] [href "/assets/icon/favicon-152.png"])]
            [meta ([name "og:type"] [content "website"])]
            [meta ([name "og:title"] [content ,(page-title page)])]
            [meta ([name "og:description"] [content ,(blog-description info)])]
