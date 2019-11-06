@@ -5,6 +5,7 @@
 
 
 (require xml
+         "./pdate.rkt"
          "./blog-post.rkt"
          "./blog-info.rkt")
 
