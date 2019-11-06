@@ -1,54 +1,8 @@
 #lang racket/base
 
 
-(require racket/list
-         racket/match
-         "./blog-info.rkt"
+(require "./blog-info.rkt"
          "./page-info.rkt")
-
-
-(define (take-paragraphs elts)
-  (let loop ([elts elts]
-             [out '()])
-    (if (empty? elts)
-        (values (reverse out) '())
-        (match (car elts)
-          [(cons 'p _)
-           (loop (cdr elts)
-                 (cons (car elts) out))]
-          [_ (values (reverse out) elts)]))))
-
-
-(define (transform-post-body post)
-  (let loop ([elts post]
-             [out '()])
-    (if (empty? elts)
-        (reverse out)
-        (match (car elts)
-          [(cons 'p rest)
-           (let-values ([(text rest) (take-paragraphs elts)])
-             (loop rest
-                   (cons `(div ([class "text"])
-                               ,@text)
-                         out)))]
-          [(list-rest 'blockquote attrs rest)
-           (loop (cdr elts)
-                 (cons `(blockquote ([class "text"] ,@attrs)
-                                    ,@rest)
-                       out))]
-          [(list-rest 'h1 attrs rest)
-           (loop (cdr elts)
-                 (cons `(header ([class "heading"] ,@attrs) ,@rest)
-                       out))]
-          [(list 'div
-                 '([class "figure"])
-                 img
-                 (list 'p '([class "caption"]) caption))
-           (loop (cdr elts)
-                 (cons `(figure ,img (figcaption ,caption))
-                       out))]
-          [_ (loop (cdr elts)
-                   (cons (car elts) out))]))))
 
 
 (define (nav-item page curr-id)
