@@ -1,0 +1,61 @@
+<html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" /><title>Overthinking cash in TypeScript</title><meta name="description" content="steenuil's blog" /><meta name="generator" content="generator.rkt" /><meta name="referrer" content="strict-origin" /><link rel="stylesheet" href="/assets/style.css" type="text/css" /><link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS feed" /><link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Atom feed" /></head><body id="blog-post-page"><div class="body-container"><header><nav><ul><li><a href="/molten-matter/">Molten Matter</a></li><li><a href="/">About</a></li><li><a href="/legal/">Legal</a></li></ul></nav></header><main><header><h1 class="post-title">Overthinking cash in TypeScript</h1> <time datetime="2018-11-11">2018/11/11</time></header><figure><img src="/assets/images/shells.jpg" alt="cicada shells on a tree near a beach in Marina di Cecina, Italy" /><figcaption>cicada shells on a tree near a beach in Marina di Cecina, Italy</figcaption></figure><div class="text"><p>Part of my current project at work deals with monetary values in the form of cash, making change, and displaying the bills and coins on the screen.</p><p>Since I recently started adding types to certain parts of the codebase with TypeScript, I thought it&rsquo;d be fun to see how elaborately I could model the types of the values and of the functions using TypeScript&rsquo;s more advanced features, and while I was at it, how easy it would be to parametrize the types based on the currency you&rsquo;re dealing with.</p><p>First of all, I&rsquo;m gonna define what I mean by &ldquo;cash&rdquo;. Since I need to show the bills and coins on the screen at scale, I need to know their color and their dimensions, and here&rsquo;s the issue: coins only need a width, but banknotes also need a height, so I can&rsquo;t use the same type for both.</p></div><pre class="brush: typescript"><code>interface Coin&lt;Amount&gt; {
+  amount: Amount;
+  color: string;
+  width: number;
+}
+
+interface Banknote&lt;Amount&gt; {
+  amount: Amount;
+  color: string;
+  width: number;
+  height: number;
+}</code></pre><div class="text"><p>Now I have to store these values somewhere. Using two objects, one for the coins and one for the banknotes, would be the simplest solution, but it would complicate things at the call site when we don&rsquo;t know whether the amount is a coin or a banknote.</p></div><pre class="brush: typescript"><code>const cashInfo = (amount: CashAmount): ??? =&gt; (
+  amount &gt; 200
+  ? banknotesByAmount
+  : coinsByAmount
+)[amount];</code></pre><div class="text"><p>This is not a very elegant piece of code, and TypeScript doesn&rsquo;t like it much either.</p></div><figure><img src="/assets/posts/cash-money-of-you.png" alt="not even Sayaka likes it" /><figcaption>not even Sayaka likes it</figcaption></figure><header class="heading" id="dependent-kinda-types-to-the-rescue">Dependent (kinda) types to the rescue!</header><div class="text"><p>TypeScript 2.8 introduced <a href="https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-8.html">conditional types</a> which (as I understand it) are a light form of dependent types, like the ones in Coq or Idris. You can use them to implement basic arithmetic with peano numbers, which is cool as hell, but unfortunately not very useful in real code (at least at the moment).</p><p>Now I can define a type which returns either <code>Coin</code> or <code>Banknote</code> depending on the type of its argument:</p></div><pre class="brush: typescript"><code>type ByAmount&lt;CoinAmt, BanknoteAmt,
+  Amt extends CoinAmt | BanknoteAmt
+&gt; = Amt extends CoinAmt     ? Coin&lt;Amt&gt;
+  : Amt extends BanknoteAmt ? Banknote&lt;Amt&gt;
+  : never;</code></pre><div class="text"><p>Note that I&rsquo;m still parametrizing over the denomination to make it possible to use different currencies easily, so the signature still looks a bit awful, but it&rsquo;ll only need one type parameter when &ldquo;instantiated&rdquo;.</p><p>Defining the type of the object is now a breeze, thanks to mapped types.</p></div><pre class="brush: typescript"><code>type CashMap&lt;
+  CoinAmt extends number,
+  BanknoteAmt extends number,
+  Amount extends CoinAmt | BanknoteAmt
+&gt; = {
+  readonly [A in Amount]:
+    Readonly&lt;ByAmount&lt;CoinAmt, BanknoteAmt, A&gt;&gt;;
+}</code></pre><div class="text"><p>Now we&rsquo;re ready to instantiate these types with a currency.</p></div><header class="heading" id="plugging-in-the-eurodollars">Plugging in the Eurodollars</header><div class="text"><p>TypeScript doesn&rsquo;t have <a href="https://dev.realworldocaml.org/variants.html#scrollNav-4">polymorphic variants</a>, but it does have <strong>numeric literal types</strong>, which are just as good for our purposes. Let&rsquo;s define the denominations.</p></div><pre class="brush: typescript"><code>type EuroCoinAmt =
+  1 | 2 | 5 | 10 | 20 | 50 | 100 | 200;
+type EuroBanknoteAmt =
+  500 | 1000 | 2000 | 5000 | 10000 | 20000 | 50000;
+type EuroAmount =
+  EuroCoinAmt | EuroBanknoteAmt;</code></pre><div class="text"><p>Now I can fill in the maps.</p></div><pre class="brush: typescript"><code>type EuroMap = CashMap&lt;
+  EuroCoinAmt, EuroBanknoteAmt, EuroAmount
+&gt;;
+
+const euroByAmount: EuroMap = {
+  1: {
+    amount: 1,
+    color: '#b87333',
+    width: 16,
+  },
+  2: {
+    amount: 2,
+    color: '#b87333',
+    width: 18.5,
+  },
+  /* ... */
+  500: {
+    amount: 500,
+    color: 'grey',
+    width: 120,
+    height: 62,
+  },
+  /* ... */
+};</code></pre><div class="text"><p>Since this is all static data, the compiler is able to verify that:</p></div><ul><li>I didn&rsquo;t forget nor invent any coin or banknote</li><li>objects indexed by a <code>BanknoteAmount</code> effectively have a <code>height</code> field,  and that those indexed by a <code>CoinAmount</code> don&rsquo;t</li><li>the indexing key matches the <code>amount</code> field</li></ul><div class="text"><p>When I try indexing the object, the compiler will infer the correct type based on the type of its argument, and complain when trying to index a value that does not exist (though the error message for that is a bit confusing).</p></div><pre class="brush: typescript"><code>euroByAmount[500]; // Readonly&lt;Banknote&lt;500&gt;&gt;
+euroByAmount[2];   // Readonly&lt;Coin&lt;2&gt;&gt;
+
+// error: Element implicitly has an 'any' type
+// because type 'CashMap&lt;EuroCoinAmt, EuroBanknoteAmt, EuroAmount&gt;'
+// has no index signature.
+euroByAmount[3];</code></pre><div class="text"><p>The advantage of keeping the more general types around is that we can now differentiate between functions that work the same regardless of the currency, and functions that might require a different implementation for each currency.</p><p>In my project I have a function that returns a few reasonable change suggestions given an amount of money, in which the optimal solution is calculated using a simple greedy algorithm. This works for euros, where the greedy algorithm does indeed return an optimal solution, but it might not be a good fit for other currencies with different denominations, so in this particular case it makes sense to use the specific types for euros, rather than the more general ones.</p></div><header class="heading" id="conclusions">Conclusions</header><div class="text"><p>TypeScript has a rather quirky type system with many features that vaguely resemble those found in other languages but not quite, like literal types, and some weird features taken straight from niche almost-research languages, like conditional and mapped types, but somehow they all fit together rather nicely to model the sort of JS code you&rsquo;d write normally.</p><p>This is TypeScript&rsquo;s biggest strength, in my opinion: I barely had to change my code when adding types to this module, and it would still make sense if you took the types out, even if I had written this in TS to begin with.</p></div><header class="heading" id="further-reading">Further reading</header><ul><li><a href="https://frontstuff.io/how-to-handle-monetary-values-in-javascript">How to Handle Monetary Values in JavaScript</a></li><li><a href="https://ren.zone/articles/safe-money">Money in the type system where it belongs</a></li><li><a href="https://github.com/sarahdayan/dinero.js">Dinero.js</a> - An immutable library to create, calculate and format money.</li></ul></main><footer>made with <a href="https://racket-lang.org/">racket</a> :: <a href="/rss.xml">rss</a> :: <a href="/feed.xml">atom</a></footer></div></body></html>
