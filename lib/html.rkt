@@ -24,10 +24,10 @@
                     #:footer footer)
   (xexpr->xml
    `(html
-     (head [title ,(page-title page)]
-           [meta ([charset "utf-8"])]
+     (head [meta ([charset "utf-8"])]
            [meta ([name "viewport"]
                   [content "width=device-width, initial-scale=1, viewport-fit=cover"])]
+           [title ,(page-title page)]
            [meta ([name "description"]
                   [content ,(blog-description info)])]
            [meta ([name "generator"]
