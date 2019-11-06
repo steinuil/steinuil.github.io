@@ -27,7 +27,7 @@
 ;;; Generation
 
 (define (generate-page url page #:filename [filename "index.html"])
-  (define dir-path (string-append "docs" url))
+  (define dir-path (string-append "." url))
   (unless (directory-exists? dir-path)
     (make-directory dir-path))
 
@@ -37,13 +37,13 @@
 
 
 (define (generate-rss info posts)
-  (call-with-output-file "docs/rss.xml" #:exists 'replace
+  (call-with-output-file "rss.xml" #:exists 'replace
     (lambda (out)
       (write-xml (blog->rss-feed info posts) out))))
 
 
 (define (generate-atom info posts)
-  (call-with-output-file "docs/feed.xml" #:exists 'replace
+  (call-with-output-file "feed.xml" #:exists 'replace
     (lambda (out)
       (write-xml (blog->atom-feed info posts) out))))
 
