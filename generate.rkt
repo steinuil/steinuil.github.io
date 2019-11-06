@@ -1,5 +1,11 @@
 #lang racket/base
 
+
+;; TODO
+;; - tag pages
+;; - series pages
+
+
 (require racket/file
          xml
          markdown/parse

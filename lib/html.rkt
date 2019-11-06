@@ -44,7 +44,21 @@
            [link ([rel "alternate"]
                   [href "/feed.xml"]
                   [type "application/atom+xml"]
-                  [title "Atom feed"])])
+                  [title "Atom feed"])]
+           [meta ([name "og:type"]
+                  [content "website"])]
+           [meta ([name "twitter:site"]
+                  [content "@steinuil"])]
+           [meta ([name "twitter:creator"]
+                  [content "@steinuil"])]
+           [meta ([name "og:description"]
+                  [content ,(blog-description info)])]
+           [meta ([name "og:title"]
+                  [content ,(page-title page)])]
+           [meta ([name "twitter:card"]
+                  [content "summary"])]
+           )
+           
      (body ([id ,(string-append (symbol->string (page-id page)) "-page")])
            (div ([class "body-container"])
                 (header (nav (ul ,@(for/list ([p all-pages])
