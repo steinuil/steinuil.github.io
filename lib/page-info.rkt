@@ -4,4 +4,5 @@
 (provide (struct-out page))
 
 
-(struct page (id url title))
+(struct page (id url title)
+  #:constructor-name page-info)

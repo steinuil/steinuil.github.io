@@ -10,16 +10,6 @@
          "./blog-info.rkt")
 
 
-(define (blog-post->atom-id p)
-  (string-append
-   "tag:"
-   "sgt.hootr.club"
-   ","
-   (pdate->string (blog-post-date p) "-")
-   ":"
-   (blog-post-id p)))
-
-
 (define (blog-post->atom-entry info post)
   `(entry
     [title ,(blog-post-title post)]
