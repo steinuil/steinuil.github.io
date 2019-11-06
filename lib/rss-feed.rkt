@@ -14,8 +14,8 @@
   `(item
     [title ,(blog-post-title post)]
     [link ,(string-append (blog-url info) (blog-post-id post))]
-    [author ,(string-append (blog-author-name info)
-                            " (" (blog-author-email info) ")")]
+    [author ,(string-append (blog-author-email info)
+                            " (" (blog-author-name info) ")")]
     [guid ([isPermaLink "false"]) ,(blog-post->atom-id post)]
     [pubDate ,(pdate->rfc822 (blog-post-date post))]))
 
