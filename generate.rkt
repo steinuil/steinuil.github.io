@@ -4,6 +4,7 @@
 ;; TODO
 ;; - tag pages
 ;; - series pages
+;; - custom markup
 
 
 (require racket/file
