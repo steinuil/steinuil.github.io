@@ -23,18 +23,18 @@
 (define (blog->rss-info info posts)
   `(rss ([version "2.0"]
          [xmlns:atom "http://www.w3.org/2005/Atom"])
-        (channel ()
-                 [title ,(blog-title info)]
-                 [link ,(blog-url info)]
-                 [language ,(blog-language info)]
-                 [generator "generator.rkt"]
-                 [description ,(blog-description info)]
-                 [atom:link ([href ,(blog-rss-url info)]
-                             [rel "self"]
-                             [type "application/rss+xml"])]
-                 ,@(for/list ([post (sort posts blog-post>?)]
-                              #:unless (blog-post-unlisted? post))
-                     (blog-post->rss-item info post)))))
+        (channel
+         [title ,(blog-title info)]
+         [link ,(blog-url info)]
+         [language ,(blog-language info)]
+         [generator "generator.rkt"]
+         [description ,(blog-description info)]
+         [atom:link ([href ,(blog-rss-url info)]
+                     [rel "self"]
+                     [type "application/rss+xml"])]
+         ,@(for/list ([post (sort posts blog-post>?)]
+                      #:unless (blog-post-unlisted? post))
+             (blog-post->rss-item info post)))))
 
 
 (define (blog->rss-feed info posts)
