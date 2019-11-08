@@ -7,7 +7,7 @@ shiny stuff!
 I remembered of Suspense's API (kinda missed that .read() thingy in the fetch request), and that...
 is still there after seeing the full API. I think you'll see what I mean.
 
-# Exceptions for control flow
+## Exceptions for control flow
 
 I happen to have here a sort of minimal working example of "Suspense for data fetching".
 
@@ -82,7 +82,7 @@ it very pleasant to deal with errors.
 I don't know what to make of `useTransition` yet, but I think I'll write another post about it when
 I figure it out. This is just a braindump of what I gathered so far.
 
-# Another thought
+## Another thought
 
 One thing I've learnt is that you *have* to read from the resource in a different component than
 the one you use `Suspense` in, so you can't inline Hello into SuspendTest.

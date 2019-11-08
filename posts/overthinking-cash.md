@@ -47,7 +47,7 @@ either.
 
 ![not even Sayaka likes it](/assets/posts/cash-money-of-you.png)
 
-# Dependent (kinda) types to the rescue!
+## Dependent (kinda) types to the rescue!
 
 TypeScript 2.8 introduced [conditional types][ts-2.8] which (as I understand it)
 are a light form of dependent types, like the ones in Coq or Idris. You can use
@@ -84,7 +84,7 @@ type CashMap<
 
 Now we're ready to instantiate these types with a currency.
 
-# Plugging in the Eurodollars
+## Plugging in the Eurodollars
 
 TypeScript doesn't have [polymorphic variants][poly-variants], but it does have
 **numeric literal types**, which are just as good for our purposes.
@@ -160,7 +160,7 @@ indeed return an optimal solution, but it might not be a good fit for other
 currencies with different denominations, so in this particular case it makes
 sense to use the specific types for euros, rather than the more general ones.
 
-# Conclusions
+## Conclusions
 
 TypeScript has a rather quirky type system with many features that vaguely
 resemble those found in other languages but not quite, like literal types, and
@@ -172,7 +172,7 @@ This is TypeScript's biggest strength, in my opinion: I barely had to change
 my code when adding types to this module, and it would still make sense if you
 took the types out, even if I had written this in TS to begin with.
 
-# Further reading
+## Further reading
 
 - [How to Handle Monetary Values in JavaScript](https://frontstuff.io/how-to-handle-monetary-values-in-javascript)
 - [Money in the type system where it belongs](https://ren.zone/articles/safe-money)

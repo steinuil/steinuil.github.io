@@ -47,7 +47,7 @@ library functions, the error messages are there to give you a feel for what the
 compiler wants to see rather than to provide a useful explaination of what
 happened.
 
-# The good parts
+## The good parts
 
 I've only bashed the language up to now, so it's about time that I start
 mentioning its good parts. Ur/Web is amazing! Part of the reason why I'm
@@ -94,7 +94,7 @@ acquainted with the concept when I first tried the language, but after a while
 it became useful and natural to wall off the effectful functions from the rest
 of the code.
 
-# The future?
+## The future?
 
 Ur/Web is far from perfect; even with a better ecosystem, documentation and
 compiler messages, there's lots of things that annoy me (the "end" keyword
@@ -135,7 +135,7 @@ even web development in the process.
 For my part, I'll try to contribute some documentation to the project to make
 it a bit easier to get into the language.
 
-# Further reading
+## Further reading
 
 - [Polymorphic variants in Ur/Web](http://blog.ezyang.com/2012/07/polymorphic-variants-in-urweb/)
 

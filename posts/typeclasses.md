@@ -81,7 +81,7 @@ If you've ever used Elm, this might remind you of Json.Decode's interface,
 which has you building up a decoder implementation function with the right type
 for your desired object out of smaller decoder functions.
 
-# Typeclasses
+## Typeclasses
 
 Now imagine passing the implementation as the first argument to almost every
 function call in your codebase. Do you feel like gouging your eyes out yet?
@@ -186,7 +186,7 @@ It's also possible to use a non-implicit module as implementation by passing it
 explicitly, so even if there is an implicit module already in scope it's easy
 to override it.
 
-# Further reading
+## Further reading
 
 - [Leo White, Frédéric Bour, Jeremy Yallop: Modular implicits](https://arxiv.org/pdf/1512.01895.pdf), the paper presenting OCaml's modular implicits
 - [Implementing, and Understanding Type Classes](http://okmij.org/ftp/Computation/typeclass.html) by Oleg Kiselyov

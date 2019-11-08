@@ -6,7 +6,7 @@ sandwiches, which leave you more puzzled than when you began.
 You invoke the sandwich on your desk, and you find yourself wondering if the topic
 is even worth going through all this trouble to learn about.
 
-# Promises
+## Promises
 
 Javascript has a concurrency model which can be somewhat daunting at first:
 it relies on asynchronous functions, which have to be handled differently from normal ones.
@@ -34,7 +34,7 @@ The only way to access Promised values you're left with is passing a function to
 with the rest of the computations that have to performed on that value.
 This style of programming is called **continuation-passing style** (CPS).
 
-# Continuations
+## Continuations
 
 Simply put, the continuation to a certain value is the part of the program
 that needs to wait for that value to continue execution ("the rest" of the program).
@@ -82,7 +82,7 @@ For more a more thorough explaination and some advantages of this style, I recom
 [posts](http://matt.might.net/articles/programming-with-continuations--exceptions-backtracking-search-threads-generators-coroutines/)
 on the topic.
 
-# call/cc
+## call/cc
 
 The problem with CPS is that nobody in their right mind would willingly write their code
 like this. Most languages offer a few constructs that have similar effects to some of
@@ -132,7 +132,7 @@ raised against call/cc and first-class access to undelimited continuations, many
 of which propose *delimited* continuations as a cleaner, less costly alternative,
 but I'll be taking a look at those in a later post.
 
-# Sandwiches
+## Sandwiches
 
 Getting back to the sandwich example (or sand-witch, as [the author of this quote](https://groups.google.com/forum/#!msg/perl.perl6.language/-KFNPaLL2yE/_RzO8Fenz7AJ)
 stubbornly calls it):

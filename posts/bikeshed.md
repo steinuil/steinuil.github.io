@@ -25,7 +25,7 @@ This is a problem in C++, too: the joke goes that the language is so big and ful
 of features that you'll end up using only 10% of it for any given task, but everybody
 disagrees on what that 10% should be.
 
-# Enter Go
+## Enter Go
 
 Go is a pretty [unremarkable](https://youtu.be/_1GZShA1F20?t=42m13s) programming
 language, with a feature set that [rivals](https://cowlark.com/2009-11-15-go/) that
@@ -52,7 +52,7 @@ to think about all the things Go provides anymore, which I think raises a good p
 isn't not worrying about the unimportant parts what programming languages are about?
 And if so, **what good is a new language that doesn't try to solve these issues?**
 
-# Lessons to be learned
+## Lessons to be learned
 
 I think that there's lots of better languages out there that should learn a thing
 or two from Go, if they want to succeed.

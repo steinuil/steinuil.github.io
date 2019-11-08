@@ -255,7 +255,7 @@ hr {
 }
 
 main > header > .post-title,
-main > header.heading {
+main > .heading {
   font-family: "Archivo Black", sans-serif;
   font-size: 1.2em;
 }
@@ -264,7 +264,7 @@ main > header > .post-title {
   display: inline-block;
 }
 
-main > header.heading {
+main > .heading {
   margin-top: 1.5em;
 }
 
@@ -278,6 +278,7 @@ main > header > time {
 }
 
 main > header,
+main > .heading,
 .text p,
 figure,
 pre,

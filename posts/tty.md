@@ -10,7 +10,7 @@ but it turned out to be a very small amount of code.
 
 This got me wondering about the protocol.
 
-# A brief, incomplete, and mostly wrong history of the TTY protocol
+## A brief, incomplete, and mostly wrong history of the TTY protocol
 
 The TTY protocol predates computers by quite a bit, and hasn't changed much since the
 late 19th century. The protocol was created for **teletypewriters**, or teletypes,
@@ -36,7 +36,7 @@ the screen thanks to their vector displays. These unfortunately died an untimely
 death (even though a tek emulation mode still lives on inside xterm), and only the
 text-based VTs stuck.
 
-# Summing up
+## Summing up
 
 For most intents and purposes, `/dev/tty` still behaves a lot like a physical
 typewriter: you can scroll the "sheet of paper", you can move the cursor
@@ -51,7 +51,7 @@ provides a very nice abstraction: it essentially turns all interactions stateles
 I'm not sure if I'll ever write my own text editor, but it's certainly fun to play
 with terminal graphics and line editing using nothing but `write`.
 
-# Further reading
+## Further reading
 
 - [Gary Bernhardt - A Whole New World](https://www.destroyallsoftware.com/talks/a-whole-new-world)
 - [Four Column ASCII](https://garbagecollected.org/2017/01/31/four-column-ascii/)

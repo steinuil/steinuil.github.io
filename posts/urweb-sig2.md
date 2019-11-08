@@ -16,6 +16,6 @@ an implementation of the `monad` typeclass. `a` and `b` are the
 polymorphic type parameters, and `(a -> m b) -> list a -> m (list b)`
 is simply the type of the function.
 
-# Names and Records
+## Names and Records
 
 While normal types are of kind `Type`, record field names are a

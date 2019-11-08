@@ -1,4 +1,4 @@
-# Moving out
+## Moving out
 
 This morning as I was having breakfast I read a blog post called
 [Why not GitHub?](https://sanctum.geek.nz/why-not-github.html), in which the writer
