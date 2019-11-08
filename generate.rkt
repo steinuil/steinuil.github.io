@@ -8,6 +8,7 @@
 
 
 (require racket/file
+         racket/set
          xml
          markdown/parse
          "./lib/pdate.rkt"
@@ -100,6 +101,13 @@
                   (time ([datetime ,(pdate->string pdate)]) ,(pdate->string pdate "/")))
           ,(if (blog-post-unlisted? post) unlisted-notice "")
           ,@(transform-post post-body))))
+
+
+
+
+(define (tag-page page-infos tag posts)
+  (page 'tag page-infos (symbol->string tag)
+        `((h1 ([class "heading"])  "#" ,(symbol->string tag)))))
 
 ;;;
 ;;; Content
@@ -257,6 +265,14 @@
 
 (generate-rss blog blog-posts)
 (generate-atom blog blog-posts)
+
+(let ([tags (for*/fold ([s (set)])
+                      ([post blog-posts]
+                       [tag (blog-post-tags post)])
+              (set-add s tag))])
+  (for ([tag (in-set tags)])
+    (generate-page (string-append "/molten-matter/" (symbol->string tag) "/")
+                   (tag-page page-infos tag blog-posts))))
 
 (for ([post blog-posts]
       #:when (blog-post-generate? post))
