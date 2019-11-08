@@ -2,7 +2,7 @@ Welcome to the first installation of **What The Hell Did I Do This Week Anyway**
 the low-effort blog series where I write about random stuff that I did in the
 last few days.
 
-# Emacs strikes again, or the stages of software grief
+## Emacs strikes again, or the stages of software grief
 
 This week I watched a bunch of Jonathan Blow's [screencasts](https://www.youtube.com/user/jblow888/videos),
 where he talks about the language he's writing and all that business. It looks
@@ -57,7 +57,7 @@ Which is where I reached the last stage of software grief, in which I changed
 my vim colorscheme to [deus](https://github.com/ajmwagar/vim-deus) and called
 it a day.
 
-# Eight whole bytes of security
+## Eight whole bytes of security
 
 I was working on my Ur/Web imageboard, when I noticed that I accidentally typed
 "passwords" instead of "password" and still managed to log in. I looked up the

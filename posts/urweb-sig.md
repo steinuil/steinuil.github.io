@@ -49,7 +49,7 @@ Much like SML, Ur/Web makes up for the lack of labeled arguments by using
 anonymous records as function arguments. Also, record field names must start
 with a capital letter like the members of a variant.
 
-# Generics
+## Generics
 
 Let's kick things up a notch. Open up `list.urs` and you'll be greeted by
 something like this:
@@ -118,7 +118,7 @@ val x = id [int] 451
 to infer a type parameter by itself most of the time, but in some cases which
 we'll see later you'll have to be explicit and use the double colon.
 
-# Basics of type constructors
+## Basics of type constructors
 
 At this point I should introduce Ur/Web's type constructors, because they're
 a lot more powerful than those in most other languages. Open up `json.ur`
@@ -172,7 +172,7 @@ val p : intAnd string = (451, "what a shame")
 We can also perform various useful operations on record types, as we'll see
 later.
 
-# Type classes
+## Type classes
 
 Ur/Web's `=` (equals) operator works just like you'd expect it to for types
 provived by the standard library: `1 = 1`, `"line" = "line"`,
@@ -286,7 +286,7 @@ val eq_a_int = mkEq
 val ok = { A = 1 } = { A = 1 }
 ```
 
-# To be continued...
+## To be continued...
 
 This post is getting pretty long, so I'll wrap it up here for this week.
 If you already knew most of the things I covered here, don't worry, the next

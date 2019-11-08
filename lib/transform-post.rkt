@@ -25,8 +25,8 @@
      (values `(blockquote ([class "text"] ,@attrs) ,@quote)
              rest)]
 
-    [(list-rest (or 'h1 'h2 'h3 'h4) attrs heading)
-     (values `(header ([class "heading"] ,@attrs) ,@heading)
+    [(list-rest (and (or 'h1 'h2 'h3 'h4) h) attrs heading)
+     (values `(,h ([class "heading"] ,@attrs) ,@heading)
              rest)]
 
     [(list 'div '([class "figure"]) img
