@@ -6,7 +6,5 @@
          web-server/dispatchers/filesystem-map)
 
 
-(serve
- #:dispatch (make #:url->path (make-url->path "."))
- #:port 8404)
-(do-not-return)
+(serve #:dispatch (make #:url->path (make-url->path "."))
+       #:port 8404)
