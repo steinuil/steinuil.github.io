@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 
 
 (require web-server/web-server
@@ -7,6 +7,4 @@
 
 
 (serve #:dispatch (make #:url->path (make-url->path "."))
-       #:port 8080)
-
-(do-not-return)
+       #:port 8404)
