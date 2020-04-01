@@ -1,0 +1,158 @@
+<html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" /><title>The journey of packaging a .NET app on Nix</title><meta name="description" content="steenuil's blog" /><meta name="generator" content="generator.rkt" /><meta name="referrer" content="strict-origin" /><link rel="stylesheet" href="/assets/style.css" type="text/css" /><link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS feed" /><link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Atom feed" /><link rel="apple-touch-icon-precomposed" href="/assets/icon/favicon-152.png" /><meta name="og:type" content="website" /><meta name="og:title" content="The journey of packaging a .NET app on Nix" /><meta name="og:description" content="steenuil's blog" /><meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@steinuil" /><meta name="twitter:creator" content="@steinuil" /><meta name="twitter:dnt" content="on" /></head><body id="blog-post-page"><div class="body-container"><header><nav><ul><li><a href="/molten-matter/">Molten Matter</a></li><li><a href="/">About</a></li><li><a href="/legal/">Legal</a></li></ul></nav></header><main><header><h1 class="post-title">The journey of packaging a .NET app on Nix</h1> <time datetime="2020-04-01">2020/04/01</time></header><div class="text"><p>Me and a few friends have a Discord server where we all gather once a week (or even two lately, due to recent events) to watch a movie together. It&rsquo;s been going on for about three and a half years and we thought it&rsquo;d be about time to make a bot that handles voting and backlog and times for us, so we started writing one, in F#.</p><p>My Raspberry Pi running NixOS is on 24/7, so I thought I could run the bot from there and learn something about packaging on Nix while doing so.</p><p><strong>Disclaimer</strong>: I have very little experience with packaging in Nix. If you spot any mistakes please tell me and I&rsquo;ll correct them!</p></div><hr /><div class="text"><p>First I thought I could cross-compile the bot and then just run the compiled version, so I wouldn&rsquo;t have to bother with packaging the dependencies. Cross-compiling a .NET Core/5.0 program using the <code>dotnet</code> cli is very easy, you just have to specify the <a href="https://docs.microsoft.com/en-us/dotnet/core/rid-catalog">runtime identifier</a> and use the <code>--self-contained</code> switch so the target machine doesn&rsquo;t need to have the .NET runtime installed.</p></div><pre class="brush: shell"><code>$ dotnet publish --self-contained -r linux-arm64 -c Release</code></pre><div class="text"><p>I sent the output to the pi and inspected it with <code>ldd</code>. Running binaries on NixOS is <a href="https://nixos.wiki/wiki/Packaging/Binaries">not as easy</a> as on other Linux distros, because the paths to the dynamically loaded libraries are completely different compared to other distros.</p><p>I tried to patch the binary with <code>patchelf</code> but didn&rsquo;t have much luck; even when I did manage to make it run it just printed this message:</p></div><pre><code>No usable version of libssl was found</code></pre><div class="text"><p>And then dumped core. I decided to just do it the hard way.</p></div><h2 class="heading" id="the-first-derivation">The first derivation</h2><div class="text"><p>I cloned the repository on the Pi and quickly discovered that the <code>dotnet-sdk</code> package did not support arm64. This was easy enough to fix; I downloaded the .nix file and modified the URL and the hash to point to the <code>linux-arm64</code> version of the SDK. (I promise I&rsquo;ll upstream support for arm64 eventually, but for the moment it&rsquo;s just on my machine.)</p><p>It worked well enough; I could build the bot. So I tried to make a simple derivation for it.</p></div><pre class="brush: nix"><code>{ stdenv, libunwind, openssl, icu
+, libuuid, zlib, curl, callPackage
+, dotnet-sdk }:
+let
+  rpath = stdenv.lib.makeLibraryPath [
+    stdenv.cc.cc libunwind libuuid icu
+    openssl zlib curl
+  ];
+  
+  dynamicLinker = stdenv.cc.bintools.dynamicLinker;
+in stdenv.mkDerivation rec {
+  pname = "kino-bot";
+  version = "2020-03-29";
+  
+  src = builtins.fetchGit {
+    name = "${pname}-${version}-git";
+    url = https://github.com/steinuil/KinoBot;
+    ref = "master";
+    rev = "275ae0447ab1ab21cba76bb673f00559ed5d9251";
+  };
+  
+  buildInputs = [ dotnet-sdk ];
+  
+  buildPhase = ''
+    export DOTNET_CLI_TELEMETRY_OPTOUT=1
+    export HOME="$(mktemp -d)"
+    dotnet publish --nologo \
+      -r linux-arm64 --self-contained \
+      -c Release -o out
+  '';
+  
+  installPhase = ''
+    runHook preInstall
+    mkdir -p $out/bin
+    cp -r ./out/* $out
+    ln -s $out/KinoBot $out/bin/KinoBot
+    runHook postInstall
+  '';
+  
+  dontPatchELF = true;
+  postFixup = ''
+    patchelf --set-interpreter "${dynamicLinker}" \
+      --set-rpath '$ORIGIN:${rpath}' $out/KinoBot
+    find $out -type f -name "*.so" -exec \
+      patchelf --set-rpath '$ORIGIN:${rpath}' {} ';'    
+  '';
+  
+  meta = with stdenv.lib; {
+  	homepage = https://github.com/steinuil/KinoBot;
+  	platforms = [ "aarch64-linux" ];
+  	license = licenses.isc;
+  };
+}</code></pre><div class="text"><p>(I took inspiration from <a href="https://gist.github.com/jb55/b8b49893e18b61fb8c3ea3c924358278">this gist</a> and a few other derivations I found to come up with this.)</p><p>So I tried to run it:</p></div><pre><code>$ nix repl '&lt;nixpkgs&gt;'
+Welcome to Nix version 2.3.3. Type :? for help.
+
+Loading '&lt;nixpkgs&gt;'...
+Added 10863 variables.
+
+nix-repl&gt; kino-bot = callPackage (import ./kino-bot.nix) {}
+
+nix-repl&gt; :b kino-bot</code></pre><div class="text"><p>But it got stuck on the <code>dotnet restore</code> step of the build. I discovered that external connections are not allowed during the build step of a Nix derivation, so I had to fetch the dependencies <em>through Nix</em>.</p></div><h2 class="heading" id="packaging-the-dependencies-and-a-digression-on-base32-hashes">Packaging the dependencies and a digression on base32 hashes</h2><div class="text"><p>It turns out the <code>dotnet</code> command takes a <code>--source</code> argument which lets you specify a folder containing the NuGet packages. I started by copying the <a href="https://gist.github.com/jb55/b8b49893e18b61fb8c3ea3c924358278">aforementioned gist</a>, which got the list of all direct and transitive dependencies from the <code>obj/project.assets.json</code> file. I didn&rsquo;t want to install Node though, so I rewrote the script in F#.</p><p>There&rsquo;s a problem with the script though: the dependencies file specifies a base64-encoded sha512 hash which doesn&rsquo;t correspond to the hash of the zip file, and probably not to the <a href="https://www.mankier.com/1/nix-hash">Nix serialization of the path</a> either.</p><p>The hashes that Nix uses are also not at all like the ones you see in the wild; they use too many characters for hex, but also too few for base64. In fact Nix uses its own version of base32, more compact than base16 but still only containing ASCII digits and lowercase letters (except e o u t, which were chosen <a href="https://discourse.nixos.org/t/no-hashes-starting-with-e-t-o-or-u-in-nix-store/4906/7">to reduce the chance of the hash containing swearwords</a>). The implementation is specified in <a href="https://github.com/NixOS/nix/blob/master/src/libutil/hash.cc#L76">src/libutil/hash.cc</a> and it&rsquo;s very compact and easily ported to other languages. This is my F# implementation:</p></div><pre class="brush: F#"><code>module Base32
+
+let chars = "0123456789abcdfghijklmnpqrsvwxyz"
+
+let length size =
+    (size * 8 - 1) / 5 + 1
+
+let fromBytes (bytes : byte[]) =
+    seq {
+        for n = length bytes.Length - 1 downto 0 do
+            let b = n * 5
+            let i = b / 8
+            let j = b % 8
+            yield int bytes.[i] &gt;&gt;&gt; j ||| if i &gt;= bytes.Length - 1 then 0 else int bytes.[i + 1] &lt;&lt;&lt; (8 - j)
+    }
+    |&gt; Seq.map (fun c -&gt; chars.[c &amp;&amp;&amp; 0x1f])
+    |&gt; Seq.toArray
+    |&gt; System.String</code></pre><div class="text"><p>But let&rsquo;s go back to the dependencies. After some head scratching because <code>nix-hash</code> returned a different hash for a dependency downloaded through curl than for one downloaded through <code>nix-prefetch-url</code> I figured I just had to pass the <code>-L</code> flag to curl to follow the redirect.</p></div><pre class="brush: shell"><code>$ nix-prefetch-url https://www.nuget.org/api/v2/package/Argu/6.0.0
+[0.2 MiB DL]
+path is '/nix/store/rn0qb89ibmn3xv7ay28309r0wj3xaf5q-6.0.0'
+1zybqx0ka89s2cxp7y2bc9bfiy9mm3jn8l3593f58z6nshwh3f2j
+
+# WRONG: this will download the redirect HTML page. Pass -L to curl to fix.
+$ curl -o Argu.6.0.0.zip https://www.nuget.org/api/v2/package/Argu/6.0.0
+$ nix-hash --type sha256 --flat --base32 ./Argu.6.0.0.zip
+04w8jx2wzss3y2c9bx6dm6lxib03v2jnr89iakcgk93zippfxb0w</code></pre><div class="text"><p>And there I was with my newly created <a href="https://discourse.nixos.org/">discourse.nixos.org</a> account ready to send a post demanding explanations. Oh well!</p><p>I had to also write my own version of <code>fetchNuGet</code> because the default one tried to build the artifacts again for some reason, didn&rsquo;t support sha512, and used mono which I&rsquo;m not using. I used the same gist as above for inspiration.</p></div><pre class="brush: nix"><code>{ baseName, version, sha512 }:
+  let nupkgName = lib.strings.toLower "${baseName}.${version}.nupkg"; in
+  stdenvNoCC.mkDerivation {
+    name = "${baseName}-${version}";
+    
+    src = fetchurl {
+      inherit sha512;
+      url = "https://www.nuget.org/api/v2/package/${baseName}/${version}";
+      name = "${baseName}.${version}.zip";
+    };
+    
+    sourceRoot = ".";
+    
+    buildInputs = [ unzip ];
+    
+    dontStrip = true;
+    
+    installPhase = ''
+      mkdir -p $out
+      chmod +r *.nuspec
+      cp *.nuspec $out
+      cp $src $out/${nupkgName}
+    '';
+  }</code></pre><div class="text"><p>The <code>nuget2nix</code> script generates a file that looks roughly like this:</p></div><pre class="brush: nix"><code>name: rec {
+  cache = linkFarm "${name}-nuget-pkgs" packages;
+  packages = [
+    { name = "Argu";
+      path = fetchNuGet {
+       baseName = "Argu";
+       version = "6.0.0";
+       sha512 = "1kiqh4zpasydq5vx4wn5mal5v8c2bdalczja5za9phvq8n9c3s453lj5kmrqar1rfp3504kakb5csxflj7dwy2aas04d0jjw9dhm9g2";
+      };
+    }
+    ...
+  ]
+}</code></pre><div class="text"><p>The <code>linkFarm</code> function, which is only documented in a <a href="https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/trivial-builders.nix#L303">comment in the source</a> (Nix has a recurring problem with documentation, yes) takes every derivation in its second arguments and links it as a subdirectory into a derivation named after the first, which is exactly what I needed for the <code>--source</code> directory in the restore step of the build.</p><p>Before going back to the main file, a few protips about the packages, because these things got me stuck for a while:</p></div><ul><li>If you source the packages from your <a href="https://devblogs.microsoft.com/nuget/enable-repeatable-package-restores-using-a-lock-file/">lockfile</a> you will have to set the <code>RuntimeIdentifiers</code> property in your <code>.[cf]sproj</code>, or else you&rsquo;ll be missing some platform-specific ones like <code>runtime.native.System.Security.Cryptography.OpenSsl</code>.</li><li>Make sure you don&rsquo;t download the same dependency twice, or you&rsquo;ll get an error in the <code>ln</code> phase of the <code>linkFarm</code> derivation saying &ldquo;Permission denied&rdquo;.</li><li>There&rsquo;s a few dependencies listed under <code>project.frameworks.&lt;yourTargetFramework&gt;.downloadDependencies</code> in the <code>obj/project.assets.json</code> file that you&rsquo;ll also have to include in the build. These are the ones called like <code>Microsoft.NETCore.App.Runtime.linux-arm64</code> and so on.</li></ul><h2 class="heading" id="finally-running-the-bot">Finally running the bot</h2><div class="text"><p>Nothing much has changed in the main derivation. I just added the link farm derivation to the list of dependencies and set it as source in the <code>dotnet publish</code> command.</p></div><pre class="brush: nix"><code>let
+  rpath = ...;
+  nugetPkgs = callPackage (import ./kino-bot-nuget.nix) {} "kino-bot";
+in stdenv.mkDerivation rec {
+  ...
+
+  buildInputs = [ dotnet-sdk nugetPkgs.cache ];
+
+  buildPhase = ''
+    export DOTNET_CLI_TELEMETRY_OPTOUT=1
+    export HOME="$(mktemp -d)"
+    dotnet publish --nologo \
+      -r linux-arm64 --self-contained \
+      --source #{nugetPkgs.cache} -c Release -o out
+  '';
+
+  ...
+};</code></pre><div class="text"><p>After all this I could finally build the package locally, but when I tried to run it I got the same libssl error as in the beginning. Was this all for naught? (Maybe it was.)</p><p>Turns out .NET Core <a href="https://stackoverflow.com/questions/51901359/net-core-2-1-sdk-linux-x64-no-usable-version-of-the-libssl-was-found">only supports version 1.0 of openssl</a>, and the version packaged by Nix is 1.1. This is easily fixed by importing <code>openssl_1_0_2</code> instead of <code>openssl</code>.</p></div><pre class="brush: nix"><code>   rpath = stdenv.lib.makeLibraryPath [
+     stdenv.cc.cc libunwind libuuid icu
++    openssl_1_0_2 zlib curl
+-    openssl zlib curl
+   ];</code></pre><h2 class="heading" id="adding-the-package-to-your-system">Adding the package to your system</h2><div class="text"><p>Now that I got it running I had to add it to the system, and to do this you have to add an <a href="https://nixos.wiki/wiki/Overlays">overlay</a>. An overlay is just a function that takes two arguments, named self and super, and returns a set of packages. This is what mine looks like:</p></div><pre class="brush: nix"><code>self: super: {
+  dotnet-sdk = super.callPackage ./pkgs/dotnet-sdk.nix {};
+  kino-bot = super.callPackage ./pkgs/kino-bot.nix {};
+}</code></pre><div class="text"><p>Then you need to import it to the main <code>configuration.nix</code> file. (Note the parenthesis around the import: Nix will throw <a href="https://discourse.nixos.org/t/infinite-recursion-encountered-at-undefined-position/3039/13?u=steinuil">a cryptic infinite recursion error</a> with no stack trace if you forget them!)</p></div><pre class="brush: nix"><code>nixpkgs.overlays = [ (import ./my-overlay.nix) ];
+
+environment.systemPackages = with pkgs; [
+  ...
+  kino-bot
+];</code></pre><div class="text"><p>I also added a systemd service to start it automatically.</p></div><pre class="brush: nix"><code>systemd.services.kino-bot = {
+  enable = true;
+  after = [ "network.target" ];
+  wantedBy = [ "multi-user.target" ];
+  serviceConfig = {
+    Restart = "on-failure";
+    ExecStart = "${pkgs.kino-bot}/bin/KinoBot --token ${secrets.kinoBotToken}";
+  };
+};</code></pre><hr /><div class="text"><p>This took me a few days to get working, and I had to rebuild everything dozens of times to get it working. I omitted several dumb mistakes I made and only kept in those that I had the most trouble with because I thought they could help others.</p><p>Nonetheless, I really like NixOS and I&rsquo;ll definitely be using it more and package more things in the future. It&rsquo;s already my main Linux OS on my (personal) laptop and my Raspberry Pi (I use Windows on my desktop and work laptop, sadly) and this was a good occasion to learn more about how its packages work. I&rsquo;ll probably be migrating my server to it too in the future.</p><p><a href="https://gist.github.com/steinuil/11c7565253e4af03658f59c9c331d268">Code for this post here</a>. <em>Note: there&rsquo;s many hacks specific to my use-case left in the code and it&rsquo;s probably not usable as-is.</em></p></div><h2 class="heading" id="further-reading">Further reading</h2><ul><li><a href="https://nixos.org/nixos/nix-pills/index.html">Nix pills</a></li><li><a href="https://nixos.org/nixpkgs/manual/">Nixpkgs manual</a></li></ul></main><footer>made with <a href="https://racket-lang.org/">racket</a> :: <a href="/rss.xml">rss</a> :: <a href="/feed.xml">atom</a></footer></div></body></html>

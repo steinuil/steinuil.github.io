@@ -184,7 +184,11 @@
    (post "Thoughts on Suspense for data fetching"
          #:date (pdate 2019 10 30)
          #:id "thoughts-on-suspense"
-         #:tags '(programming typescript react))))
+         #:tags '(programming typescript react))
+   (post "The journey of packaging a .NET app on Nix"
+         #:date (pdate 2020 4 1)
+         #:id "dotnet-on-nix"
+         #:tags '(programming nix dotnet))))
 
 
 (define blog-index

@@ -1,5 +1,3 @@
-# The journey of packaging a .NET app on Nix
-
 Me and a few friends have a Discord server where we all gather once a week (or even two lately, due to recent events) to watch a movie together. It's been going on for about three and a half years and we thought it'd be about time to make a bot that handles voting and backlog and times for us, so we started writing one, in F#.
 
 My Raspberry Pi running NixOS is on 24/7, so I thought I could run the bot from there and learn something about packaging on Nix while doing so.
@@ -198,7 +196,7 @@ name: rec {
 
 The `linkFarm` function, which is only documented in a [comment in the source](https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/trivial-builders.nix#L303) (Nix has a recurring problem with documentation, yes) takes every derivation in its second arguments and links it as a subdirectory into a derivation named after the first, which is exactly what I needed for the `--source` directory in the restore step of the build.
 
-Before going back to the main file, a few protips about the packages, because these thing got me stuck for a while:
+Before going back to the main file, a few protips about the packages, because these things got me stuck for a while:
 
 - If you source the packages from your [lockfile](https://devblogs.microsoft.com/nuget/enable-repeatable-package-restores-using-a-lock-file/) you will have to set the `RuntimeIdentifiers` property in your `.[cf]sproj`, or else you'll be missing some platform-specific ones like `runtime.native.System.Security.Cryptography.OpenSsl`.
 - Make sure you don't download the same dependency twice, or you'll get an error in the `ln` phase of the `linkFarm` derivation saying "Permission denied".
