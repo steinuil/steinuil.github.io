@@ -1,4 +1,4 @@
-Me and a few friends have a Discord server where we all gather once a week (or even two lately, due to recent events) to watch a movie together. It's been going on for about three and a half years and we thought it'd be about time to make a bot that handles voting and backlog and times for us, so we started writing one, in F#.
+Me and a few friends have a Discord server where we all gather once a week (or even twice lately, due to recent events) to watch a movie together. It's been going on for about three and a half years and we thought it'd be about time to make a bot that handles voting and backlog and times for us, so we started writing one, in F#.
 
 My Raspberry Pi running NixOS is on 24/7, so I thought I could run the bot from there and learn something about packaging on Nix while doing so.
 
@@ -6,13 +6,13 @@ My Raspberry Pi running NixOS is on 24/7, so I thought I could run the bot from 
 
 ---
 
-First I thought I could cross-compile the bot and then just run the compiled version, so I wouldn't have to bother with packaging the dependencies. Cross-compiling a .NET Core/5.0 program using the `dotnet` cli is very easy, you just have to specify the [runtime identifier](https://docs.microsoft.com/en-us/dotnet/core/rid-catalog) and use the `--self-contained` switch so the target machine doesn't need to have the .NET runtime installed.
+First I thought I could cross-compile the bot and then just run the compiled version, so I wouldn't have to bother with packaging the dependencies. Cross-compiling a .NET Core program using the `dotnet` cli is very easy, you just have to specify the [runtime identifier](https://docs.microsoft.com/en-us/dotnet/core/rid-catalog) and use the `--self-contained` flag so the target machine doesn't need to have the .NET runtime installed to run it.
 
 ```shell
 $ dotnet publish --self-contained -r linux-arm64 -c Release
 ```
 
-I sent the output to the pi and inspected it with `ldd`. Running binaries on NixOS is [not as easy](https://nixos.wiki/wiki/Packaging/Binaries) as on other Linux distros, because the paths to the dynamically loaded libraries are completely different compared to other distros.
+I sent the output to the pi and inspected it with `ldd`. Running binaries on NixOS is [not as easy](https://nixos.wiki/wiki/Packaging/Binaries) as on other Linux distros, because the paths to the dynamically loaded libraries are not predictable, so those hardcoded in the source are usually wrong.
 
 I tried to patch the binary with `patchelf` but didn't have much luck; even when I did manage to make it run it just printed this message:
 
@@ -20,7 +20,7 @@ I tried to patch the binary with `patchelf` but didn't have much luck; even when
 No usable version of libssl was found
 ```
 
-And then dumped core. I decided to just do it the hard way.
+And then dumped core. Later I learned that I could probably have avoided almost everything below this point, but at the moment I didn't so I decided to just do it the hard way.
 
 ## The first derivation
 
@@ -77,9 +77,9 @@ in stdenv.mkDerivation rec {
   '';
   
   meta = with stdenv.lib; {
-  	homepage = https://github.com/steinuil/KinoBot;
-  	platforms = [ "aarch64-linux" ];
-  	license = licenses.isc;
+    homepage = https://github.com/steinuil/KinoBot;
+    platforms = [ "aarch64-linux" ];
+    license = licenses.isc;
   };
 }
 ```
@@ -131,7 +131,9 @@ let fromBytes (bytes : byte[]) =
     |> System.String
 ```
 
-But let's go back to the dependencies. After some head scratching because `nix-hash` returned a different hash for a dependency downloaded through curl than for one downloaded through `nix-prefetch-url` I figured I just had to pass the `-L` flag to curl to follow the redirect.
+You don't really have to use base32, as Nix also supports base16-encoded hashes, but I thought it'd be fun to try implementing it on my own.
+
+But let's go back to the dependencies. After some head scratching because `nix-hash` apparently returned a different hash for a dependency downloaded through curl than for one downloaded through `nix-prefetch-url` I figured I just had to pass the `-L` flag to curl to follow the redirect, and then the hashes were identical.
 
 ```shell
 $ nix-prefetch-url https://www.nuget.org/api/v2/package/Argu/6.0.0
@@ -139,10 +141,14 @@ $ nix-prefetch-url https://www.nuget.org/api/v2/package/Argu/6.0.0
 path is '/nix/store/rn0qb89ibmn3xv7ay28309r0wj3xaf5q-6.0.0'
 1zybqx0ka89s2cxp7y2bc9bfiy9mm3jn8l3593f58z6nshwh3f2j
 
-# WRONG: this will download the redirect HTML page. Pass -L to curl to fix.
+# WRONG
 $ curl -o Argu.6.0.0.zip https://www.nuget.org/api/v2/package/Argu/6.0.0
 $ nix-hash --type sha256 --flat --base32 ./Argu.6.0.0.zip
 04w8jx2wzss3y2c9bx6dm6lxib03v2jnr89iakcgk93zippfxb0w
+
+$ curl -L -o Argu.6.0.0.zip https://www.nuget.org/api/v2/package/Argu/6.0.0
+$ nix-hash --type sha256 --flat --base32 ./Argu.6.0.0.zip
+1zybqx0ka89s2cxp7y2bc9bfiy9mm3jn8l3593f58z6nshwh3f2j
 ```
 
 And there I was with my newly created [discourse.nixos.org](https://discourse.nixos.org/) account ready to send a post demanding explanations. Oh well!
@@ -231,7 +237,7 @@ After all this I could finally build the package locally, but when I tried to ru
 
 Turns out .NET Core [only supports version 1.0 of openssl](https://stackoverflow.com/questions/51901359/net-core-2-1-sdk-linux-x64-no-usable-version-of-the-libssl-was-found), and the version packaged by Nix is 1.1. This is easily fixed by importing `openssl_1_0_2` instead of `openssl`.
 
-```nix
+```diff
    rpath = stdenv.lib.makeLibraryPath [
      stdenv.cc.cc libunwind libuuid icu
 +    openssl_1_0_2 zlib curl
@@ -241,7 +247,7 @@ Turns out .NET Core [only supports version 1.0 of openssl](https://stackoverflow
 
 ## Adding the package to your system
 
-Now that I got it running I had to add it to the system, and to do this you have to add an [overlay](https://nixos.wiki/wiki/Overlays). An overlay is just a function that takes two arguments, named self and super, and returns a set of packages. This is what mine looks like:
+Now that I got it running I had to add it to the system, and to do this you need [overlays](https://nixos.wiki/wiki/Overlays). An overlay is just a function that takes two arguments, named self and super, and returns a set of packages. This is what mine looks like:
 
 ```nix
 self: super: {
@@ -250,7 +256,7 @@ self: super: {
 }
 ```
 
-Then you need to import it to the main `configuration.nix` file. (Note the parenthesis around the import: Nix will throw [a cryptic infinite recursion error](https://discourse.nixos.org/t/infinite-recursion-encountered-at-undefined-position/3039/13?u=steinuil) with no stack trace if you forget them!)
+Then I imported it to the main `configuration.nix` file. (Note the parenthesis around the import: Nix will throw [a cryptic infinite recursion error](https://discourse.nixos.org/t/infinite-recursion-encountered-at-undefined-position/3039/13?u=steinuil) with no stack trace if you forget them!)
 
 ```nix
 nixpkgs.overlays = [ (import ./my-overlay.nix) ];
