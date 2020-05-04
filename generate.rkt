@@ -188,7 +188,11 @@
    (post "The journey of packaging a .NET app on Nix"
          #:date (pdate 2020 4 1)
          #:id "dotnet-on-nix"
-         #:tags '(programming nix dotnet))))
+         #:tags '(programming nix dotnet))
+   (post "Announcing SatouinDp"
+         #:date (pdate 2020 5 5)
+         #:id "announcing-satouindp"
+         #:tags '(release dotnet))))
 
 
 (define blog-index
@@ -270,7 +274,7 @@
 (generate-rss blog blog-posts)
 (generate-atom blog blog-posts)
 
-(let ([tags (for*/fold ([s (set)])
+#;(let ([tags (for*/fold ([s (set)])
                       ([post blog-posts]
                        [tag (blog-post-tags post)])
               (set-add s tag))])

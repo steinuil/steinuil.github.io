@@ -46,9 +46,9 @@ in stdenv.mkDerivation rec {
   '';
   
   meta = with stdenv.lib; {
-  	homepage = https://github.com/steinuil/KinoBot;
-  	platforms = [ "aarch64-linux" ];
-  	license = licenses.isc;
+    homepage = https://github.com/steinuil/KinoBot;
+    platforms = [ "aarch64-linux" ];
+    license = licenses.isc;
   };
 }</code></pre><div class="text"><p>(I took inspiration from <a href="https://gist.github.com/jb55/b8b49893e18b61fb8c3ea3c924358278">this gist</a> and a few other derivations I found to come up with this.)</p><p>So I tried to run it:</p></div><pre><code>$ nix repl '&lt;nixpkgs&gt;'
 Welcome to Nix version 2.3.3. Type :? for help.
