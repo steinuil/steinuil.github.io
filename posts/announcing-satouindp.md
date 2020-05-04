@@ -1,6 +1,6 @@
 My desktop is connected to two monitors and one TV, and for various reasons I find myself needing to switch my primary display more often than most people.
 
-![My battlestation](C:\Users\steenuil\Desktop\ETgY93wWkAYcPDn.jpeg)
+![My battlestation](/molten-matter/announcing-satouindp/battlestation.jpg)
 
 This is my monitor setup. There's also a TV behind me, which I use to watch movies and play videogames. My laptop is also connected to the central monitor.
 
@@ -14,7 +14,7 @@ There's probably a bunch of tools that already do this, but I don't think any of
 
 The other day I finally decided to scratch this itch. A couple hours later I emerged with [SatouinDp](https://github.com/steinuil/SatouinDp).
 
-![EW5MzmwXsAwan3r](C:\Users\steenuil\Desktop\EW5MzmwXsAwan3r.jpg)
+![SatouinDp in action](/molten-matter/announcing-satouindp/satouin.jpg)
 
 It's simply a taskbar icon that shows the list of displays, and when you click on one it sets that one as the primary display. It's written in F# and it calls directly to the Win32 API to change the display settings. Maybe I'll write a post about how to do that too some other day.
 
