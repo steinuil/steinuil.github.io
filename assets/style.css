@@ -264,9 +264,9 @@ main > .heading {
 }
 
 main > header > .post-title {
-  display: inline-block;
   font-size: 2.2em;
   line-height: 1.2em;
+  margin-bottom: .5rem;
 }
 
 main > .heading {
@@ -289,7 +289,7 @@ figure,
 pre,
 main > ul,
 .post-list .post {
-  margin: .8em 0;
+  margin: 1.2em 0;
 }
 
 .post-list .post .name {
