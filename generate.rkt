@@ -192,7 +192,11 @@
    (post "Announcing SatouinDp"
          #:date (pdate 2020 5 5)
          #:id "announcing-satouindp"
-         #:tags '(release dotnet))))
+         #:tags '(release dotnet))
+   (post "require_so: DRYer StackOverflow copying"
+         #:date (pdate 2020 5 20)
+         #:id "announcing-require-so"
+         #:tags '(release ruby shitposting))))
 
 
 (define blog-index
