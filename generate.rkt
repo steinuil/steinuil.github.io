@@ -121,10 +121,8 @@
 (define about-page
   (page 'about page-infos "steenuil's page"
         '((div ([class "text"])
-               (p "The steenuil (Athene noctua) is a bird that inhabits "
-                  "a small town in " (strong "Italy") " not too far from the Alps. "
-                  "This owl is a member of the typical or true owl family, "
-                  (strong "programmers") ", which contains most species of owl."))
+               (p "Hi, I go by " (strong "steen") " online and I like "
+                  "weird programming languages, VR games, and reading manga."))
           (header ([class "heading"]) "External links")
           (div ([class "table"])
                (div "github")  (div (a ([href "https://github.com/steinuil"]) "github.com/steinuil"))
