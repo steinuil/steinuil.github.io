@@ -194,7 +194,11 @@
    (post "require_so: DRYer StackOverflow copying"
          #:date (pdate 2020 5 20)
          #:id "announcing-require-so"
-         #:tags '(release ruby shitposting))))
+         #:tags '(release ruby shitposting))
+   (post "Offloading NixOS builds to a faster machine"
+         #:date (pdate 2021 1 24)
+         #:id "nix-distributed-builds"
+         #:tags '(nix))))
 
 
 (define blog-index
