@@ -190,15 +190,19 @@
    (post "Announcing SatouinDp"
          #:date (pdate 2020 5 5)
          #:id "announcing-satouindp"
-         #:tags '(release dotnet))
+         #:tags '(programming release dotnet))
    (post "require_so: DRYer StackOverflow copying"
          #:date (pdate 2020 5 20)
          #:id "announcing-require-so"
-         #:tags '(release ruby shitposting))
+         #:tags '(programming release ruby shitposting))
    (post "Offloading NixOS builds to a faster machine"
          #:date (pdate 2021 1 24)
          #:id "nix-distributed-builds"
-         #:tags '(nix))))
+         #:tags '(programming nix))
+   (post "Hellpoint breach map"
+         #:date (pdate 2021 6 20)
+         #:id "hellpoint-breach-map"
+         #:tags '(videogames hellpoint))))
 
 
 (define blog-index

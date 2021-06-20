@@ -1,0 +1,273 @@
+I just finished playing Hellpoint, an indie soulslike which was surprisingly really good. It has a very deeply interconnected world which I loved exploring, but some areas are kinda confusing to navigate and I quickly realized I needed a map and the ones that were available online were... less than satisfactory. So I made one with Graphviz.
+
+I did explore the game thoroughly but I didn't manage to get the true ending due to a bug with an involved NPC, so it might be missing some things or not be entirely accurate (for example some of the edges between the areas are actually one-way, but I didn't want to rewrite it into a digraph), but if you wanna know how to get to a specific breach you might find it useful.
+
+![Hellpoint breach map](hellpoint.svg)
+
+```dot
+graph "Hellpoint breach map" {
+  subgraph cluster_Arcology {
+    label = "Arcology";
+
+    // Breaches
+    Funicular [shape = diamond];
+    "Customs Bridge" [shape = diamond];
+    "Celestial Workshop" [shape = diamond];
+    "West Square" [shape = diamond];
+    "Condo Ruins" [shape = diamond];
+    
+    // Lifts
+    subgraph cluster_lift0 {
+      label = "Lift";
+      l0f1 -- l0f2;
+      l0f2 [label = "Floor 2", shape = none];
+      l0f1 [label = "Floor 1", shape = none];
+    }
+
+    subgraph cluster_lift1 {
+      label = "Lift";
+      l1f1 -- l1f2 -- l1f3;
+      l1f3 [label = "Floor 3", shape = none];
+      l1f2 [label = "Floor 2", shape = none];
+      l1f1 [label = "Floor 1", shape = none];
+    }
+
+    // Links
+    l0f1 -- Funicular -- "Customs Bridge";
+    "Customs Bridge" -- l1f2 -- "Celestial Workshop";
+    "Cosmic theurgist" -- "Celestial Workshop";
+    "Eye codes" -- l1f3;
+    "Customs Bridge" -- "West Square";
+    "West Square" -- "Condo Ruins";
+  }
+  
+  subgraph "cluster_Alma Mater Atrium" {
+    label = "Alma Mater Atrium";
+
+    // Breaches
+    "Otsego Mansion" [shape = diamond];
+    "Shanty Entrance" [shape = diamond];
+    "Western Skybridge" [shape = diamond];
+    "Tenements" [shape = diamond];
+    "Union Park" [shape = diamond];
+    "Athaneum" [shape = diamond];
+    "Cabaret Cellar" [shape = diamond];
+
+    // Lifts
+    subgraph cluster_lift3 {
+      label = "Lift";
+      l3f1 -- l3f2 -- l3f3;
+      l3f3 [label = "Floor 3", shape = none];
+      l3f2 [label = "Floor 2", shape = none];
+      l3f1 [label = "Floor 1", shape = none];
+    }
+
+    subgraph cluster_lift6 {
+      label = "Lift";
+      l6f2 -- l6f1;
+      l6f2 [label = "Floor 2", shape = none];
+      l6f1 [label = "Floor 1", shape = none];
+    }
+
+    subgraph cluster_Lift9 {
+      label = "Lift";
+      l9f1 -- l9f2 -- l9f3;
+      l9f3 [label = "Floor 3", shape = none];
+      l9f2 [label = "Floor 2", shape = none];
+      l9f1 [label = "Floor 1", shape = none];
+    }
+
+    // Links
+    l3f3 -- "Shanty Entrance" -- "Western Skybridge";
+    l3f2 -- "Otsego Mansion";
+    l6f2 -- "Tenements";
+    l6f1 -- "Union Park";
+    l9f2 -- "Otsego Mansion";
+    l9f2 -- "Cabaret Cellar";
+    "Union Park" -- "Otsego Mansion";
+    "Union Park" -- "Athaneum";
+  }
+
+  subgraph cluster_lift2 {
+    label = "Lift";
+    l2f1 -- l2f2;
+    l2f2 [label = "Floor 2", shape = none];
+    l2f1 [label = "Floor 1", shape = none];
+  }
+
+  subgraph "cluster_Arcology Underside" {
+    label = "Arcology Underside";
+
+    // Breaches
+    "Central Mall" [shape = diamond];
+    "SAS" [shape = diamond];
+    "Outside Platform" [shape = diamond];
+
+    // Lifts
+    subgraph cluster_lift7 {
+      label = "Lift";
+      l7f1 -- l7f2;
+      l7f2 [label = "Floor 2", shape = none];
+      l7f1 [label = "Floor 1", shape = none];
+    }
+
+    "Central Mall" -- l7f2;
+    l7f1 -- "SAS"
+    "SAS" -- "Outside Platform";
+  }
+
+  subgraph "cluster_Alma Mater" {
+    label = "Alma Mater";
+
+    // Breaches
+    "Belvedere" [shape = diamond];
+    "Offices" [shape = diamond];
+    "Lobby" [shape = diamond];
+    "Uthos's Agora" [shape = diamond];
+
+    // Lifts
+    subgraph cluster_lift4 {
+      label = "Lift";
+      l4f1 -- l4f2;
+      l4f2 [label = "Floor 2", shape = none];
+      l4f1 [label = "Floor 1", shape = none];
+    }
+
+    subgraph cluster_lift5 {
+      label = "Lift";
+      l5f1 -- l5f2;
+      l5f2 [label = "Floor 2", shape = none];
+      l5f1 [label = "Floor 1", shape = none];
+    }
+
+    // Links
+    l4f1 -- "Belvedere";
+    "Offices" -- "Belvedere";
+    l4f2 -- "Uthos's Agora";
+    l5f2 -- "Offices";
+    l5f1 -- "Lobby";
+  }
+  
+  subgraph "cluster_Sohn District" {
+    label = "Sohn District";
+    
+    // Breaches
+    "Corpse Pit" [shape = diamond];
+    "Balcony" [shape = diamond]
+    "Control Center" [shape = diamond];
+    
+    // Links
+    "Corpse Pit" -- "Control Center";
+    "Corpse Pit" -- "Balcony" -- "Control Center"
+  }
+  
+  subgraph "cluster_Port Issoudun" {
+    label = "Port Issoudun";
+    
+    // Breaches
+    "Docking Bay" [shape = diamond];
+    "Silos" [shape = diamond];
+    "Ozy's Pit" [shape = diamond];
+
+    // Links
+    "Docking Bay" -- "Silos";
+    "Silos" -- "Ozy's Pit";
+  }
+    
+  subgraph cluster_Observatory {
+    label = "Observatory";
+
+    // Braches
+    "Podium" [shape = diamond];
+  }
+  
+  subgraph cluster_Embassy {
+    label = "Embassy";
+
+    // Breaches
+    "Great Halls" [shape = diamond];
+    "Pond" [shape = diamond];
+    "Admission" [shape = diamond];
+
+    j0 [shape = point];
+
+    // Links
+    "Great Halls" -- j0 -- "Pond";
+    "Great Halls" -- "Admission";
+  }
+  
+  subgraph "cluster_Arisen Dominion" {
+    label = "Arisen Dominion";
+
+    // Breaches
+    "Solar Promenade" [shape = diamond];
+    "Hall of Remembrance" [shape = diamond];
+    "Grand Gallery" [shape = diamond];
+    "Tram Station" [shape = diamond];
+    "Mine Mausoleum" [shape = diamond];
+    "Undisturbed Defas Nemundis" [shape = diamond];
+
+    // Lifts
+    subgraph cluster_lift8 {
+      label = "Lift";
+      l8f1 -- l8f2 -- l8f3 -- l8f4;
+      l8f4 [label = "Ministry Audience Chamber", shape = none];
+      l8f3 [label = "Grand Gallery", shape = none];
+      l8f2 [label = "Promenade", shape = none];
+      l8f1 [label = "Mausoleum", shape = none];
+    }
+
+    // Links
+    "Solar Promenade" -- "Hall of Remembrance" -- "Grand Gallery";
+    "Tram Station" -- "Grand Gallery";
+    "Grand Gallery" -- l8f3;
+    "Mine Mausoleum" -- l8f1;
+    l8f4 -- "Undisturbed Defas Nemundis";
+  }
+
+  subgraph "cluster_Ikari Walkways" {
+    label = "Ikari Walkways";
+
+    // Breaches
+    "East Square" [shape = diamond];
+    "Crashed Tram" [shape = diamond];
+    "Underail" [shape = diamond];
+
+    // Links
+    "East Square" -- "Crashed Tram" -- "Underail";
+  }
+
+  j0 -- "Solar Promenade";
+
+  "Customs Bridge" -- "East Square";
+
+  "Tenements" -- "Tram Station";
+
+  l2f1 -- "Central Mall";
+  l2f2 -- "Otsego Mansion";
+  l3f1 -- "Central Mall";
+  
+  "Otsego Mansion" -- "Celestial Workshop";
+
+  "Western Skybridge" -- l4f1;
+
+  "Offices" -- "Tenements";
+  "Lobby" -- "Otsego Mansion";
+  
+  "Podium" -- "Great Halls";
+  "Podium" -- "Docking Bay";
+  "Podium" -- l0f2;
+  "Podium" -- "Outside Platform";
+  
+  "Control Center" -- "Docking Bay";
+  
+  "Control Center" -- l1f1;
+  "Condo Ruins" -- "Corpse Pit";
+
+  "Underail" -- "Central Mall";
+  "Underail" -- l9f2;
+  "Underail" -- "Cabaret Cellar";
+  "Ozy's Pit" -- "Pond";
+}
+```
+
