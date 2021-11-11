@@ -203,7 +203,7 @@
          #:date (pdate 2021 6 20)
          #:id "hellpoint-breach-map"
          #:tags '(videogames hellpoint))
-   (post "Using NixOps to deploy to my Raspberry Pi"
+   (post "NixOps is easier than I thought"
          #:date (pdate 2021 11 11)
          #:id "nixops-on-the-pi"
          #:tags '(programming nix))))
