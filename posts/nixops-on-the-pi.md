@@ -22,7 +22,7 @@ And surely I couldn't just `import` the configuration I was using for the Pi and
 
 This might be a gross oversimplification, but all NixOps does is evaluate a system configuration on your machine, build it, copy the results on one or more target machines and make them switch to that configuration.
 
-In other words, it's like it runs `nixos-rebuild` using the Pi's `/etc/nixos/configuration.nix` but on another computer, and all the Pi has to do is download the results of the rebuild and run it. In other words, does *exactly* what I needed.
+In other words, it's like it runs `nixos-rebuild` using the Pi's `/etc/nixos/configuration.nix` but on another computer, and all the Pi has to do is download the results of the rebuild and run it. In yet other words, does *exactly* what I needed.
 
 ---
 
