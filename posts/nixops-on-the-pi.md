@@ -1,5 +1,3 @@
-# Using NixOps to deploy to my Raspberry Pi
-
 TL;DR: if you have an underpowered machine or two in your house or a small server that you're already managing using NixOS, and you find that running `nixos-rebuild` on it takes too long, you can easily keep your current configuration untouched and let a more beefy machine build it. Jump to the end of this post for a sample NixOps specification and instructions on how to use it.
 
 Also, NixOps apparently has some [issues](https://news.ycombinator.com/item?id=20324608) involving local state that make it hard to share a deployment with other machines. I just read about a tool called [morph](https://github.com/DBCDK/morph) that is almost a drop-in replacement for NixOps and doesn't share these issues. Sadly it is 3AM here and this here setup works well enough for me so I really can't be bothered to check it out right now, but maybe at some point I will and maybe you might want to do it upfront. [This](https://christine.website/blog/morph-setup-2021-04-25) is a good post about it.

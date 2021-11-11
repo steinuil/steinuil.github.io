@@ -202,7 +202,11 @@
    (post "Hellpoint breach map"
          #:date (pdate 2021 6 20)
          #:id "hellpoint-breach-map"
-         #:tags '(videogames hellpoint))))
+         #:tags '(videogames hellpoint))
+   (post "Using NixOps to deploy to my Raspberry Pi"
+         #:date (pdate 2021 11 11)
+         #:id "nixops-on-the-pi"
+         #:tags '(programming nix))))
 
 
 (define blog-index
