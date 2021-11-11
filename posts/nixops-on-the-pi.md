@@ -74,7 +74,7 @@ These commands will create a new deployment called `rpi` using the specification
 
 Summing up, NixOS is really nice and you, hypothetical reader who isn't using it, should try it. [All issues with documentation and tooling notwithstanding](https://christine.website/talks/nixos-pain-2021-11-10). Here's a couple things that are tangentially related to this post.
 
-* Thanks to [@cadey](https://christine.website/) and probably a couple others I forget for posting about Nix stuff on Lobsters a lot and getting me to try NixOps out.
+* Thanks to [@cadey](https://christine.website/) and probably a couple others I forget for posting about Nix stuff on Lobsters a lot, those posts got me to try NixOps out.
 * [This is my NixOS configuration](https://kirarin.hootr.club/git/steinuil/nixos-config) if you *really* want to look at it. The Gitea server it's hosted on is defined in one of the configurations in there. Very meta. Maybe one day I'll switch it to NixOps.
 * When I wrote "It's a slow machine", it reminded me of the similar line from Penny Lane by The Beatles and the song started playing in my head and it wouldn't stop. Sadly I couldn't think of a way to work it into the post.
 
