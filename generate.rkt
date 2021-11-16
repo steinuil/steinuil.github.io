@@ -206,7 +206,11 @@
    (post "NixOps is easier than I thought"
          #:date (pdate 2021 11 11)
          #:id "nixops-on-the-pi"
-         #:tags '(programming nix))))
+         #:tags '(programming nix))
+   (post "Types of parser combinators"
+         #:date (pdate 2021 11 16)
+         #:id "types-of-parser-combinators"
+         #:tags '(programming parser-combinators))))
 
 
 (define blog-index
