@@ -8,7 +8,7 @@ Let me explain myself.
 
 As you do, because what programs do is transform data, and you only have one hammer, and so all programs are compilers. Usually this involves consuming less-structured input and producing more-structured output. [This is called parsing](https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/), and this is why you have a parsing problem.
 
-This input could be a _stream_ of things, be it characters, bytes, or tokens, or it could be a _tree_ of things, be it a hash table, the AST of a program, JSON, HTML, s-expressions, or any sort of arborescent structure you might think of. What a parser does, then, is to take that structure, or maybe just part of it, and make sense of it. Sometimes it doesn't make sense, and in that case we want to return an error. We can turn this into a [type][1]:
+This input could be a _stream_ of things, be it characters, bytes, or tokens, or it could be a _tree_ of things, be it a hash table, the AST of a program, JSON, HTML, s-expressions, or any sort of arborescent structure you might think of. What a parser does, then, is to take that structure, or maybe just part of it, and make sense of it. Sometimes it doesn't make sense, and in that case we want to return an error. We can turn this into a type:
 
 ```typescript
 type Output<T> = {
@@ -177,5 +177,3 @@ If you were expecting an implementation of all these things I just wrote about, 
 If you were expecting the announcement of a library of sorts, too bad! I don't know if I have it in me to write a generally useful implementation of this. I'll probably just write what I need for parsing those game files and forget about it. I'm not a library-writing kinda person.
 
 I'm sure somebody else already thought of this stuff but I haven't seen much about it on the internet, do tell me if you know of anything else. I've seen that F#'s [XParsec](http://xparsec.corsis.tech/) already implements some of this stuff but that's about it. [Hutton and Meijer (1996)](https://www.cs.nott.ac.uk/~pszgmh/monparsing.pdf) also mentions that _"One could go further (as in ([Hutton, 1992](http://www.cs.nott.ac.uk/~pszgmh/parsing.pdf)), for example) and abstract upon the type String of tokens"_, I haven't read Hutton 1992 yet but I guess I should.
-
-[1]: [Hutton and Meijer's paper](https://www.cs.nott.ac.uk/~pszgmh/monparsing.pdf) about parser combinators also mentions that we might want to return _more than one_ result in cases where it makes sense, but but let's keep things simple here.
