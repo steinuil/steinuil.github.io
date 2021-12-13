@@ -210,7 +210,11 @@
    (post "Types of parser combinators"
          #:date (pdate 2021 11 16)
          #:id "types-of-parser-combinators"
-         #:tags '(programming parser-combinators))))
+         #:tags '(programming parser-combinators))
+   (post "Solving Advent of Code 2021 Day 13 with a linear equation"
+         #:date (pdate 2021 12 13)
+         #:id "aoc2021-day13-linear-equation"
+         #:tags '(programming))))
 
 
 (define blog-index
