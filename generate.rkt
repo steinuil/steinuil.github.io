@@ -214,6 +214,10 @@
    (post "Solving Advent of Code 2021 Day 13 with a linear equation"
          #:date (pdate 2021 12 13)
          #:id "aoc2021-day13-linear-equation"
+         #:tags '(programming))
+   (post "Taking back control of your phone"
+         #:date (pdate (2022 10 10))
+         #:id "take-back-control-of-your-phone"
          #:tags '(programming))))
 
 
