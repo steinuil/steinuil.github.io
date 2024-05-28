@@ -122,7 +122,7 @@
   (page 'about page-infos "steenuil's page"
         '((div ([class "text"])
                (p "Hi, I go by " (strong "steen") " online and I like "
-                  "weird programming languages, VR games, and reading manga."))
+                  "programming languages, types, and videogames."))
           (header ([class "heading"]) "External links")
           (div ([class "table"])
                (div "github")  (div (a ([href "https://github.com/steinuil"]) "github.com/steinuil"))
