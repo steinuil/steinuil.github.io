@@ -214,7 +214,11 @@
    (post "Solving Advent of Code 2021 Day 13 with a linear equation"
          #:date (pdate 2021 12 13)
          #:id "aoc2021-day13-linear-equation"
-         #:tags '(programming))))
+         #:tags '(programming))
+   (post "Do I not like Ruby anymore?"
+         #:date (pdate 2024 05 28)
+         #:id "maybe-i-like-python-now"
+         #:tags '(programming ruby python))))
 
 
 (define blog-index
