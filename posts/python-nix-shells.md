@@ -133,32 +133,37 @@ Now if you run `git status`, you won't see any added files!
 
 For reasons I won't go into here, we're still using `pip` and good old `requirements.txt` files to specify dependencies rather than `poetry` or any of the fancy new Python tooling. To simplify this dev environment setup and keep it close to our coworkers', we're gonna use normal Python tooling to set up the virtual env and install dependencies.
 
-1. First of all, create the venv.
-   ```shell
-   python -m venv venv
-   ```
+- First of all, create the venv.
 
-2. Then add these lines to your `.envrc` to make `direnv` load the venv. (I added the `VIRTUAL_ENV_DISABLE_PROMPT` bit because it messes up my Starship prompt, but you may want to keep it.)
-   ```shell
-   export VIRTUAL_ENV_DISABLE_PROMPT=1
-   source venv/bin/activate
-   ```
+    ```shell
+    python -m venv venv
+    ```
 
-3. Enter the venv by allowing the changes you made to your `.envrc`.
-   ```shell
-   direnv allow
-   ```
+- Then add these lines to your `.envrc` to make `direnv` load the venv. (I added the `VIRTUAL_ENV_DISABLE_PROMPT` bit because it messes up my Starship prompt, but you may want to keep it.)
 
-4. Now that you're inside the venv, upgrade `pip` and `setuptools` and install `wheel`. (Imma keep it real with you: this is just cargo culting. I don't actually know how much of this is needed. Feel free to @ me for this one.)
-   ```shell
-   pip3 install --upgrade pip setuptools
-   pip install wheel
-   ```
+    ```shell
+    export VIRTUAL_ENV_DISABLE_PROMPT=1
+    source venv/bin/activate
+    ```
 
-5. Let's get installing!
-   ```shell
-   pip install -r requirements.txt
-   ```
+- Enter the venv by allowing the changes you made to your `.envrc`.
+
+    ```shell
+    direnv allow
+    ```
+
+- Now that you're inside the venv, upgrade `pip` and `setuptools` and install `wheel`. (Imma keep it real with you: this is just cargo culting. I don't actually know how much of this is needed. Feel free to @ me for this one.)
+
+    ```shell
+    pip3 install --upgrade pip setuptools
+    pip install wheel
+    ```
+
+- Let's get installing!
+
+    ```shell
+    pip install -r requirements.txt
+    ```
 
 ## Tell yourself this is fine
 
