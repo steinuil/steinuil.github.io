@@ -1,0 +1,63 @@
+<html><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" /><title>Simple Python devshells with Nix and direnv</title><meta name="description" content="steenuil's blog" /><meta name="generator" content="generator.rkt" /><meta name="referrer" content="strict-origin" /><link rel="stylesheet" href="/assets/style.css" type="text/css" /><link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS feed" /><link rel="alternate" href="/feed.xml" type="application/atom+xml" title="Atom feed" /><link rel="apple-touch-icon-precomposed" href="/assets/icon/favicon-152.png" /><meta name="og:type" content="website" /><meta name="og:title" content="Simple Python devshells with Nix and direnv" /><meta name="og:description" content="steenuil's blog" /><meta name="twitter:card" content="summary" /><meta name="twitter:site" content="@steinuil" /><meta name="twitter:creator" content="@steinuil" /><meta name="twitter:dnt" content="on" /></head><body id="blog-post-page"><div class="body-container"><header><nav><ul><li><a href="/molten-matter/">Molten Matter</a></li><li><a href="/">About</a></li><li><a href="/legal/">Legal</a></li></ul></nav></header><main><header><h1 class="post-title">Simple Python devshells with Nix and direnv</h1> <time datetime="2024-06-08">2024/06/08</time></header><div class="text"><p>In my last post, I mentioned I&rsquo;m currently working at a Python shop. I&rsquo;m also a huge fan of Nix, and I believe that a day may come when we can get rid of the messy deployment setup we use now and replace it with Nix, but it is not this day. Today I&rsquo;m just gonna talk about how I stealthily manage my development environments for the Python projects at work with Nix and direnv, and how you could easily do the same.</p></div><h2 class="heading" id="who-is-this-for">Who is this for?</h2><div class="text"><p>You&rsquo;re running NixOS or nix-darwin or home-manager on your computer of choice or maybe you&rsquo;re just trying Nix out, and you just want to get things done at your job.</p><p>You don&rsquo;t particularly care about building a reproducible derivation or an image that you can deploy with Nix.</p><p>You don&rsquo;t want to spend too much time figuring out why psycopg or some other Python library you don&rsquo;t want to pick a fight with is not building in your current checkout of nixpkgs.</p><p>You don&rsquo;t want to install multiple versions of Python on your machine or mess with the tooling that should take care of that for you.</p><p>You want to keep things clean.</p></div><h2 class="heading" id="what-do-we-want">What do we want?</h2><div class="text"><p>Since this is a work project, let&rsquo;s talk requirements!</p></div><ul><li><p>We shouldn&rsquo;t make any changes to the repositories; we don&rsquo;t want to go around dropping files in every team&rsquo;s repos if they don&rsquo;t want to buy into the tooling.</p></li><li><p>We don&rsquo;t have to go all-in on Nix. Debugging a failing build of a Python package for a repo we don&rsquo;t touch all that often sucks and it adds too much overhead.</p></li><li><p>Related to the previous point, the setup should be very similar to the one your team members are using.</p></li></ul><div class="text"><p>In short: don&rsquo;t rock the boat. There&rsquo;s a time and a place for introducing tooling, and it is not now. We just want a working setup that succeeds in providing a Python development environment, without littering our global environment.</p></div><h2 class="heading" id="the-flake">The flake</h2><div class="text"><p>The flake where I keep my dev environments looks kind of like this:</p></div><pre class="brush: nix"><code>{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs = { self, nixpkgs, flake-utils }:
+  	flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+        };
+
+        mkPythonShell = python:
+          pkgs.mkShell {
+            name = "python-${python.version}";
+            buildInputs = [
+              pkgs.pyright
+              pkgs.ruff
+              pkgs.poetry
+              (python.withPackages (ps: [
+                ps.black
+                ps.flake8
+              ]))
+            ];
+          };
+      in
+      {
+        devShells = {
+          python39 = mkPythonshell pkgs.python39;
+          python310 = mkPythonShell pkgs.python310;
+          python311 = mkPythonShell pkgs.python311;
+          python312 = mkPythonShell pkgs.python312;
+        };
+      }
+    );
+}</code></pre><div class="text"><p>I keep one devShell for each version of Python, and only install tools that are required for Python development but are not specified in the project dependencies so they don&rsquo;t litter my <code>$PATH</code> when I&rsquo;m not using them. I prefer to keep this package set small so that it breaks less often.</p><p>To use it, you&rsquo;re gonna have to create a new git repository, dump the code above in a <code>flake.nix</code>, and then run <code>nix flake lock</code>. You can also try running one of the shells with <code>nix develop .#python312</code> to make sure that everything is working correctly.</p><p>This flake is freestanding and lives outside of any existing repos, and if you manage to convert some coworkers to Nix it can be pushed to the company&rsquo;s git forge of choice.</p></div><h2 class="heading" id="the-envrc">The .envrc</h2><div class="text"><p><a href="https://direnv.net/">direnv</a> is a wonderful tool and if you&rsquo;re not using it yet, you should check it out. It installs a hook inside your shell that runs when you change directories, and when it detects that an <code>.envrc</code> file is present in the current directory or further up the tree, it runs the commands specified in that <code>.envrc</code> file and updates the env variables accordingly. This means that you can set env variables, add executables to your <code>$PATH</code> and, crucially, set your Python venv automatically.</p><p>This <code>.envrc</code> is a simple shell script that is executed with some predefined utility commands (the <a href="https://direnv.net/man/direnv-stdlib.1.html">stdlib</a>). These include loading <code>.env</code> files with <code>dotenv</code> and automatically setting the correct interpreter version and installing dependencies for several languages. We don&rsquo;t need most of that though, because the Nix dev environment manages the Python version for us.</p><p>If you&rsquo;re using <code>home-manager</code>, the installation is as easy as:</p></div><pre class="brush: nix"><code>programs.direnv = {
+  enable = true;
+  nix-direnv.enable = true;
+}</code></pre><div class="text"><p><code>nix-direnv</code> is absolutely required when you&rsquo;re working with flakes. Without it, it may take several seconds to <code>cd</code> into the project directory. With <code>nix-direnv</code>, loading previously cached flakes will take less than a second.</p><p>To drop into one of the Python shells we created in our flakes, create an <code>.envrc</code> file in the root of a repository containing this:</p></div><pre class="brush: shell"><code>use flake ../path/to/flake#python310</code></pre><div class="text"><p>(The path/to/flake can be <a href="https://nix.dev/manual/nix/2.22/command-ref/new-cli/nix3-flake.html#examples">anything that is accepted as a flake URL</a>: a relative path from your current directory, a git repository on github or your employer&rsquo;s git forge, or a URL that points to a tarball.)</p><p>Then close the file, run <code>direnv allow</code>, and you should see Nix preparing a dev environment containing the Python 3.11 interpreter and all the tools we specified in the flake. This might take a while the first time you do it, but after the initial setup it&rsquo;ll be instantaneous. Try it out!</p></div><pre><code>$ cd project
+direnv: loading project/.envrc
+direnv: using flake ../path/to/flake#python310
+direnv: nix-direnv: using cached dev shell
+direnv: export +AR +AS +CONFIG_SHELL ...
+$ black --version
+black, 24.4.2 (compiled: yes)
+Python (CPython) 3.10.13
+$ python -V
+Python 3.10.13
+$ cd ..
+direnv: unloading
+$ black --version
+bash: black: command not found
+$ python -V
+Python 3.9.6</code></pre><div class="text"><p>The <code>.envrc</code> file should live at the root of your project, but if you don&rsquo;t want to check it into git or add it into <code>.gitignore</code> you can sneakily add an ignore for it inside your project&rsquo;s <code>.git/info/exclude</code>.</p></div><pre class="brush: gitignore"><code>.direnv/
+.envrc</code></pre><div class="text"><p>Now if you run <code>git status</code>, you won&rsquo;t see any added files!</p></div><h2 class="heading" id="the-venv">The venv</h2><div class="text"><p>For reasons I won&rsquo;t go into here, we&rsquo;re still using <code>pip</code> and good old <code>requirements.txt</code> files to specify dependencies rather than <code>poetry</code> or any of the fancy new Python tooling. To simplify this dev environment setup and keep it close to our coworkers&rsquo;, we&rsquo;re gonna use normal Python tooling to set up the virtual env and install dependencies.</p></div><ol><li><p>First of all, create the venv.  <code>shell
+   python -m venv venv</code></p></li><li><p>Then add these lines to your <code>.envrc</code> to make <code>direnv</code> load the venv. (I added the <code>VIRTUAL_ENV_DISABLE_PROMPT</code> bit because it messes up my Starship prompt, but you may want to keep it.)  <code>shell
+   export VIRTUAL_ENV_DISABLE_PROMPT=1
+   source venv/bin/activate</code></p></li><li><p>Enter the venv by allowing the changes you made to your <code>.envrc</code>.  <code>shell
+   direnv allow</code></p></li><li><p>Now that you&rsquo;re inside the venv, upgrade <code>pip</code> and <code>setuptools</code> and install <code>wheel</code>. (Imma keep it real with you: this is just cargo culting. I don&rsquo;t actually know how much of this is needed. Feel free to @ me for this one.)  <code>shell
+   pip3 install --upgrade pip setuptools
+   pip install wheel</code></p></li><li><p>Let&rsquo;s get installing!  <code>shell
+   pip install -r requirements.txt</code></p></li></ol><h2 class="heading" id="tell-yourself-this-is-fine">Tell yourself this is fine</h2><div class="text"><p>Is this really it? Is this what my life is right now? Setting up non-reproducible development environments, deploying a service mesh using brittle tooling that is not made to deploy service meshes, writing boring code in a boring language using boring tools, and earning your paycheck at the end of the month?</p><p>Well, my friend, maybe it is fine. You know better, and that&rsquo;s a good asset to have in the right environment. Maybe you can be the person that brings positive technical change inside the company and get recognition for it. You can do it.</p></div><h2 class="heading" id="the-end">The end</h2><div class="text"><p>Repeat this for every Python repository you might have at your company. That&rsquo;s it! You can start working on the actual tasks in your sprint now.</p></div></main><footer>made with <a href="https://racket-lang.org/">racket</a> :: <a href="/rss.xml">rss</a> :: <a href="/feed.xml">atom</a></footer></div></body></html>

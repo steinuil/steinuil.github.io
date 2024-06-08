@@ -218,7 +218,11 @@
    (post "Do I not like Ruby anymore?"
          #:date (pdate 2024 05 28)
          #:id "maybe-i-like-python-now"
-         #:tags '(programming ruby python))))
+         #:tags '(programming ruby python))
+   (post "Simple Python devshells with Nix and direnv"
+         #:date (pdate 2024 06 8)
+         #:id "python-nix-shells"
+         #:tags '(programming python nix))))
 
 
 (define blog-index
