@@ -63,13 +63,9 @@
               #:info blog
               #:all-pages page-infos
               #:body body
-              #:footer '("made with "
-                         (a ([href "https://racket-lang.org/"])"racket")
-                         " :: " (a ([href "/rss.xml"]) "rss")
-                         " :: " (a ([href "/feed.xml"]) "atom"))))
-
-
-
+              #:footer '((a ([href "/molten-matter/"]) "Molten Matter")
+                         " - " (a ([href "/rss.xml"]) "RSS")
+                         " - " (a ([href "/feed.xml"]) "Atom"))))
 
 
 (define (image width height src [src2x #f] #:description [description ""])
@@ -80,7 +76,6 @@
           [alt ,description]
           ,@(if src2x `([srcset ,(string-append src2x " 2x")]) '())))
     (figcaption ,description)))
-
 
 
 (define (post-page page-infos post)
@@ -114,20 +109,26 @@
 
 (define page-infos
   (list (page-info 'blog "/molten-matter/" "Molten Matter")
-        (page-info 'about "/" "About")
-        #;(page-info 'bookmarks "/bookmarks/" "Bookmarks")
-        (page-info 'legal "/legal/" "Legal")))
+        (page-info 'about "/" "Links")))
 
 (define about-page
-  (page 'about page-infos "steenuil's page"
+  (page 'about page-infos "Links"
         '((div ([class "text"])
-               (p "Hi, I go by " (strong "steen") " online and I like "
-                  "programming languages, types, and videogames."))
-          (header ([class "heading"]) "External links")
+               (p "I am right here."))
           (div ([class "table"])
                (div "github")  (div (a ([href "https://github.com/steinuil"]) "github.com/steinuil"))
-               (div "twitter") (div (a ([href "https://twitter.com/steinuil"]) "@steinuil"))
-               (div "email")   (div (a ([href "mailto:steenuil.owl@gmail.com"]) "steenuil.owl@gmail.com"))))))
+               (div "email")   (div (a ([href "mailto:steen@neets.work"]) "steen@neets.work")))
+          (div ([class "text"])
+               (p "I use these fonts."))    
+          (div ([class "table"])
+               (div (a ([href "https://www.huertatipografica.com/en/fonts/bitter-ht"]) "Bitter"))
+               (div "Copyright (c) 2013, Sol Matas (sol@huertatipografica.com.ar), with Reserved Font Names 'Bitter'")
+               (div (a ([href "http://www.omnibus-type.com/fonts/archivo-black/"]) "Archivo Black"))
+               (div "Copyright 2017 The Archivo Black Project Authors (https://github.com/Omnibus-Type/ArchivoBlack)")
+               (div (a ([href "https://www.ibm.com/plex/"]) "IBM Plex Mono"))
+               (div "Copyright © 2017 IBM Corp. with Reserved Font Name \"Plex\""))
+          (div ([class "text"])
+               (p "You are visiting a static web page. There are no cookies, no data collected, and not even JS (for the moment).")))))
 
 
 (define blog-posts
@@ -222,18 +223,19 @@
    (post "Simple Python devshells with Nix and direnv"
          #:date (pdate 2024 06 8)
          #:id "python-nix-shells"
-         #:tags '(programming python nix))))
+         #:tags '(programming python nix))
+   (post "How I computer in 2024"
+         #:date (pdate 2024 07 31)
+         #:id "uses"
+         #:tags '(nix hardware battlestation))))
 
 
 (define blog-index
   (page 'blog page-infos "Molten Matter"
         `((div ([class "text"])
-               (p "This is my blog. I called it "
-                  (strong "Molten Matter")
-                  " because I thought it sounded good. "
-                  "I might dump my thoughts on here every now and then."))
-          ,(image 700 394 "/assets/images/greenhouse.jpg" "/assets/images/greenhouse@2x.jpg"
-                  #:description "the exterior of the greenhouse at the Royal Palace in Wien, Austria")
+               (p "I post, occasionally."))
+          ; ,(image 700 394 "/assets/images/greenhouse.jpg" "/assets/images/greenhouse@2x.jpg"
+          ;         #:description "the exterior of the greenhouse at the Royal Palace in Wien, Austria")
           (div ([class "post-list"])
                (ul
                 ,@(for/list ([p (sort blog-posts blog-post>?)]
@@ -295,7 +297,7 @@
 (unless (directory-exists? "docs")
   (make-directory "docs"))
 
-(for ([page (list blog-index about-page #;bookmarks-page legal-page)]
+(for ([page (list blog-index about-page #;bookmarks-page)]
       [pinfo page-infos])
   (generate-page (page-url pinfo) page))
 
