@@ -208,6 +208,7 @@ figcaption {
   padding: .2em .4em;
   line-height: 1.5em;
   text-align: left;
+  text-align: center;
 }
 
 main > ul {

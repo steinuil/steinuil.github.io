@@ -223,19 +223,13 @@
    (post "Simple Python devshells with Nix and direnv"
          #:date (pdate 2024 06 8)
          #:id "python-nix-shells"
-         #:tags '(programming python nix))
-   (post "How I computer in 2024"
-         #:date (pdate 2024 07 31)
-         #:id "uses"
-         #:tags '(nix hardware battlestation))))
+         #:tags '(programming python nix))))
 
 
 (define blog-index
   (page 'blog page-infos "Molten Matter"
         `((div ([class "text"])
                (p "I post, occasionally."))
-          ; ,(image 700 394 "/assets/images/greenhouse.jpg" "/assets/images/greenhouse@2x.jpg"
-          ;         #:description "the exterior of the greenhouse at the Royal Palace in Wien, Austria")
           (div ([class "post-list"])
                (ul
                 ,@(for/list ([p (sort blog-posts blog-post>?)]
