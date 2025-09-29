@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<ol class="posts content unstyled">
+  {% for page in section.pages %}
+  <li class="post">
+    <a href="{{ page.permalink | safe }}" class="unstyled">
+      <header>
+        <h2>{{ page.title }}</h2>
+        <time datetime="{{ page.date }}">{{page.date}}</time>
+      </header>
+    </a>
+  </li>
+  {% endfor %}
+</ol>
+{% endblock content %}

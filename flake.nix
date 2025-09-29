@@ -19,6 +19,8 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             zola
+            woff2
+            vscode-css-languageserver
           ];
         };
       }

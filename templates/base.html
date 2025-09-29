@@ -1,0 +1,34 @@
+{% extends "crust.html" %}
+
+{% block body %}
+<div class="main-parent">
+  <header class="main">
+    <h1 class="header-title">
+      STEENSBURROW
+    </h1>
+    <nav>
+      <ul class="unstyled">
+        <li><a class="unstyled" href="{{ get_url(path='/') }}">top</a></li>
+        <li><a class="unstyled {% if current_path == '/blog/' %} active {% endif %} " href="{{ get_url(path='@/blog/_index.md') }}">posts</a></li>
+        <li><a class="unstyled" href="/meta">meta</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main class="main">
+    {% block content %} {% endblock content %}
+  </main>
+  <footer class="main">
+    <a class="logo" href="/" class="unstyled">
+      {% include "burrow.html" %}
+    </a>
+    <div class="blurb">
+      There is no end though there is a start in the past — Infinity.<br>
+      It speaks, it ruins, and it goes though it consumes the soul — Finite.<br>
+      Only the person who has wisdom can read the most foolish one from the history.<br>
+      The daemon that lives in the machine doesn't understand the daemon that lives in the brain.<br>
+      It is funnier that man exceeds the speed of light than machine start writing on a net.<br>
+      It can be said that this is final ultimatum from the people who can think.
+    </div>
+  </footer>
+</div>
+{% endblock body %}

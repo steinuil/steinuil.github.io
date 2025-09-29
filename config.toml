@@ -1,0 +1,19 @@
+base_url = "https://burrow.neets.work"
+
+compile_sass = false
+
+build_search_index = false
+
+generate_feeds = true
+
+author = "steen"
+
+[markdown]
+highlight_code = true
+highlight_theme = "nord"
+error_on_missing_highlight = true
+
+render_emoji = false
+smart_punctuation = false
+
+[extra]

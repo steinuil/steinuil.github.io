@@ -1,0 +1,14 @@
+{% extends "crust.html" %}
+
+{% block body %}
+<a class="logo" id="main-logo" href="/">
+  {% include "burrow.html" %}
+</a>
+<section class="section">
+  <div class="container">
+    <main class="home">
+      <a href="{{ get_url(path='@/blog/_index.md') }}">blog</a>
+    </main>
+  </div>
+</section>
+{% endblock body %}
