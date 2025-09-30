@@ -1,6 +1,9 @@
 +++
 title = "Types of parser combinators"
 date = 2021-11-16
+
+[taxonomies]
+tags = ["parser-combinators"]
 +++
 
 I've been trying to write this post for a long while. Parser combinators to me are a Leitmotiv that plays whenever I need to parse something and the times look dire. Every time I almost forget they exist, and every time a light will go off inside my head and I'll think, "I know! I'll use parser combinators!"

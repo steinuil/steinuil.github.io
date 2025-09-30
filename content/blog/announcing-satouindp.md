@@ -1,6 +1,9 @@
 +++
 title = "Announcing SatouinDp"
 date = 2020-05-05
+
+[taxonomies]
+tags = ["announcement", "fsharp"]
 +++
 
 My desktop is connected to two monitors and one TV, and for various reasons I find myself needing to switch my primary display more often than most people.

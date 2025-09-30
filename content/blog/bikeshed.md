@@ -1,6 +1,9 @@
 +++
 title = "The social issues of programming languages"
 date = 2017-10-29
+
+[taxonomies]
+tags = ["go", "musings"]
 +++
 
 I'm sure you know what bikeshedding means, and even if you don't, you've probably

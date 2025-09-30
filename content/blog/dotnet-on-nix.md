@@ -1,6 +1,9 @@
 +++
 title = "The journey of packaging a .NET app on Nix"
 date = 2020-04-01
+
+[taxonomies]
+tags = ["nix", "fsharp"]
 +++
 
 Me and a few friends have a Discord server where we all gather once a week (or even twice lately, due to recent events) to watch a movie together. It's been going on for about three and a half years and we thought it'd be about time to make a bot that handles voting and backlog and times for us, so we started writing one, in F#.

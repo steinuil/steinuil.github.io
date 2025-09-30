@@ -1,6 +1,9 @@
 +++
 title = "Solving Advent of Code 2021 Day 13 with a linear equation"
 date = 2021-12-13
+
+[taxonomies]
+tags = ["math", "advent-of-code"]
 +++
 
 This year I'm doing Advent of Code in Erlang. The data structures it provides are all immutable, so I have to be kinda clever if I don't want my solutions to run too slowly. This is my solution for [Day 13: Transparent Origami](https://adventofcode.com/2021/day/13).

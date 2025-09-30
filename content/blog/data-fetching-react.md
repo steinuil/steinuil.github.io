@@ -1,6 +1,9 @@
 +++
 title = "A data-fetching component in React"
 date = 2019-05-10
+
+[taxonomies]
+tags = ["react"]
 +++
 
 Remember last year's [talk][suspense-talk] about Suspense by Dan Abramov?

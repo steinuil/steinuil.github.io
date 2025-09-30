@@ -1,6 +1,9 @@
 +++
 title = "The TTY Protocol"
 date = 2017-02-10
+
+[taxonomies]
+tags = ["terminal"]
 +++
 
 A few months ago, [Gary Bernhardt](https://destroyallsoftware.com) streamed himself

@@ -1,6 +1,9 @@
 +++
 title = "Config constraints in the type system where they belong"
 date = 2019-09-17
+
+[taxonomies]
+tags = ["typescript", "type-level-programming", "shitpost"]
 +++
 
 Suppose we're maintaining a frontend application. This application has to work

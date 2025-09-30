@@ -1,6 +1,9 @@
 +++
 title = "A brief history of JAVAScript"
 date = 2019-08-30
+
+[taxonomies]
+tags = ["shitpost"]
 +++
 
 JAVAScript is often described as a superset of JSon. This is only half the truth.

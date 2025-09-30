@@ -1,6 +1,9 @@
 +++
 title = "Continuations, Promises, and call/cc"
 date = 2017-10-27
+
+[taxonomies]
+tags = ["scheme", "typescript"]
 +++
 
 Say you're in the kitchen in front of the refrigerator, thinking about continuations.

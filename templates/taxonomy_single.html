@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% import "macros.html" as m %}
 
-{% block title %}posts - {{ config.title }}{% endblock title %}
+{% block title %}#{{ term.name }} - {{ config.title }}{% endblock title %}
 
 {% block content %}
+<h1 class="tag-title"><a class="tag" href="{{ current_path }}">#{{ term.name }}</span></h1>
 <ol class="posts content unstyled">
-  {% for page in section.pages %}
+  {% for page in term.pages %}
   <li class="post">
     <header>
       <a href="{{ page.permalink | safe }}" class="unstyled">
@@ -18,3 +19,5 @@
   {% endfor %}
 </ol>
 {% endblock content %}
+
+

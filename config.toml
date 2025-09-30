@@ -1,12 +1,17 @@
 base_url = "https://burrow.neets.work"
+title = "steen's burrow"
+description = "steen's online burrow"
+author = "steen"
+default_language = "en-us"
 
 compile_sass = false
-
 build_search_index = false
+minify_html = true
 
 generate_feeds = true
+feed_filenames = ["atom.xml", "rss.xml"]
 
-author = "steen"
+taxonomies = [{ name = "tags", feed = true }]
 
 [markdown]
 highlight_code = true
@@ -15,5 +20,8 @@ error_on_missing_highlight = true
 
 render_emoji = false
 smart_punctuation = false
+external_links_class = "external-link"
+external_links_no_follow = true
+external_links_no_referrer = true
 
 [extra]

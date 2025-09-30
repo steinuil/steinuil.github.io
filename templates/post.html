@@ -1,4 +1,7 @@
 {% extends "base.html" %}
+{% import "macros.html" as m %}
+
+{% block title %}{{ page.title }}{% endblock title %}
 
 {% block content %}
 <article>
@@ -6,7 +9,7 @@
     <h1 class="title">
       {{ page.title }}
     </h1>
-    <p class="subtitle">Published by <a class="unstyled" href="/"><i>steen</i></a> on <time datetime="{{ page.date }}">{{ page.date }}</time></p>
+    <p class="subtitle">Published by <a href="/"><i>steen</i></a> on <time datetime="{{ page.date }}">{{ page.date }}</time> tagged {{ m::tags(taxonomies=page.taxonomies) }}</p>
   </header>
   <div class="content">
     {{ page.content | safe }}

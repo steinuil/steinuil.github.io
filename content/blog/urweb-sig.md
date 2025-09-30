@@ -1,6 +1,9 @@
 +++
 title = "Reading Ur/Web signatures, part 1"
 date = 2019-01-07
+
+[taxonomies]
+tags = ["urweb", "type-level-programming"]
 +++
 
 So you stumbled upon Ur/Web and you rather like what it's about, but after

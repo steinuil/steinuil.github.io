@@ -1,6 +1,9 @@
 +++
 title = "What the hell did I do this week, anyway?"
 date = 2018-01-22
+
+[taxonomies]
+tags = ["emacs", "urweb"]
 +++
 
 Welcome to the first installation of **What The Hell Did I Do This Week Anyway**,

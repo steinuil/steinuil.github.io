@@ -54,6 +54,20 @@
  * Fonts, colors, and so on
  */
 
+:root {
+  --link: #dbb7be;
+  --link-hover: #f2d5da;
+  --link-visited: #e693a3;
+  --link-tr: #dbb7be88;
+  --link-gr-visited: #c8c8c8;
+
+  --inline-code-bg: #28203a88;
+
+  --title: #6edd8f;
+  --title-hover: #a6ffc1;
+  --title-active: #4c8a5f;
+}
+
 body {
   color: #FFF;
   background-color: #333249;
@@ -68,20 +82,30 @@ body {
   margin: auto;
 }
 
-.header-title {
-  color: #dbb7be;
+.header-title>a,
+.header-title>a:visited {
+  color: var(--title);
 }
 
-a.unstyled {
-  text-decoration: none;
+.header-title>a:hover {
+  color: var(--title-hover);
+}
+
+.header.title>a:active {
+  color: var(--title-active);
 }
 
 a {
-  color: #978AEE;
+  color: var(--link);
+  text-decoration: none;
 }
 
 a:visited {
-  color: #CA8AEE;
+  color: var(--link-visited);
+}
+
+a:hover {
+  color: var(--link-hover);
 }
 
 ul.unstyled,
@@ -175,15 +199,15 @@ footer.main>.logo {
 }
 
 .logo>svg {
-  color: #6edd8f;
+  color: var(--title);
 }
 
 .logo>svg:hover {
-  color: #a6ffc1;
+  color: var(--title-hover);
 }
 
 .logo>svg:active {
-  color: #4c8a5f;
+  color: var(--title-active);
 }
 
 .blurb {
@@ -207,6 +231,16 @@ main>article .title {
   font-size: 3em;
 }
 
+main>.tag-title {
+  font-weight: 800;
+  font-size: 3em;
+  margin-bottom: .5em;
+}
+
+a.tag {
+  font-style: italic;
+}
+
 main>article .subtitle {
   font-size: 1.2em;
   font-weight: 200;
@@ -220,11 +254,19 @@ main>article>header {
   margin-bottom: 2rem;
 }
 
-.post>a {
+.post>header>a {
   color: inherit;
 }
 
-.post>a>header>h2 {
+.post>header>a:visited {
+  color: var(--link-gr-visited);
+}
+
+.post>header>a:hover {
+  text-decoration: underline;
+}
+
+.post>header>a>h2 {
   font-size: 1.8em;
   font-weight: 800;
 }
@@ -238,12 +280,16 @@ article .content {
 article .content a {
   color: inherit;
   text-decoration: unset;
-  box-shadow: inset 0 -.4em #dbb7be88;
+  box-shadow: inset 0 -.4em var(--link-tr);
   border-radius: .2em;
 }
 
+article .content a:visited {
+  color: var(--link-gr-visited);
+}
+
 article .content a:hover {
-  background-color: #dbb7be88;
+  background-color: var(--link-tr);
   border-radius: .2em;
   box-shadow: none;
 }
@@ -256,7 +302,7 @@ article .content code {
   font-size: .9em;
   font-weight: 500;
   padding: .1em .2em;
-  background-color: #28203a88;
+  background-color: var(--inline-code-bg);
   border-radius: .2em;
   box-decoration-break: clone;
 }
@@ -276,7 +322,7 @@ article .content pre>code {
 }
 
 article .content hr {
-  border-bottom: 3px dotted #ddd;
+  border-bottom: 3px dotted #fff;
 }
 
 article .content p:has(> img) {
@@ -337,37 +383,30 @@ article .content .footnote-definition>p {
  * Specific
  */
 
-#main-logo {
+#index-logo {
   width: calc(79px * 12);
   max-width: 100%;
   margin: auto;
   padding-top: 4em;
 }
 
-#main-logo>* {
+#index-logo>* {
   padding: 16px;
 }
 
-.home {
-  font-family: "KUBO", system, sans-serif;
+#index-links {
   text-align: center;
-  font-size: 200px;
-  padding-top: 100px;
+  font-size: 3em;
+  margin: auto;
+  font-family: "KUBO", monospace;
 }
 
-@media (width < 1000px) {
-  .home {
-    font-size: 100px;
-  }
-}
-
-@media (width < 500px) {
-  #main-logo {
+@media (width < 600px) {
+  #index-logo {
     padding-top: 0;
   }
 
-  .home {
-    padding-top: 20px;
-    font-size: 50px;
+  #index-links {
+    font-size: 2em;
   }
 }

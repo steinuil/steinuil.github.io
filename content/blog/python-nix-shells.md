@@ -1,6 +1,9 @@
 +++
 title = "Simple Python devshells with Nix and direnv"
 date = 2024-06-08
+
+[taxonomies]
+tags = ["python", "nix"]
 +++
 
 In my last post, I mentioned I'm currently working at a Python shop. I'm also a huge fan of Nix, and I believe that a day may come when we can get rid of the messy deployment setup we use now and replace it with Nix, but it is not this day. Today I'm just gonna talk about how I stealthily manage my development environments for the Python projects at work with Nix and direnv, and how you could easily do the same.

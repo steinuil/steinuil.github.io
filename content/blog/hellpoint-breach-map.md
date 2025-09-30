@@ -1,6 +1,9 @@
 +++
 title = "Hellpoint breach map"
 date = 2021-06-20
+
+[taxonomies]
+tags = ["videogames"]
 +++
 
 I just finished playing Hellpoint, an indie soulslike which was surprisingly really good. It has a very deeply interconnected world which I loved exploring, but some areas are kinda confusing to navigate and I quickly realized I needed a map and the ones that were available online were... less than satisfactory. So I made one with Graphviz.

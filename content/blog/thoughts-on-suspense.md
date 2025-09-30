@@ -1,6 +1,9 @@
 +++
 title = "Thoughts on Suspense for data fetching"
 date = 2019-10-30
+
+[taxonomies]
+tags = ["react", "musings"]
 +++
 
 React's [Concurrent Mode](https://reactjs.org/docs/concurrent-mode-intro.html) has finally

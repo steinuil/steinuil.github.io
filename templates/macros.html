@@ -1,0 +1,7 @@
+{% macro tags(taxonomies) %}
+{% if 'tags' in taxonomies %}
+{% for tag in taxonomies['tags'] %}
+<a class="tag" href="{{ get_taxonomy_url(kind='tags', name=tag) }}">#{{ tag }}</a>
+{% endfor %}
+{% endif %}
+{% endmacro tags %}

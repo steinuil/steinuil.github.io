@@ -1,6 +1,9 @@
 +++
 title = "NixOps is easier than I thought"
 date = 2021-11-11
+
+[taxonomies]
+tags = ["nix"]
 +++
 
 TL;DR: if you have an underpowered machine or two in your house or a small server that you're already managing using NixOS, and you find that running `nixos-rebuild` on it takes too long, you can easily keep your current configuration untouched and let a more beefy machine build it. Jump to the end of this post for a sample NixOps specification and instructions on how to use it.

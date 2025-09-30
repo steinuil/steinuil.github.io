@@ -1,6 +1,9 @@
 +++
 title = "Offloading NixOS builds to a faster machine"
 date = 2021-01-24
+
+[taxonomies]
+tags = ["nix"]
 +++
 
 I have a Raspberry Pi 3 sitting next to my router, from which I host a couple things to my local network. I installed NixOS on it and I love the experience: it completely removes the absolute nightmare that is configuring a Linux machine, and I find that incredibly liberating.

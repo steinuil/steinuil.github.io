@@ -1,6 +1,9 @@
 +++
 title = "Overthinking cash in TypeScript"
 date = 2018-11-11
+
+[taxonomies]
+tags = ["typescript", "type-level-programming"]
 +++
 
 ![cicada shells on a tree near a beach in Marina di Cecina, Italy](shells.jpg)

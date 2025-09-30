@@ -1,6 +1,9 @@
 +++
 title = "require_so: DRYer StackOverflow copying"
 date = 2020-05-20
+
+[taxonomies]
+tags = ["ruby", "shitpost"]
 +++
 
 Today I was reading [a post on the StackOverflow blog](https://stackoverflow.blog/2020/05/20/good-coders-borrow-great-coders-steal/?cb=1)

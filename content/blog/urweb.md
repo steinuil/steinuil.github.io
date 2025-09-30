@@ -1,6 +1,9 @@
 +++
 title = "I survived Ur/Web"
 date = 2018-01-22
+
+[taxonomies]
+tags = ["urweb"]
 +++
 
 I don't remember when it was that I first tried [Ur/Web][urweb], but I'm sure I

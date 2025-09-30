@@ -1,6 +1,9 @@
 +++
 title = "Do I not like Ruby anymore?"
 date = 2024-05-28
+
+[taxonomies]
+tags = ["ruby", "python", "musings"]
 +++
 
 I recently started working at a Python shop. The reasons behind this choice of employment are very much unrelated to the technology stack. Python is [not my favorite programming language](https://en.wikipedia.org/wiki/Euphemism). In fact, allow me to drop the euphemism and express my pure, unadulterated thoughts about it: I never liked Python, I see it as a huge red flag and I think the world would be a better place if we all decided to finally move on from it.
