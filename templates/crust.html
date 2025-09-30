@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>{% block title %}{{ config.title }}{% endblock title %}</title>
-  <link rel="stylesheet" href="{{ get_url(path="style.css") }}">
+  <meta name="description" content="{{ config.description }}">
+  <meta name="generator" content="Zola">
+  <meta name="referrer" content="strict-origin">
+  <link rel="stylesheet" href="{{ get_url(path='assets/style.css') }}">
+  <link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS feed">
+  <link rel="alternate" href="/atom.xml" type="application/atom+xml" title="Atom feed">
+  <link rel="apple-touch-icon-precomposed" href="/assets/icon/favicon-152.png">
 </head>
-
 <body class="main-parent">
   {% block body %} {% endblock body %}
 </body>
-
 </html>
 

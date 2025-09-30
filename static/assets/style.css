@@ -9,7 +9,7 @@
   font-display: swap;
   src:
     local("Piazzolla"),
-    url("/fonts/Piazzolla[opsz,wght].woff2") format(woff2) tech(variations);
+    url("/assets/fonts/Piazzolla[opsz,wght].woff2") format(woff2) tech(variations);
 }
 
 @font-face {
@@ -19,7 +19,7 @@
   font-display: swap;
   src:
     local("Piazzolla"),
-    url("/fonts/Piazzolla-Italic[opsz,wght].woff2") format(woff2) tech(variations);
+    url("/assets/fonts/Piazzolla-Italic[opsz,wght].woff2") format(woff2) tech(variations);
 }
 
 @font-face {
@@ -28,7 +28,7 @@
   font-display: swap;
   src:
     local("KUBO"),
-    url("/fonts/KUBO.woff2") format(woff2);
+    url("/assets/fonts/KUBO.woff2") format(woff2);
 }
 
 @font-face {
@@ -37,7 +37,7 @@
   font-display: swap;
   src:
     local("DSE Typewriter Font"),
-    url("/fonts/dse-typewriter-font.woff2") format(woff2);
+    url("/assets/fonts/dse-typewriter-font.woff2") format(woff2);
 }
 
 /*
