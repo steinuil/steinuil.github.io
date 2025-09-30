@@ -1,6 +1,7 @@
 +++
 title = "NixOps is easier than I thought"
 date = 2021-11-11
+aliases = ["/molten-matter/nixops-on-the-pi"]
 
 [taxonomies]
 tags = ["nix"]

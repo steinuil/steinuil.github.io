@@ -1,6 +1,7 @@
 +++
 title = "What the hell did I do this week, anyway?"
 date = 2018-01-22
+aliases = ["/molten-matter/week-001"]
 
 [taxonomies]
 tags = ["emacs", "urweb"]

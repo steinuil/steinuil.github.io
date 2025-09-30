@@ -1,6 +1,7 @@
 +++
 title = "Types of parser combinators"
 date = 2021-11-16
+aliases = ["/molten-matter/types-of-parser-combinators"]
 
 [taxonomies]
 tags = ["parser-combinators"]

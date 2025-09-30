@@ -1,6 +1,7 @@
 +++
 title = "Announcing SatouinDp"
 date = 2020-05-05
+aliases = ["/molten-matter/announcing-satouindp"]
 
 [taxonomies]
 tags = ["announcement", "fsharp"]

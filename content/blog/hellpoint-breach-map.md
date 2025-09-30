@@ -1,6 +1,7 @@
 +++
 title = "Hellpoint breach map"
 date = 2021-06-20
+aliases = ["/molten-matter/hellpont-breach-map"]
 
 [taxonomies]
 tags = ["videogames"]

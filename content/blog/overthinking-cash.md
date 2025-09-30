@@ -1,6 +1,7 @@
 +++
 title = "Overthinking cash in TypeScript"
 date = 2018-11-11
+aliases = ["/molten-matter/overthinking-cash"]
 
 [taxonomies]
 tags = ["typescript", "type-level-programming"]

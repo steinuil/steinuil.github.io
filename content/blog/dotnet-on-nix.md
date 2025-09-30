@@ -1,6 +1,7 @@
 +++
 title = "The journey of packaging a .NET app on Nix"
 date = 2020-04-01
+aliases = ["/molten-matter/dotnet-on-nix"]
 
 [taxonomies]
 tags = ["nix", "fsharp"]

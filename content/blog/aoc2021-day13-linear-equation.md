@@ -1,6 +1,7 @@
 +++
 title = "Solving Advent of Code 2021 Day 13 with a linear equation"
 date = 2021-12-13
+aliases = ["/molten-matter/aoc2021-day13-linear-equation"]
 
 [taxonomies]
 tags = ["math", "advent-of-code"]

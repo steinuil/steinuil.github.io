@@ -1,6 +1,7 @@
 +++
 title = "A brief history of JAVAScript"
 date = 2019-08-30
+aliases = ["/molten-matter/history-of-javas"]
 
 [taxonomies]
 tags = ["shitpost"]

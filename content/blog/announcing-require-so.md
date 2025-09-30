@@ -1,6 +1,7 @@
 +++
 title = "require_so: DRYer StackOverflow copying"
 date = 2020-05-20
+aliases = ["/molten-matter/announcing-require-so"]
 
 [taxonomies]
 tags = ["ruby", "shitpost"]

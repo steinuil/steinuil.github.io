@@ -1,6 +1,7 @@
 +++
 title = "The social issues of programming languages"
 date = 2017-10-29
+aliases = ["/molten-matter/bikeshed"]
 
 [taxonomies]
 tags = ["go", "musings"]

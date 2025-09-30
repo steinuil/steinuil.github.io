@@ -1,6 +1,7 @@
 +++
 title = "Simple Python devshells with Nix and direnv"
 date = 2024-06-08
+aliases = ["/molten-matter/python-nix-shells"]
 
 [taxonomies]
 tags = ["python", "nix"]

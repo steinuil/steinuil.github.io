@@ -1,6 +1,7 @@
 +++
 title = "Do I not like Ruby anymore?"
 date = 2024-05-28
+aliases = ["/molten-matter/maybe-i-like-python-now"]
 
 [taxonomies]
 tags = ["ruby", "python", "musings"]

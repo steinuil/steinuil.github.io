@@ -1,6 +1,7 @@
 +++
 title = "A data-fetching component in React"
 date = 2019-05-10
+aliases = ["/molten-matter/data-fetching-react"]
 
 [taxonomies]
 tags = ["react"]

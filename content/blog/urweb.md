@@ -1,6 +1,7 @@
 +++
 title = "I survived Ur/Web"
 date = 2018-01-22
+aliases = ["/molten-matter/urweb"]
 
 [taxonomies]
 tags = ["urweb"]

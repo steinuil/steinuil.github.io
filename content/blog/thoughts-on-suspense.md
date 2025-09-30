@@ -1,6 +1,7 @@
 +++
 title = "Thoughts on Suspense for data fetching"
 date = 2019-10-30
+aliases = ["/molten-matter/thoughts-on-suspense"]
 
 [taxonomies]
 tags = ["react", "musings"]

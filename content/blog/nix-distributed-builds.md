@@ -1,6 +1,7 @@
 +++
 title = "Offloading NixOS builds to a faster machine"
 date = 2021-01-24
+aliases = ["/molten-matter/nix-distributed-builds"]
 
 [taxonomies]
 tags = ["nix"]

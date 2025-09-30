@@ -1,6 +1,7 @@
 +++
 title = "The TTY Protocol"
 date = 2017-02-10
+aliases = ["/molten-matter/tty"]
 
 [taxonomies]
 tags = ["terminal"]

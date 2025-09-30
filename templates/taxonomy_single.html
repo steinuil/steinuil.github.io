@@ -4,7 +4,7 @@
 {% block title %}#{{ term.name }} - {{ config.title }}{% endblock title %}
 
 {% block content %}
-<h1 class="tag-title"><a class="tag" href="{{ current_path }}">#{{ term.name }}</span></h1>
+<h1 class="tag-title"><a class="tag" href="{{ current_path }}">#{{ term.name }}</a></h1>
 <ol class="posts content unstyled">
   {% for page in term.pages %}
   <li class="post">

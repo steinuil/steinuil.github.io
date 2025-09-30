@@ -1,6 +1,7 @@
 +++
 title = "Continuations, Promises, and call/cc"
 date = 2017-10-27
+aliases = ["/molten-matter/call-cc"]
 
 [taxonomies]
 tags = ["scheme", "typescript"]

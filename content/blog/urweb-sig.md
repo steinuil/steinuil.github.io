@@ -1,6 +1,7 @@
 +++
 title = "Reading Ur/Web signatures, part 1"
 date = 2019-01-07
+aliases = ["/molten-matter/urweb-sig"]
 
 [taxonomies]
 tags = ["urweb", "type-level-programming"]

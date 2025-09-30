@@ -1,6 +1,7 @@
 +++
 title = "Config constraints in the type system where they belong"
 date = 2019-09-17
+aliases = ["/molten-matter/type-level-conf"]
 
 [taxonomies]
 tags = ["typescript", "type-level-programming", "shitpost"]
