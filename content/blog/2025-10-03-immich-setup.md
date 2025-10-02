@@ -172,13 +172,13 @@ Overall it's been a very low maintenance setup.
 
 ## Using Immich
 
-I'm sure you could tell from the introduction of this post, but I think Immich is really nice! My partner uploaded all their photos and they're very happy with it. Unfortunately at some point my mother caved in to the pressure and subscribed to Google One, and I still haven't bothered to talk her out of it.
+I'm sure you could tell from the introduction of this post, but I think Immich is really good! My partner uploaded all their photos and they're very happy with it. Unfortunately at some point my mother caved in to the pressure and subscribed to Google One, and I still haven't bothered to talk her out of it.
 
 I have uploaded all of my photos to it, an archive going back to 2014. The web UI makes it easy and quick to scroll and jump around the timeline; it has brought me back to many good memories. I also like the "memory" feature which shows you photos you took on the same day on top of the gallery. I haven't used any software to organize my photos since [Picasa](https://en.wikipedia.org/wiki/Picasa) was still a thing. Immich made me remember how nice that can be.
 
 There's a lot of other things I enjoy so I'll quickly go through them in a list:
 
-- The reverse geocoding features are nice and useful. I like how I can see all the places I've taken photos in plotted on a map, and it's helped me remember holidays and good restaurants.
+- The reverse geocoding features are fun and useful. I like how I can see all the places I've taken photos in plotted on a map, and it's helped me remember holidays and good restaurants.
 - Maybe this tells you more about me than about Immich, the [contextual CLIP search](https://docs.immich.app/features/searching) kinda feels like magic. I can just search for "cat" and it'll show me all the cat photos I've ever taken! Unbelievable.
 - Facial recognition requires some manual fixing sometimes, but I like it! It's fun to see how my friends used to look like 8 years ago.
 - You can share albums between different users and also create external links with an expiration date that allow anybody with the link to upload their photos. I used this a bunch of times to share photos with friends I went on vacation with.
