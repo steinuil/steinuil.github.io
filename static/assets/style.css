@@ -66,6 +66,8 @@
   --title: #6edd8f;
   --title-hover: #a6ffc1;
   --title-active: #4c8a5f;
+
+  --note: #3b375c;
 }
 
 body {
@@ -294,7 +296,10 @@ article .content a:hover {
   box-shadow: none;
 }
 
-article .content p {
+article .content p,
+article .content pre,
+article .content hr,
+article .content .note {
   margin: 1.2em 0;
 }
 
@@ -327,6 +332,22 @@ article .content hr {
 
 article .content p:has(> img) {
   text-align: center;
+}
+
+article .content .note {
+  padding: .8em 1.2em;
+  background-color: var(--note);
+  border-radius: .5em;
+
+  font-size: .9em;
+}
+
+article .content .note>p:first-child {
+  margin-top: 0;
+}
+
+article .content .note>p:last-child {
+  margin-bottom: 0;
 }
 
 article .content img {
