@@ -14,9 +14,7 @@ tags = ["nix", "immich"]
 
 Basically you slap it on your home server, upload your photos, and you get all the good parts of a photo hosting service without selling your soul and throwing away your privacy! *For free!!* Free unless you're counting hardware and electricity bills that is, but then again, once you have a home server to run Immich you can use it to run [all](https://www.navidrome.org/) [sorts](https://transmissionbt.com/) [of](https://jellyfin.org/) [cool](https://syncthing.net/) [software](https://github.com/dani-garcia/vaultwarden).
 
-It is licensed under the AGPL and it looks like the people behind [the company that maintains it](https://futo.org/) seem to have a strong commitment to privacy and open source, which is very nice to see in these trying times.
-
-Immich uses several (optional) ML-powered features like facial recognition, contextual search, and duplicate detection, all of which run locally. This is what I like to call _"one of the few useful uses of AI."_ As far as I can tell, Immich does not "phone home" or contact the external world on its own.
+It is licensed under the AGPL and the people behind [the company that maintains it](https://futo.org/) seem to have a strong commitment to privacy and open source. Immich uses several (optional) ML-powered features like facial recognition, contextual search, and duplicate detection, all of which run locally. (This is what I like to call _"one of the few useful uses of AI."_) As far as I can tell, Immich does not "phone home" or contact the external world on its own.
 
 If you snoop around on the website you'll see a "[Purchase](https://buy.immich.app/)" link, and you'd be forgiven for thinking that this is a Freemium™ product that paywalls some features. But it's not! If you "buy" Immich all you get is a badge showing that you're a supporter on the web UI. You'll notice that I have the badge in my screenshot: I was so impressed with Immich after using it for a few weeks that I figured I should show my support in some way. For the 2.0.0 release they've also started selling some branded clothes and [an actual demo disk](https://immich.store/en-eur/products/immich-retro) on their store, which I think is just lovely.
 
@@ -32,7 +30,7 @@ Actually I'm not running [Jellyfin](https://jellyfin.org/) yet, but I'd like to 
 Also, my partner wants me to set it up so they can watch the movies by [Nanni Moretti](https://letterboxd.com/director/nanni-moretti/) I have sitting on my home server when they're not at my place. But I'm getting ahead of myself.
 {% end %}
 
-The long answer involves several old hard drives with photos recovered from dead phones and busted cameras, and still-working phones bursting with photos. The latter are my partner's and my mother's phones, both of whom were often complaining about how they couldn't download a file or take another photo because their phones' storage had run out of space, and I, the most Computer Person of the family, would have to regularly swoop in and save the day by deleting some old files and apps they weren't really using. The old hard drives are my own, and I wasn't keen on losing those old memories.
+The long answer involves several old hard drives with photos recovered from dead phones and busted cameras, and still-working phones bursting with photos. The latter are my partner's and my mother's phones. Both of them were often complaining about how they couldn't download a file or take another photo because their phones' storage had run out of space, and I, the most Computer Person of the family, would have to regularly swoop in and save the day by deleting some old files and apps they weren't really using. The old hard drives are my own, and I wasn't keen on losing those old memories.
 
 All of us had photo library problems, and something had to be done.
 
@@ -66,7 +64,7 @@ All of us had photo library problems, and something had to be done.
 }
 ```
 
-Immich has several features that depend on [machine learning](https://docs.immich.app/features/ml-hardware-acceleration), which is cool but definitely not something the Raspberry Pi I'm running it on can handle! Luckily for me, you can [run the ML service on another computer](https://docs.immich.app/guides/remote-machine-learning) and configure Immich to use it, so this is what my actual Immich config looks like:
+Immich has several features that depend on [machine learning](https://docs.immich.app/features/ml-hardware-acceleration), which is cool but definitely not something the Raspberry Pi I'm running it on can handle! Luckily for the poor Pi, you can [run the ML service on another computer](https://docs.immich.app/guides/remote-machine-learning) and configure Immich to use it, so this is what my actual Immich config looks like:
 
 ```nix
 {
@@ -117,9 +115,9 @@ I never got it to use my GPU for the ML tasks. There is [an issue on nixpkgs](ht
 And by the way, if you go look at the service definition in my flake you'll see that it's supposed to be a socket-activated service, but I'm not sure that it's working as it's supposed to. Someone who is good at the systemd please help me fix this. ~~my family is dying~~
 {% end %}
 
-To configure Immich to use another machine for machine learning _(what a terrible sentence)_ you can go to **Administration** > **Settings** > **Machine Learning Settings** and add the URL of your machine.
+After this you can go on Immich and navigate to **Administration** > **Settings** > **Machine Learning Settings** to add the URL of your ML worker machine.
 
-I also set up backups. Backups are very important because I would not be the only person relying on this, and my partner would be quite sad if I lost their photos due to a busted drive.
+I also set up backups. Backups are super important because I'm not the only user. My partner would be quite sad if I lost their photos due to a busted drive.
 
 I'm using [restic](https://restic.net/) and backing up to [Backblaze B2](https://www.backblaze.com/cloud-storage) and another drive, for safety. In my configuration I'm using a helper module I wrote that sources the secrets, repository, and password from files set up by [sops-nix](https://github.com/Mic92/sops-nix), but this is the moral equivalent:
 
@@ -174,12 +172,12 @@ Overall it's been a very low maintenance setup.
 
 I'm sure you could tell from the introduction of this post, but I think Immich is really good! My partner uploaded all their photos and they're very happy with it. Unfortunately at some point my mother caved in to the pressure and subscribed to Google One, and I still haven't bothered to talk her out of it.
 
-I have uploaded all of my photos to it, an archive going back to 2014. The web UI makes it easy and quick to scroll and jump around the timeline; it has brought me back to many good memories. I also like the "memory" feature which shows you photos you took on the same day on top of the gallery. I haven't used any software to organize my photos since [Picasa](https://en.wikipedia.org/wiki/Picasa) was still a thing. Immich made me remember how nice that can be.
+I have uploaded all of my photos to it, an archive going back to 2014. The web UI makes it easy and quick to scroll and jump around the timeline; it has brought me back to many good memories. I also like the actual "memory" feature which finds photos you took on the same calendar day the previous years and shows them on top of the gallery. I haven't used any software to organize my photos since [Picasa](https://en.wikipedia.org/wiki/Picasa) was still a thing. Immich made me remember how nice that can be.
 
 There's a lot of other things I enjoy so I'll quickly go through them in a list:
 
 - The reverse geocoding features are fun and useful. I like how I can see all the places I've taken photos in plotted on a map, and it's helped me remember holidays and good restaurants.
-- Maybe this tells you more about me than about Immich, the [contextual CLIP search](https://docs.immich.app/features/searching) kinda feels like magic. I can just search for "cat" and it'll show me all the cat photos I've ever taken! Unbelievable.
+- Maybe this tells you more about me than about Immich, but the [contextual CLIP search](https://docs.immich.app/features/searching) kinda feels like magic. I can just search for "cat" and it'll show me all the cat photos I've ever taken! Unbelievable.
 - Facial recognition requires some manual fixing sometimes, but I like it! It's fun to see how my friends used to look like 8 years ago.
 - You can share albums between different users and also create external links with an expiration date that allow anybody with the link to upload their photos. I used this a bunch of times to share photos with friends I went on vacation with.
 - This is not exactyly a feature of Immich itself, but I like that the team behind Immich shares the "cursed knowledge" they came across while building Immich [on a page on the website](https://immich.app/cursed-knowledge).
