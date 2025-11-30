@@ -93,3 +93,5 @@ As for me, I started my yak shaving chain to build the music sheet reader by [re
 This is where I would've liked to include a section on how you can drive the reMarkable 2's display with just a few syscalls but I'm still figuring that out! This post has already turned out to be longer than I thought so I'll leave that stuff for a possible future post on how to write software for the reMarkable 2.
 
 Lastly, I'd like to thank the reMarkable hacking community for all their work on reverse engineering and developing software for it, because I would definitely have regretted this purchase if it weren't for their efforts.
+
+![Thanks for reading!](thanks-for-reading.jpg)
