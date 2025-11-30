@@ -330,6 +330,12 @@ article .content hr {
   border-bottom: 3px dotted #fff;
 }
 
+article .content blockquote {
+  border-left: 2px solid #fff;
+  padding-left: 1em;
+  font-style: italic;
+}
+
 article .content p:has(> img) {
   text-align: center;
 }
