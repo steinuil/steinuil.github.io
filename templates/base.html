@@ -10,7 +10,7 @@
       <ul class="unstyled">
         <li><a class="unstyled {% if current_path == '/me/' %} active {% endif %} " href="{{ get_url(path='@/me.md') }}">me</a></li>
         <li><a class="unstyled {% if current_path == '/blog/' %} active {% endif %} " href="{{ get_url(path='@/blog/_index.md') }}">posts</a></li>
-        <li><a class="unstyled" href="{{ get_url(path='@') }}/rss.xml">rss</a></li>
+        <li><a class="unstyled" href="/rss.xml">rss</a></li>
         <li><a class="unstyled {% if current_path == '/meta/' %} active {% endif %} " href="{{ get_url(path='@/meta.md') }}">meta</a></li>
       </ul>
     </nav>
