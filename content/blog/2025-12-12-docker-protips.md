@@ -1,5 +1,5 @@
 +++
-title = "Building small Docker images faster"
+title = "Building smaller Docker images faster"
 date = 2025-12-12
 
 [taxonomies]
