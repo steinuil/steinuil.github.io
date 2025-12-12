@@ -1,0 +1,439 @@
+/*
+ * Resources
+ */
+
+@font-face {
+  font-family: "Piazzolla";
+  font-style: normal;
+  font-weight: 100 900;
+  /* font-display: swap; */
+  src:
+    local("Piazzolla"),
+    url("/assets/fonts/Piazzolla[opsz,wght].woff2") format(woff2) tech(variations);
+}
+
+@font-face {
+  font-family: "Piazzolla";
+  font-style: italic;
+  font-weight: 100 900;
+  /* font-display: swap; */
+  src:
+    local("Piazzolla"),
+    url("/assets/fonts/Piazzolla-Italic[opsz,wght].woff2") format(woff2) tech(variations);
+}
+
+@font-face {
+  font-family: "KUBO";
+  font-style: normal;
+  /* font-display: swap; */
+  src:
+    local("KUBO"),
+    url("/assets/fonts/KUBO.woff2") format(woff2);
+}
+
+@font-face {
+  font-family: "DSE Typewriter Font";
+  font-style: normal;
+  /* font-display: swap; */
+  src:
+    local("DSE Typewriter Font"),
+    url("/assets/fonts/dse-typewriter-font.woff2") format(woff2);
+}
+
+/*
+ * Reset
+ */
+
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+/*
+ * Fonts, colors, and so on
+ */
+
+:root {
+  --link: #dbb7be;
+  --link-hover: #f2d5da;
+  --link-visited: #e693a3;
+  --link-tr: #dbb7be88;
+  --link-gr-visited: #c8c8c8;
+
+  --inline-code-bg: #28203a88;
+
+  --title: #6edd8f;
+  --title-hover: #a6ffc1;
+  --title-active: #4c8a5f;
+
+  --note: #3b375c;
+}
+
+body {
+  color: #FFF;
+  background-color: #333249;
+
+  font-family: "Piazzolla", serif;
+  font-size: 17px;
+}
+
+.main-parent {
+  width: 800px;
+  max-width: 100%;
+  margin: auto;
+}
+
+.header-title>a,
+.header-title>a:visited {
+  color: var(--title);
+}
+
+.header-title>a:hover {
+  color: var(--title-hover);
+}
+
+.header.title>a:active {
+  color: var(--title-active);
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--link-visited);
+}
+
+a:hover {
+  color: var(--link-hover);
+}
+
+ul.unstyled,
+ol.unstyled {
+  list-style: none;
+}
+
+p {
+  line-height: 1.5em;
+}
+
+/*
+ * Scaffolding
+ */
+
+.main-parent {
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+main.main {
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+header.main,
+footer.main {
+  flex-shrink: 0;
+  margin: 1em;
+}
+
+/*
+ * Scaffolding -> Header
+ */
+
+header.main {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+header.main>h1 {
+  font-family: "KUBO", monospace;
+  font-size: 4em;
+  letter-spacing: 0.3em;
+  line-height: 1.0em;
+  overflow-wrap: break-word;
+  max-width: 4em;
+  flex-shrink: 0;
+  margin: auto;
+}
+
+header.main>nav {
+  flex-grow: 1;
+}
+
+header.main>nav>ul {
+  font-size: 1.2em;
+}
+
+header.main>nav>ul>li>a {
+  color: #FFF;
+}
+
+header.main>nav>ul>li>a:hover {
+  text-decoration: underline;
+}
+
+header.main>nav>ul>li>a.active {
+  font-style: italic;
+}
+
+/*
+ * Scaffolding -> Footer
+ */
+
+footer.main {
+  text-align: center;
+}
+
+footer.main>.logo {
+  margin: auto;
+}
+
+.logo {
+  display: block;
+}
+
+footer.main>.logo {
+  width: calc(79px * 3);
+}
+
+.logo>svg {
+  color: var(--title);
+}
+
+.logo>svg:hover {
+  color: var(--title-hover);
+}
+
+.logo>svg:active {
+  color: var(--title-active);
+}
+
+.blurb {
+  font-family: "DSE Typewriter Font", 'Courier New', Courier, monospace;
+  font-size: .7em;
+  line-height: 1em;
+  text-align: center;
+  margin-top: 2em;
+}
+
+/*
+ * Post list
+ */
+
+main.main {
+  padding: 1em;
+}
+
+main>article .title {
+  font-weight: 900;
+  font-size: 3em;
+}
+
+main>.tag-title {
+  font-weight: 800;
+  font-size: 3em;
+  margin-bottom: .5em;
+}
+
+a.tag {
+  font-style: italic;
+}
+
+main>article .subtitle {
+  font-size: 1.2em;
+  font-weight: 200;
+}
+
+main>article>header {
+  margin-bottom: 2rem;
+}
+
+.post:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+.post>header>a {
+  color: inherit;
+}
+
+.post>header>a:visited {
+  color: var(--link-gr-visited);
+}
+
+.post>header>a:hover {
+  text-decoration: underline;
+}
+
+.post>header>a>h2 {
+  font-size: 1.8em;
+  font-weight: 800;
+}
+
+article .content {
+  font-size: 1.1em;
+  font-weight: 600;
+  line-height: 1.6em;
+}
+
+article .content a {
+  color: inherit;
+  text-decoration: unset;
+  box-shadow: inset 0 -.4em var(--link-tr);
+  border-radius: .2em;
+}
+
+article .content a:visited {
+  color: var(--link-gr-visited);
+}
+
+article .content a:hover {
+  background-color: var(--link-tr);
+  border-radius: .2em;
+  box-shadow: none;
+}
+
+article .content p,
+article .content pre,
+article .content hr,
+article .content .note {
+  margin: 1.2em 0;
+}
+
+article .content code {
+  font-size: .9em;
+  font-weight: 500;
+  padding: .1em .2em;
+  background-color: var(--inline-code-bg);
+  border-radius: .2em;
+  box-decoration-break: clone;
+}
+
+article .content pre {
+  font-size: .9em;
+  font-weight: 500;
+  overflow-y: auto;
+  border-radius: .5em;
+  padding: .6em .8em;
+}
+
+article .content pre>code {
+  font-size: inherit;
+  background-color: unset;
+  padding: 0;
+}
+
+article .content hr {
+  border-bottom: 3px dotted #fff;
+}
+
+article .content blockquote {
+  border-left: 2px solid #fff;
+  padding-left: 1em;
+  font-style: italic;
+}
+
+article .content p:has(> img) {
+  text-align: center;
+}
+
+article .content .note {
+  padding: .8em 1.2em;
+  background-color: var(--note);
+  border-radius: .5em;
+
+  font-size: .9em;
+}
+
+article .content .note>p:first-child {
+  margin-top: 0;
+}
+
+article .content .note>p:last-child {
+  margin-bottom: 0;
+}
+
+article .content img {
+  max-width: 100%;
+  max-height: 700px;
+  height: auto;
+}
+
+article .content h2 {
+  font-size: 1.8em;
+}
+
+article .content h3 {
+  font-size: 1.4em;
+}
+
+article .content h4 {
+  font-size: 1.2em;
+}
+
+article .content h5 {
+  font-size: 1.1em;
+}
+
+article .content h6 {
+  font-size: 1em;
+}
+
+article .content h2,
+article .content h3,
+article .content h4,
+article .content h5,
+article .content h6 {
+  font-weight: 800;
+  line-height: 1.3em;
+  margin: .8em 0 .2em 0;
+}
+
+article .content li {
+  margin: .5em 0 .5em 1.2em;
+}
+
+article .content .footnote-definition {
+  font-size: .8em;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+article .content .footnote-definition>p {
+  margin: 0.4em;
+}
+
+/*
+ * Specific
+ */
+
+#index-logo {
+  width: calc(79px * 12);
+  max-width: 100%;
+  margin: auto;
+  padding-top: 4em;
+}
+
+#index-logo>* {
+  padding: 16px;
+}
+
+#index-links {
+  text-align: center;
+  font-size: 3em;
+  margin: auto;
+  font-family: "KUBO", monospace;
+}
+
+@media (width < 600px) {
+  #index-logo {
+    padding-top: 0;
+  }
+
+  #index-links {
+    font-size: 2em;
+  }
+}
