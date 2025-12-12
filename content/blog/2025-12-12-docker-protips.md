@@ -178,6 +178,9 @@ You can iterate on this by changing one of the relevant files and ensuring that 
 Summing up:
 
 - Read the [Optimize cache usage in builds](https://docs.docker.com/build/cache/optimize/) page in the Docker documentation, and maybe take a look at the rest while you're there.
+- Split, merge and order layers according to how often you expect them to be rebuilt. Directives like `ENV`, `ARG` and `WORKDIR` should go before everything else.
+- Use [multi-stage builds](https://docs.docker.com/build/building/multi-stage/) to shrink the final image size. Consider if you can get away with using `scratch`, `busybox` or `alpine` for the final image.
+- If your project contains multiple separate applications (for example a backend and a frontend) you can create separate build stages for each of them, and then copy the results into a final image. Stages that don't depend on each other [are built in parallel if you're using BuildKit](https://docs.docker.com/build/buildkit/), and you can do [all sorts of tricks](https://medium.com/@tonistiigi/advanced-multi-stage-build-patterns-6f741b852fae) with multi-stage builds to ensure your CPU runs hot all the time.
 - Add a `.dockerignore` to your project, and make sure to put `.git` in there if you don't need it.
 - Try to set up cache mounts to make sure dependencies and intermediate build artifacts are persisted across builds. Some CI services (GitHub actions, apparently) even let you set up [external caches](https://docs.docker.com/build/cache/optimize/#use-an-external-cache).
 - Try to use bind mounts instead of `COPY`ing source files into the builder. Bind mounts are usually read-only, but you can make them read-write if you really need to.
