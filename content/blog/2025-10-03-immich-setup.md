@@ -180,7 +180,7 @@ There's a lot of other things I enjoy so I'll quickly go through them in a list:
 - Maybe this tells you more about me than about Immich, but the [contextual CLIP search](https://docs.immich.app/features/searching) kinda feels like magic. I can just search for "cat" and it'll show me all the cat photos I've ever taken! Unbelievable.
 - Facial recognition requires some manual fixing sometimes, but I like it! It's fun to see how my friends used to look like 8 years ago.
 - You can share albums between different users and also create external links with an expiration date that allow anybody with the link to upload their photos. I used this a bunch of times to share photos with friends I went on vacation with.
-- This is not exactyly a feature of Immich itself, but I like that the team behind Immich shares the "cursed knowledge" they came across while building Immich [on a page on the website](https://immich.app/cursed-knowledge).
+- This is not exactly a feature of Immich itself, but I like that the team behind Immich shares the "cursed knowledge" they came across while building Immich [on a page on the website](https://immich.app/cursed-knowledge).
 
 In conclusion: I think you should give Immich a try! Don't let big corporations use your memories as training data for their torment nexi. Take control of your data. There are alternatives for most of the services you use regularly and they're actually really nice. Support those instead of throwing money at a subscription service.
 
