@@ -28,7 +28,7 @@ if you don't you might want to get well acquainted with one first.
 Open up `string.urs` and have a look around. I'm going to assume you can read
 these signatures:
 
-```mli
+```ocaml
 type t = string
 
 val length : t -> int
@@ -40,7 +40,7 @@ val all : (char -> bool) -> string -> bool
 
 Still here? Good, let's introduce some new syntax.
 
-```mli
+```ocaml
 val index : string -> char -> option int
 ```
 
@@ -50,7 +50,7 @@ application. This unification of function and type constructor application is
 not just a matter of syntax like in [ReasonML][reason-params]; put this in the
 back of your mind for the moment, we'll come back to it later.
 
-```mli
+```ocaml
 val substring : string -> {Start : int, Len : int} -> string
 ```
 
@@ -63,7 +63,7 @@ with a capital letter like the members of a variant.
 Let's kick things up a notch. Open up `list.urs` and you'll be greeted by
 something like this:
 
-```mli
+```ocaml
 val rev : a ::: Type -> list a -> list a
 ```
 
@@ -91,7 +91,7 @@ Quoting from the [tutorial](http://www.impredicative.com/ur/tutorial/intro.html)
 
 Let's pull up the implementation for a moment (found in `list.ur`):
 
-```ml
+```ocaml
 fun rev [a] (ls : list a) = ...
 ```
 
@@ -102,7 +102,7 @@ explicit.
 Now let's look at `List.mp`. (Which is just the `List.map` function, but it
 can't be called `map` because `map` is a keyword in Ur/Web. More on that later.)
 
-```mli
+```ocaml
 val mp : a ::: Type -> b ::: Type -> (a -> b) -> list a -> list b
 ```
 
@@ -112,7 +112,7 @@ the signature.
 Interestingly, we can write a function so that the type parameter has to be
 passed *explicitly* by replacing `:::` with a double colon (`::`):
 
-```ml
+```ocaml
 (* id.urs *)
 val id : a :: Type -> a -> a
 
@@ -133,7 +133,7 @@ At this point I should introduce Ur/Web's type constructors, because they're
 a lot more powerful than those in most other languages. Open up `json.ur`
 (not `json.urs`) and the first thing you'll see will be this:
 
-```ml
+```ocaml
 con json a = {ToJson : a -> string,
               FromJson : string -> a * string}
 ```
@@ -161,7 +161,7 @@ you can perform very few operations inside them.
 Ur/Web's type constructors are much more interesting. The `json` declaration
 above is actually syntactic sugar for a type-level function:
 
-```ml
+```ocaml
 con json = fn (a :: Type) =>
   {ToJson : a -> string,
    FromJson : string -> a * string}
@@ -170,7 +170,7 @@ con json = fn (a :: Type) =>
 We can define a **curried** constructor that takes two types and returns the
 type of a 2-tuple:
 
-```mli
+```ocaml
 con pair a b = a * b
 
 con intAnd :: Type -> Type = pair int
@@ -192,7 +192,7 @@ and variant members? Not quite.
 If we try to compare two records, we'll get a surprisingly helpful error
 message:
 
-```mli
+```ocaml
 (* test.ur *)
 val ok = { A = 1 } = { A = 1 }
 
@@ -202,7 +202,7 @@ val ok = { A = 1 } = { A = 1 }
 
 Let's take a look into `basis.urs`. At line 26, you'll see these declarations:
 
-```mli
+```ocaml
 class eq
 val eq : t ::: Type -> eq t -> t -> t -> bool
 ```
@@ -219,7 +219,7 @@ opaque pointer in C.
 In this case we can't look at its actual implementation because `Basis` is
 implemented directly in C, but it would look somewhat like this:
 
-```mli
+```ocaml
 con eq t = t -> t -> bool
 ```
 
@@ -230,7 +230,7 @@ If you were to define your own `eq` constructor and your own `eq` function,
 you'd always have to pass a function of type `eq t` as first argument.
 (This kind of function can also be called **witness**.)
 
-```mli
+```ocaml
 con eq' t = t -> t -> bool
 
 fun eq' [t] (cmp : eq' t) (a : t) (b : t) =
@@ -259,7 +259,7 @@ call `=` with a given `t`.
 The `option` constructor also defines an `eq` witness in  the `Option` module.
 This is its signature:
 
-```mli
+```ocaml
 val eq : a ::: Type -> eq a -> eq (option a)
 ```
 
@@ -267,7 +267,7 @@ This should be straightforward by now. `Option.eq` implicitly takes a witness
 `eq a` and maps it to the value stored inside the option, if any. Let's take
 a look at its implementation.
 
-```ml
+```ocaml
 fun eq [a] (_ : eq a) =
     mkEq (fn x y =>
              case (x, y) of
@@ -286,7 +286,7 @@ invocation of `=` has a constraint of type `eq {A : int}` on its arguments,
 so we need to implement a witness of `eq` for `{A : int}`. We'll have to use
 the `mkEq` function to do this.
 
-```mli
+```ocaml
 val eq_a_int = mkEq
   (fn (a : {A : int}) (b : {B : int}) =>
     a.A = b.A)

@@ -14,13 +14,14 @@ feed_filenames = ["atom.xml", "rss.xml"]
 taxonomies = [{ name = "tags", feed = true }]
 
 [markdown]
-highlight_code = true
-highlight_theme = "nord"
-
 render_emoji = false
 smart_punctuation = false
 external_links_class = "external-link"
 external_links_no_follow = true
 external_links_no_referrer = true
+
+[markdown.highlighting]
+theme = "nord"
+error_on_missing_language = true
 
 [extra]

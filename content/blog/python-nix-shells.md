@@ -133,7 +133,7 @@ Python 3.9.6
 
 The `.envrc` file should live at the root of your project, but if you don't want to check it into git or add it into `.gitignore` you can sneakily add an ignore for it inside your project's `.git/info/exclude`.
 
-```gitignore
+```
 .direnv/
 .envrc
 ```

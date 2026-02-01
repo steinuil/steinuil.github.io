@@ -13,7 +13,7 @@ I did explore the game thoroughly but I didn't manage to get the true ending due
 
 ![Hellpoint breach map](hellpoint.svg)
 
-```dot
+```
 graph "Hellpoint breach map" {
   subgraph cluster_Arcology {
     label = "Arcology";
