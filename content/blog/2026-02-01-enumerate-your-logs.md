@@ -27,7 +27,7 @@ Gleam does not have a dictionary/hash(map)/object literal: it handles dicts just
 
 Gleam doesn't have a built-in syntax for booleans; `Bool` is a "custom type" like any other that could just as easily be defined in a library:
 
-```
+```gleam
 type Bool {
   True
   False
@@ -40,7 +40,7 @@ Now think about your application's logs. How many states that are meaningful eno
 
 There's [several](https://hexdocs.pm/glight) [structured](https://hexdocs.pm/glogg) [logging](https://hexdocs.pm/flash) [libraries](https://hexdocs.pm/birch) [available](https://hexdocs.pm/viva_telemetry/index.html) in the Gleam package registry. Gleam is a new language whose library ecosystem is still growing, none of these libraries seem to be leading the pack, so I'm not sure I should be committing to. Instead I added a `logging` module containing a `Log` variant that contains all the types of things I want to be logging in the application, along with some data that I think will be useful to debug any problems. This will let me easily switch logging implementation in the future, but I think it's also a good pattern to keep in my toolbox.
 
-```
+```gleam
 pub type Log {
   PeerAlreadyConnected(
     conn_type: ConnectionType,
