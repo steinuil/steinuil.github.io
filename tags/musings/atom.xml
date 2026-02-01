@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <title>steen&#x27;s burrow - musings</title>
+    <subtitle>steen&#x27;s online burrow</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://sgt.hootr.club/tags/musings/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://sgt.hootr.club"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-09-30T00:00:00+00:00</updated>
+    <id>https://sgt.hootr.club/tags/musings/atom.xml</id>
+    <entry xml:lang="en-us">
+        <title>The masculine urge to reinvent the wheel</title>
+        <published>2025-09-30T00:00:00+00:00</published>
+        <updated>2025-09-30T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              steen
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://sgt.hootr.club/blog/masculine-libraries/"/>
+        <id>https://sgt.hootr.club/blog/masculine-libraries/</id>
+        
+        <content type="html" xml:base="https://sgt.hootr.club/blog/masculine-libraries/">&lt;p&gt;So I&#x27;ve been playing &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.babystepsgame.com&#x2F;&quot;&gt;Baby Steps&lt;&#x2F;a&gt;. It&#x27;s a game about walking up a mountain by putting one foot in front of the other, and in the process it explores masculinity and how hard it is to accept help from others. I find that I have a lot more in common with Nate, the game&#x27;s coveralls-wearing manchild protagonist and player character, than I would like to admit.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m a self-taught programmer. After failing to get into the product design course at the Politecnico di Torino I enrolled into CS at UniTo because I&#x27;d been dabbling in computers since I was a kid, and in programming in the years leading up to my graduation from a linguistic lyceum. I did not attend a single course of the CS program. I don&#x27;t even know what the CS department looks like because I never set foot into it. I&#x27;d planned a trip to, of all places, an anime convention with some friends I had made on the internet, and the trip just happened to overlap with the first few days of courses at the university. After I came back from the convention I figured that ship had sailed and I would not be able to bear the shame of missing the first day of uni. In the mornings I would pretend to take the train to uni, and instead go walking in the woods around my town. I was not in a good place mentally.&lt;&#x2F;p&gt;
+&lt;p&gt;Nevertheless, I kept programming. Eventually my father figured out that I was not going to uni. He let me stay home for the rest of the year until I figured things out. I learned Elm and OCaml. The sabbatical year turned into two. I learned TypeScript and React and made some small websites. Now I had to find a job. I rewrote the imageboard that kickstarted my interest in programming in Ur&#x2F;Web. On the cusp of the third year, I got hired at a consultancy agency by some kind people who were sort of amused by the way I told them about these projects.&lt;&#x2F;p&gt;
+&lt;p&gt;During this time I developed a narrative for myself to cling on to. That&#x27;s what you have to do when you&#x27;re in a bad spot; you tell yourself whatever horseshit you need to keep yourself sane. I convinced myself that I was better than the average programmer, and certainly better than the people who came out of uni having only taken a cursory glance at Java and C++. Not only that but I&#x27;d come all this way by myself, so I didn&#x27;t need help from others. I was &lt;em&gt;proud&lt;&#x2F;em&gt; of my skills and my self-reliance.&lt;&#x2F;p&gt;
+&lt;p&gt;That pride begat a lot of traits that I carry with me to this day. Sometimes I find it hard to ask for help, particularly when I&#x27;m already knee-deep into a problem. I refuse to use project templates. If a library gives me a problem I&#x27;d rather reimplement it myself from first principles than figuring out how to fix it upstream. I generally don&#x27;t like working in other people&#x27;s code. If I have to choose between using a library that would be completely fine for my purposes and reimplementing the parts I need myself, I&#x27;ll choose the shortest route to yak shaving any day of the week.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m a competitive yak shaver. I&#x27;ve been wanting to revamp this blog for a while, but I always get stuck on the part where I have to reimplement the markdown parser. The production-level ones are clearly not up to the task because they don&#x27;t produce the HTML output that I want, and I think I could do better anyway. I burn out on my own projects on a regular basis. Thank fuck I can turn to videogames when that happens.&lt;&#x2F;p&gt;
+&lt;p&gt;Oh, right, videogames. Baby Steps. Where were we?&lt;&#x2F;p&gt;
+&lt;p&gt;Baby Steps is partly about learning to accept help. It&#x27;s not easy to do that; you have to swallow your pride and accept that the help you&#x27;re getting may not be in the form that you envisioned. It took me a long time to convince myself to use &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;&quot;&gt;Zola&lt;&#x2F;a&gt; to set up this blog when I don&#x27;t really like the templating language it uses and I know that I could just as well write my own static site generator with a principled templating language and blackjack and hookers, given enough time.&lt;&#x2F;p&gt;
+&lt;p&gt;But that&#x27;s just the thing: time. I work a full-time job and I have many other things to think about other than implementing the perfect templating language. I don&#x27;t have the energy to do all of that. And Zola is pretty damn good anyway.&lt;&#x2F;p&gt;
+&lt;p&gt;I think I need to learn to accept that compromises are good, actually. That I can&#x27;t do everything myself. That I don&#x27;t need to do everything myself. That other people&#x27;s code is often better than my own, and that flawed code that exists is infinitely better than better code that doesn&#x27;t. That I should be getting help in any way I can.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en-us">
+        <title>Do I not like Ruby anymore?</title>
+        <published>2024-05-28T00:00:00+00:00</published>
+        <updated>2024-05-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              steen
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://sgt.hootr.club/blog/maybe-i-like-python-now/"/>
+        <id>https://sgt.hootr.club/blog/maybe-i-like-python-now/</id>
+        
+        <content type="html" xml:base="https://sgt.hootr.club/blog/maybe-i-like-python-now/">&lt;p&gt;I recently started working at a Python shop. The reasons behind this choice of employment are very much unrelated to the technology stack. Python is &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Euphemism&quot;&gt;not my favorite programming language&lt;&#x2F;a&gt;. In fact, allow me to drop the euphemism and express my pure, unadulterated thoughts about it: I never liked Python, I see it as a huge red flag and I think the world would be a better place if we all decided to finally move on from it.&lt;&#x2F;p&gt;
+&lt;p&gt;With that out of the way, let&#x27;s talk about how I&#x27;ve recently started to come around to Python and actually kind of like it in some aspects?&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;i-used-to-love-ruby&quot;&gt;I (used to) love Ruby&lt;&#x2F;h2&gt;
+&lt;p&gt;Ruby was my first love as a programmer. It is a playful, concise, elegant, expressive language that is built out of a handful of simple concepts with a good serving of syntax sugar on top.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;There&#x27;s no distinction between objects and primitives; everything is &lt;em&gt;actually&lt;&#x2F;em&gt; an object, &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;ruby-doc.org&#x2F;3.3.1&#x2F;NilClass.html&quot;&gt;even &lt;code&gt;nil&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;!&lt;&#x2F;li&gt;
+&lt;li&gt;You can &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;yehudakatz.com&#x2F;2009&#x2F;10&#x2F;04&#x2F;emulating-smalltalks-conditionals-in-ruby&quot;&gt;reimplement &lt;code&gt;if&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; using blocks and two additional methods on &lt;code&gt;NilClass&lt;&#x2F;code&gt; and &lt;code&gt;FalseClass&lt;&#x2F;code&gt; if you want!&lt;&#x2F;li&gt;
+&lt;li&gt;Method calls are just &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;ruby-doc.org&#x2F;3.3.1&#x2F;BasicObject.html#method-i-__send__&quot;&gt;syntax sugar for &lt;code&gt;send&lt;&#x2F;code&gt;ing messages to objects&lt;&#x2F;a&gt;!&lt;&#x2F;li&gt;
+&lt;li&gt;You can define new methods on an object at call time &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;ruby-doc.org&#x2F;3.3.1&#x2F;BasicObject.html#method-i-method_missing&quot;&gt;using &lt;code&gt;method_missing&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;!&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Ruby was clearly &lt;em&gt;designed&lt;&#x2F;em&gt; taking inspiration from such language designer&#x27;s languages as Smalltalk and Lisp, and as a budding Schemer with an interest in programming language design, that inspired me a lot.&lt;&#x2F;p&gt;
+&lt;p&gt;Now, Python and Ruby were the two most popular &quot;scripting&quot; languages at the time. Ruby exploded thanks to Rails, and Python saw a lot of success as a language for data science and a better choice than Perl for command line tools and scripts.&lt;&#x2F;p&gt;
+&lt;p&gt;The two languages were often compared and contrasted, and of course I, as a fan of Ruby, had a lot of opinions about Python.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;python-as-a-worse-ruby-and-an-even-worse-scheme&quot;&gt;Python as a worse Ruby (and an even worse Scheme)&lt;&#x2F;h2&gt;
+&lt;p&gt;I kind of lied earlier when I said that Ruby was my first love as a programmer. The first time I started to really &lt;em&gt;grok&lt;&#x2F;em&gt; programming was when I learned a little bit of Scheme. I learned recursion before &lt;code&gt;for&lt;&#x2F;code&gt; loops, and I learned immutability before mutability.&lt;&#x2F;p&gt;
+&lt;p&gt;As I said in the beginning of this post, I didn&#x27;t like Python. My dislike for it was best exemplified by its choice to make &lt;code&gt;if&lt;&#x2F;code&gt; a &lt;em&gt;statement&lt;&#x2F;em&gt; rather than an expression. If you want to assign a variable conditionally in Python you have to &lt;em&gt;declare&lt;&#x2F;em&gt; it first, and then &lt;em&gt;mutate&lt;&#x2F;em&gt; it from inside the &lt;code&gt;if&lt;&#x2F;code&gt; statement, and this just didn&#x27;t sit right with me.&lt;&#x2F;p&gt;
+&lt;p&gt;(Yes, you can also use the &lt;code&gt;&amp;lt;then-expression&amp;gt; if &amp;lt;condition&amp;gt; else &amp;lt;else-expression&amp;gt;&lt;&#x2F;code&gt; inline conditional, but that looks weird to me even now.)&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;lambda&lt;&#x2F;code&gt;s, my bread and butter as a Rubyist and Schemer, are replaced by horrible twisted versions of themselves that don&#x27;t allow statements. Even &lt;code&gt;print&lt;&#x2F;code&gt; was a statement before Python 3.0, so you couldn&#x27;t use it inside of a &lt;code&gt;lambda&lt;&#x2F;code&gt;. The horror!&lt;&#x2F;p&gt;
+&lt;p&gt;In summary, Python to me just felt &lt;em&gt;unpleasant&lt;&#x2F;em&gt; to use. It&#x27;s a language that prides itself on having only one way to do things, and that way was usually not the one I wanted to use.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;type-systems-for-the-untypable&quot;&gt;Type systems for the untypable&lt;&#x2F;h2&gt;
+&lt;p&gt;At some point I found myself writing frontend code. JavaScript is not my favorite language, but TypeScript tried &lt;em&gt;very hard&lt;&#x2F;em&gt; to get me to love it.&lt;&#x2F;p&gt;
+&lt;p&gt;I consider TypeScript to be the gold standard when it comes to type systems on top of dynamic languages. It is powerful enough to model almost all Real World JS, and while this approach introduces a lot of complexity, it also brought the language a lot of success.&lt;&#x2F;p&gt;
+&lt;p&gt;TypeScript does a &lt;em&gt;bit&lt;&#x2F;em&gt; more work than your classic ML (as in &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;ML_(programming_language)&quot;&gt;Meta Language&lt;&#x2F;a&gt;) type system. TypeScript can:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.typescriptlang.org&#x2F;docs&#x2F;handbook&#x2F;2&#x2F;narrowing.html&quot;&gt;Narrow&lt;&#x2F;a&gt; a variable&#x27;s type based on the return type of a function you call on it!&lt;&#x2F;li&gt;
+&lt;li&gt;Manipulate types by &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.typescriptlang.org&#x2F;docs&#x2F;handbook&#x2F;2&#x2F;keyof-types.html&quot;&gt;destructuring&lt;&#x2F;a&gt; and &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.typescriptlang.org&#x2F;docs&#x2F;handbook&#x2F;2&#x2F;mapped-types.html&quot;&gt;constructing&lt;&#x2F;a&gt; them!&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.typescriptlang.org&#x2F;docs&#x2F;handbook&#x2F;2&#x2F;conditional-types.html&quot;&gt;Make choices&lt;&#x2F;a&gt; while constructing a type based on subtyping rules!&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;The last two features in particular unlock some incredible type-level programming potential. TypeScript is one of the few type systems in which you can &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;cassiozen&#x2F;TDungeon&quot;&gt;play a text adventure&lt;&#x2F;a&gt; and &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;codemix&#x2F;ts-sql&quot;&gt;query a database&lt;&#x2F;a&gt;!&lt;&#x2F;p&gt;
+&lt;p&gt;On top of being the most complex (and fun) type system of most languages out there, let alone those topping the TIOBE Index, TypeScript certainly makes JavaScript&#x27;s flaws a lot more bearable. It almost made me &lt;em&gt;enjoy&lt;&#x2F;em&gt; writing frontend code for a living.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;i-changed&quot;&gt;I changed&lt;&#x2F;h2&gt;
+&lt;p&gt;One thing I learned while writing TypeScript was that bad language features can be excused by some static analysis. &lt;em&gt;Maybe&lt;&#x2F;em&gt; not having &lt;code&gt;match&lt;&#x2F;code&gt; is ok when you have type narrowing based on control flow and unions. &lt;em&gt;Maybe&lt;&#x2F;em&gt; not having &lt;code&gt;if&lt;&#x2F;code&gt; expressions is ok when you can statically check that a variable was initialized after an &lt;code&gt;if&lt;&#x2F;code&gt; statement. &lt;em&gt;Maybe&lt;&#x2F;em&gt; &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.hanselman.com&#x2F;blog&#x2F;stringly-typed-vs-strongly-typed&quot;&gt;stringly typed&lt;&#x2F;a&gt; variables are ok when you can statically enumerate the magic strings and ensure they are constructed correctly.&lt;&#x2F;p&gt;
+&lt;p&gt;I also started writing quite a bit of Rust, which is a great language to show your functional programmer friends when you want to tell them that mutability is &lt;em&gt;actually fine&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;python-changed&quot;&gt;Python changed&lt;&#x2F;h2&gt;
+&lt;p&gt;Python is not the same language it used to be. Now it supports type hints! And &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;docs.python.org&#x2F;3&#x2F;tutorial&#x2F;controlflow.html#match-statements&quot;&gt;&lt;code&gt;match&lt;&#x2F;code&gt; statements&lt;&#x2F;a&gt; with destructuring! Even &lt;code&gt;print&lt;&#x2F;code&gt; got turned into a normal function!&lt;&#x2F;p&gt;
+&lt;p&gt;The type hints are easily my favorite feature. Not only do they provide type information to a good ecosystem of type checkers, but they can also be used by libraries to &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;docs.pydantic.dev&#x2F;latest&#x2F;&quot;&gt;validate schemas&lt;&#x2F;a&gt; and &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;fastapi.tiangolo.com&#x2F;&quot;&gt;simplify defining web APIs&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I think they&#x27;re a great case study for integrating types in an existing ecosystem.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;They are built into the language, so unlike TypeScript where you need to insert a separate build step, there is no cost of adoption.&lt;&#x2F;li&gt;
+&lt;li&gt;They are orthogonal to type checking and inspectable from within the language, so libraries like Pydantic can leverage them to bring benefits even to users who don&#x27;t run a type checker. Everybody wins!&lt;&#x2F;li&gt;
+&lt;li&gt;The aforementioned libraries can serve as a gateway drug into the magical world of types ✨&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;And here are some features of Python that I like which are unrelated to types:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Keyword arguments. You can call any function using the argument names as keywords without any ceremony in the function definition. I wish every language had this feature!&lt;&#x2F;li&gt;
+&lt;li&gt;It has namespaces, which are pretty good.&lt;&#x2F;li&gt;
+&lt;li&gt;The lambdas are bad, but comprehensions and generator functions are neat. They remind me of F#&#x27;s sequence expressions.&lt;&#x2F;li&gt;
+&lt;li&gt;Having preferably only one way to do things is a good feature when you&#x27;re working with many people on a project.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;ruby-didn-t-change&quot;&gt;Ruby didn&#x27;t change&lt;&#x2F;h2&gt;
+&lt;p&gt;So where does that leave Ruby, my former favorite language? Well, Ruby didn&#x27;t change as much in the last 10 years. A bunch of performance work to benefit big applications like Rails, a couple of interesting features that didn&#x27;t seem to catch on, and a handful of new syntax additions that don&#x27;t amount to much. Nothing quite as game-changing as type hints. Matz doesn&#x27;t seem to care for them.&lt;&#x2F;p&gt;
+&lt;p&gt;I still use Ruby for some scripts because I know it like the back of my hand, but... it just doesn&#x27;t feel the same. I get just a bit more irked by its quirks. I miss features from other languages. I long for keyword arguments, type hints, namespaces, I long for... Python!?&lt;&#x2F;p&gt;
+&lt;p&gt;Maybe this is a sign that I&#x27;ve changed too much for Ruby. We had a lot of fun together, but it&#x27;s time to leave it behind. Goodbye Ruby, and thanks for all the chunky bacon.&lt;&#x2F;p&gt;
+&lt;p&gt;And to Python I say: good job! You can have one of my midnight chicken nuggets. You deserve it.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en-us">
+        <title>Thoughts on Suspense for data fetching</title>
+        <published>2019-10-30T00:00:00+00:00</published>
+        <updated>2019-10-30T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              steen
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://sgt.hootr.club/blog/thoughts-on-suspense/"/>
+        <id>https://sgt.hootr.club/blog/thoughts-on-suspense/</id>
+        
+        <content type="html" xml:base="https://sgt.hootr.club/blog/thoughts-on-suspense/">&lt;p&gt;React&#x27;s &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;reactjs.org&#x2F;docs&#x2F;concurrent-mode-intro.html&quot;&gt;Concurrent Mode&lt;&#x2F;a&gt; has finally
+landed in React&#x27;s experimental builds, and it just so happens that I have to start writing this
+new app at work to be used internally, so what better way to get my hands dirty with this new
+shiny stuff!&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;&#x2F;molten-matter&#x2F;data-fetching-react&#x2F;&quot;&gt;In another post&lt;&#x2F;a&gt; I expressed some disconcert at what little
+I remembered of Suspense&#x27;s API (kinda missed that .read() thingy in the fetch request), and that...
+is still there after seeing the full API. I think you&#x27;ll see what I mean.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;exceptions-for-control-flow&quot;&gt;Exceptions for control flow&lt;&#x2F;h2&gt;
+&lt;p&gt;I happen to have here a sort of minimal working example of &quot;Suspense for data fetching&quot;.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D8DEE9; background-color: #2E3440;&quot;&gt;&lt;code data-lang=&quot;tsx&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;const&lt;&#x2F;span&gt;&lt;span style=&quot;color: #88C0D0;&quot;&gt; Hello&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; ({&lt;&#x2F;span&gt;&lt;span&gt; resource&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; })&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&amp;gt;&lt;&#x2F;span&gt;&lt;span&gt; (&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;  &amp;lt;span&amp;gt;&lt;&#x2F;span&gt;&lt;span&gt;Hello &lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;{&lt;&#x2F;span&gt;&lt;span style=&quot;color: #88C0D0;&quot;&gt;resource&lt;&#x2F;span&gt;&lt;span&gt;()&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;}&amp;lt;&#x2F;span&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;const&lt;&#x2F;span&gt;&lt;span style=&quot;color: #88C0D0;&quot;&gt; SuspendTest&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; ()&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;  const&lt;&#x2F;span&gt;&lt;span&gt; resource&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #88C0D0;&quot;&gt; suspendPromise&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;async&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; ()&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;    await&lt;&#x2F;span&gt;&lt;span style=&quot;color: #88C0D0;&quot;&gt; sleep&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B48EAD;&quot;&gt;3000&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;    return&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A3BE8C;&quot;&gt;from inside a shell&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;  }&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;  return&lt;&#x2F;span&gt;&lt;span&gt; (&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;    &amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #8FBCBB;&quot;&gt;Suspense fallback&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A3BE8C;&quot;&gt;loading...&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;      &amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #8FBCBB;&quot;&gt;Hello resource&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;={&lt;&#x2F;span&gt;&lt;span&gt;resource&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;} &#x2F;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;    &amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #8FBCBB;&quot;&gt;Suspense&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  )&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;}&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;ul&gt;
+&lt;li&gt;This will display &quot;loading...&quot; for 3 seconds and then show &quot;Hello from inside a shell&quot;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;code&gt;sleep&lt;&#x2F;code&gt; is &lt;code&gt;(ms) =&amp;gt; new Promise((resolve) =&amp;gt; setTimeout(resolve, ms))&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;We&#x27;ll call &quot;resource&quot; the thing that provides our &lt;code&gt;Hello&lt;&#x2F;code&gt; component with the data it needs to render&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;The resource is clearly a promise but you don&#x27;t have to await it; you just call it as if you already
+had the data inside it. How the hell does this work? The title of this section kinda spoiled it,
+but here it is anyway:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D8DEE9; background-color: #2E3440;&quot;&gt;&lt;code data-lang=&quot;typescript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;export function&lt;&#x2F;span&gt;&lt;span style=&quot;color: #88C0D0;&quot;&gt; suspendPromise&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #8FBCBB;&quot;&gt;T&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #88C0D0;&quot;&gt;thunk&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; ()&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #8FBCBB;&quot;&gt; Promise&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #8FBCBB;&quot;&gt;T&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;gt;) {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;  let&lt;&#x2F;span&gt;&lt;span&gt; state&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; {&lt;&#x2F;span&gt;&lt;span&gt; status&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A3BE8C;&quot;&gt;PENDING&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;quot; }&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;  const&lt;&#x2F;span&gt;&lt;span&gt; pendingPromise&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span&gt; (&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;async&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; ()&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;    try&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      state&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; {&lt;&#x2F;span&gt;&lt;span&gt; status&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A3BE8C;&quot;&gt;SUCCESS&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;quot;,&lt;&#x2F;span&gt;&lt;span&gt; data&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; await&lt;&#x2F;span&gt;&lt;span style=&quot;color: #88C0D0;&quot;&gt; thunk&lt;&#x2F;span&gt;&lt;span&gt;()&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; }&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;    }&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; catch&lt;&#x2F;span&gt;&lt;span&gt; (e)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;      state&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; {&lt;&#x2F;span&gt;&lt;span&gt; status&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;: &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A3BE8C;&quot;&gt;ERROR&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;quot;,&lt;&#x2F;span&gt;&lt;span&gt; error&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;:&lt;&#x2F;span&gt;&lt;span&gt; e&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; }&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;    }&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;  }&lt;&#x2F;span&gt;&lt;span&gt;)()&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;  return&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; ()&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;    switch&lt;&#x2F;span&gt;&lt;span&gt; (state&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;status)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;      case&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A3BE8C;&quot;&gt;PENDING&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;quot;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;        throw&lt;&#x2F;span&gt;&lt;span&gt; pendingPromise&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;      case&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A3BE8C;&quot;&gt;ERROR&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;quot;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;        throw&lt;&#x2F;span&gt;&lt;span&gt; state&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;error&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;      case&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A3BE8C;&quot;&gt;SUCCESS&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;quot;:&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;        return&lt;&#x2F;span&gt;&lt;span&gt; state&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;.&lt;&#x2F;span&gt;&lt;span&gt;data&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;    }&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;  }&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;It fires the promise and then returns a function that will fetch the data, if it&#x27;s available.
+And if it&#x27;s not, it just &lt;em&gt;throws the promise&lt;&#x2F;em&gt;. That&#x27;s it, that&#x27;s the magic. &lt;code&gt;Suspense&lt;&#x2F;code&gt; then will
+act like an &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;reactjs.org&#x2F;docs&#x2F;error-boundaries.html&quot;&gt;error boundary&lt;&#x2F;a&gt; and catch the promise
+and then do whatever it is that it does to promises. Presumably await them and then retry with
+the rendering roughly when they&#x27;re done.&lt;&#x2F;p&gt;
+&lt;p&gt;This is the part where I pretend to know what algebraic effects are and say, gosh, this looks a lot
+like algebraic effects.&lt;&#x2F;p&gt;
+&lt;p&gt;I grew to like fetching in useEffect, but I won&#x27;t deny it&#x27;s always looked a bit awkward, so I&#x27;m glad
+this deprecates it. I&#x27;m also glad this makes the API synchronous, because it means that error
+boundaries are finally useful. To be frank, I haven&#x27;t implemented error handling in the data-fetching
+component I use in another app because if the request returns an error it can only mean the server
+is down, and that&#x27;s a scenario I don&#x27;t really want to entertain. That and the API wouldn&#x27;t make
+it very pleasant to deal with errors.&lt;&#x2F;p&gt;
+&lt;p&gt;I don&#x27;t know what to make of &lt;code&gt;useTransition&lt;&#x2F;code&gt; yet, but I think I&#x27;ll write another post about it when
+I figure it out. This is just a braindump of what I gathered so far.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;another-thought&quot;&gt;Another thought&lt;&#x2F;h2&gt;
+&lt;p&gt;One thing I&#x27;ve learnt is that you &lt;em&gt;have&lt;&#x2F;em&gt; to read from the resource in a different component than
+the one you use &lt;code&gt;Suspense&lt;&#x2F;code&gt; in, so you can&#x27;t inline Hello into SuspendTest.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D8DEE9; background-color: #2E3440;&quot;&gt;&lt;code data-lang=&quot;tsx&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;const&lt;&#x2F;span&gt;&lt;span style=&quot;color: #88C0D0;&quot;&gt; SuspendTest&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; ()&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;  const&lt;&#x2F;span&gt;&lt;span&gt; resource&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #88C0D0;&quot;&gt; suspendPromise&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;async&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; ()&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt; =&amp;gt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;    await&lt;&#x2F;span&gt;&lt;span style=&quot;color: #88C0D0;&quot;&gt; sleep&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B48EAD;&quot;&gt;3000&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;    return&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A3BE8C;&quot;&gt;from inside a shell&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;  }&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;  return&lt;&#x2F;span&gt;&lt;span&gt; (&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;    &amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #8FBCBB;&quot;&gt;Suspense fallback&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A3BE8C;&quot;&gt;loading...&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;      &amp;lt;span&amp;gt;&lt;&#x2F;span&gt;&lt;span&gt;Hello &lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;{&lt;&#x2F;span&gt;&lt;span style=&quot;color: #88C0D0;&quot;&gt;resource&lt;&#x2F;span&gt;&lt;span&gt;()&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;}&amp;lt;&#x2F;span&amp;gt;&lt;&#x2F;span&gt;&lt;span&gt; &#x2F;&#x2F; Bad!&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;    &amp;lt;&#x2F;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #8FBCBB;&quot;&gt;Suspense&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  )&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;}&lt;&#x2F;span&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And I&#x27;m wondering how they will enforce this. Probably just with some error messages and
+a slap on the wrist like &quot;the rules of hooks&quot;.&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;p&gt;The full code for this post is available on &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;codesandbox.io&#x2F;s&#x2F;modest-rosalind-xdpgx&quot;&gt;CodeSandbox&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en-us">
+        <title>The social issues of programming languages</title>
+        <published>2017-10-29T00:00:00+00:00</published>
+        <updated>2017-10-29T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              steen
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://sgt.hootr.club/blog/bikeshed/"/>
+        <id>https://sgt.hootr.club/blog/bikeshed/</id>
+        
+        <content type="html" xml:base="https://sgt.hootr.club/blog/bikeshed/">&lt;p&gt;I&#x27;m sure you know what bikeshedding means, and even if you don&#x27;t, you&#x27;ve probably
+experienced a high amount of it in some way or another. It&#x27;s a folkloristic&lt;sup class=&quot;footnote-reference&quot;&gt;&lt;a href=&quot;#1&quot;&gt;1&lt;&#x2F;a&gt;&lt;&#x2F;sup&gt;
+programming term that describes the endless discussion over trivial aspects of a
+piece of software, such as spaces vs tabs, or which of the zillions of JS build
+systems to use, or whether operator overloading should be allowed. We&#x27;ll call these
+&lt;em&gt;social issues&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The great thing about social issues is that they only exist when more than one person
+is working on a project. If it&#x27;s just you, you don&#x27;t have to worry about coding
+style guidelines. You don&#x27;t have to worry about what paradigm you want to use, or
+to get everybody comfortable with the set of macros you&#x27;re using, or with the libraries,
+or the build system. In fact, you won&#x27;t have to worry about reproducing the build
+environment on machines other than your own. You might even get away with not documenting
+your code, even though your future self will hate you for that.&lt;&#x2F;p&gt;
+&lt;p&gt;Rudolf Winestock in his famous article
+&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;http:&#x2F;&#x2F;winestockwebdesign.com&#x2F;Essays&#x2F;Lisp_Curse.html&quot;&gt;The Lisp Curse&lt;&#x2F;a&gt; argues that
+&lt;em&gt;&quot;Lisp is so powerful that problems which are technical issues in other programming
+languages are social issues in Lisp.&quot;&lt;&#x2F;em&gt; This makes Lisp a great language for lone
+hackers, because those social issues are easily solved by oneself, but terrible
+for working with other people, because you&#x27;ll have to spend so much time just defining
+a common language that everybody agrees to use that you&#x27;ll never see the end of it.&lt;&#x2F;p&gt;
+&lt;p&gt;This is a problem in C++, too: the joke goes that the language is so big and full
+of features that you&#x27;ll end up using only 10% of it for any given task, but everybody
+disagrees on what that 10% should be.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;enter-go&quot;&gt;Enter Go&lt;&#x2F;h2&gt;
+&lt;p&gt;Go is a pretty &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;youtu.be&#x2F;_1GZShA1F20?t=42m13s&quot;&gt;unremarkable&lt;&#x2F;a&gt; programming
+language, with a feature set that &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;cowlark.com&#x2F;2009-11-15-go&#x2F;&quot;&gt;rivals&lt;&#x2F;a&gt; that
+of languages from the 60s, and it&#x27;s also one of the most popular programming languages
+of the last few years. I think the reason is that whatever thought didn&#x27;t go into
+making a good programming language went into solving the social issues that the
+other languages suffer from, and if you ask people who have experience with many
+languages what they like about Go they&#x27;ll mostly praise what you could call its
+&quot;user experience&quot;.&lt;&#x2F;p&gt;
+&lt;p&gt;Go tries to solve the social issues by providing solutions for them by default in
+its standard installation, down to including a code formatter that the vast majority
+of projects require you to run before committing any code to source control.&lt;&#x2F;p&gt;
+&lt;p&gt;Go also makes lots of tradeoffs in the language itself to make compilation faster:
+the type system is very limited and you don&#x27;t get type inference other than some
+syntactic sugar for C++&#x27;s &lt;code&gt;auto&lt;&#x2F;code&gt; keyword, because the compiler would have to perform
+more extensive type checking. Generics also don&#x27;t exist, because you&#x27;d have to generate
+code for each instantiation at compile time.&lt;&#x2F;p&gt;
+&lt;p&gt;I personally don&#x27;t agree that these tradeoffs are really worth it, but it seems
+to be working. People love Go (i.e. its tooling), and they love how they don&#x27;t have
+to think about all the things Go provides anymore, which I think raises a good point:
+isn&#x27;t not worrying about the unimportant parts what programming languages are about?
+And if so, &lt;strong&gt;what good is a new language that doesn&#x27;t try to solve these issues?&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;lessons-to-be-learned&quot;&gt;Lessons to be learned&lt;&#x2F;h2&gt;
+&lt;p&gt;I think that there&#x27;s lots of better languages out there that should learn a thing
+or two from Go, if they want to succeed.&lt;&#x2F;p&gt;
+&lt;p&gt;Elm seems to be a step in the right direction: it takes a lot from Haskell, and
+makes a lot of decisions and tradeoffs to be easier to learn for newcomers. Elm
+places a tremendous amount of effort into appealing to newcomers by having a very
+small core language, integrating many tools into its standard distribution like
+Go, and making error messages look very friendly and easy to understand.&lt;&#x2F;p&gt;
+&lt;p&gt;Then again, many of these improvements are implemented without regard for the more
+experienced developers. Elm is a great language and its architecture is a really
+good paradigm, but many complain that it scales poorly when project sizes increase,
+and without stronger abstraction facilities like type classes you&#x27;re bound to end
+up with a lot of boilerplate. Frankly, I don&#x27;t think Evan himself knows where he
+wants to bring the language in the future.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;reasonml.github.io&#x2F;&quot;&gt;Reason&lt;&#x2F;a&gt; also seems to be somewhat promising, being
+funded by Facebook and all. It&#x27;s nothing but a layer of paint on top of OCaml to
+make it look more like Javascript, but somehow it&#x27;s managed to make people buy into
+it. The Reason team also seems to be working on the OCaml compiler to make it produce
+error messages that look like Elm&#x27;s. With a bit of luck, this will bring more people
+over to OCaml and, over time, improve its ecosystem.&lt;&#x2F;p&gt;
+&lt;div class=&quot;footnote-definition&quot; id=&quot;1&quot;&gt;&lt;sup class=&quot;footnote-definition-label&quot;&gt;1&lt;&#x2F;sup&gt;
+&lt;p&gt;I&#x27;ve stolen this use of the term from &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=4PaWFYm0kEw&quot;&gt;this talk&lt;&#x2F;a&gt; by Bryan Cantrill. It&#x27;s a good talk.&lt;&#x2F;p&gt;
+&lt;&#x2F;div&gt;
+</content>
+        
+    </entry>
+</feed>
