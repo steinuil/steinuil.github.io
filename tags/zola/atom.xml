@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <title>steen&#x27;s burrow - zola</title>
+    <subtitle>steen&#x27;s online burrow</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://sgt.hootr.club/tags/zola/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://sgt.hootr.club"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-10-01T00:00:00+00:00</updated>
+    <id>https://sgt.hootr.club/tags/zola/atom.xml</id>
+    <entry xml:lang="en-us">
+        <title>About this blog</title>
+        <published>2025-10-01T00:00:00+00:00</published>
+        <updated>2025-10-01T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              steen
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://sgt.hootr.club/blog/about-this-blog/"/>
+        <id>https://sgt.hootr.club/blog/about-this-blog/</id>
+        
+        <content type="html" xml:base="https://sgt.hootr.club/blog/about-this-blog/">&lt;p&gt;I just changed my blog&#x27;s tech stack, so the time has come for me to write the obligatory meta-post about my blog.&lt;&#x2F;p&gt;
+&lt;p&gt;I spent thursday night setting up this blog again, throwing out my own &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;racket-lang.org&#x2F;&quot;&gt;Racket&lt;&#x2F;a&gt;-based &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;steinuil&#x2F;steinuil.github.io&#x2F;blob&#x2F;master&#x2F;generate.rkt&quot;&gt;static blog generator&lt;&#x2F;a&gt; and replacing it with &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;&quot;&gt;Zola&lt;&#x2F;a&gt;. I&#x27;m not particularly happy about killing my generator, but it was either choosing an off-the-shelf option or reimplementing a parser for a Markdown-based Racket &lt;code&gt;#lang&lt;&#x2F;code&gt; that let me escape to Racket in a similar way to &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;docs.racket-lang.org&#x2F;pollen&#x2F;index.html&quot;&gt;Pollen&lt;&#x2F;a&gt; and rewriting my (admittedly not very long tail of) previous posts in this new language, and I wasn&#x27;t making much progress on that front.&lt;&#x2F;p&gt;
+&lt;p&gt;Why throw out the old stack? Well, I had a few annoyances about how it worked. First of all, the &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;docs.racket-lang.org&#x2F;markdown&#x2F;index.html&quot;&gt;Markdown library&lt;&#x2F;a&gt; I was using did not handle Markdown extensions like tables, and there wasn&#x27;t a way I could plug into the parser to implement those or add custom elements such as &lt;em&gt;Cool Bear&#x27;s hot tips&lt;&#x2F;em&gt; from &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;fasterthanli.me&#x2F;&quot;&gt;@fasterthanlime&#x27;s blog&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Then there was the problem of footnotes: the library generates unstable IDs for footnotes, so every time I regenerated the blog every single ID would change, which was annoying and led me to this cycle of generating the blog, then manually &lt;code&gt;git restore&lt;&#x2F;code&gt;ing every page that was not supposed to be touched by the change. It was all a bit laborious. I&#x27;d also like to implement footnotes in the sidebar, and again, the library made it all kind of tedious.&lt;&#x2F;p&gt;
+&lt;p&gt;These were not insurmountable problems. I could probably embed the library into the generator and hook into the &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;docs.racket-lang.org&#x2F;sxml-intro&#x2F;index.html&quot;&gt;SXML&lt;&#x2F;a&gt; emitter to change the output it produces. I just never felt like doing that. Maybe I just don&#x27;t like working in Racket anymore because it&#x27;s generally untyped and its &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;docs.racket-lang.org&#x2F;ts-guide&#x2F;&quot;&gt;typed variant&lt;&#x2F;a&gt; is excruciatingly slow and often very annoying to work with.&lt;&#x2F;p&gt;
+&lt;p&gt;It took me a few hours of work to get Zola running and redesign the blog. I wrote a custom template, changed all the fonts, finally added support for &lt;a href=&quot;&#x2F;tags&#x2F;&quot;&gt;tags&lt;&#x2F;a&gt;, made sure that all the old posts would render correctly, and aliased all the old URLs to the new ones. Zola has a built-in server with live reload that made this process much quicker. It was all very easy.&lt;&#x2F;p&gt;
+&lt;p&gt;I went with Zola entirely based on vibes, but I think I like its approach. It tries to generalize some standard things you&#x27;d want in a blog into more powerful concepts: posts become a &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;documentation&#x2F;templates&#x2F;pages-sections&#x2F;&quot;&gt;section with pages&lt;&#x2F;a&gt;, tags become one of many &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.getzola.org&#x2F;documentation&#x2F;templates&#x2F;taxonomies&#x2F;&quot;&gt;taxonomies&lt;&#x2F;a&gt; that the website can have. Just about every template is customizable. It looks very fast: my whole blog renders in a hundred milliseconds, which sounds about right. I also set up its premade GitHub Actions workflow for deploying the blog to GitHub pages.&lt;&#x2F;p&gt;
+&lt;p&gt;I can&#x27;t say I &lt;em&gt;enjoy&lt;&#x2F;em&gt; writing &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;keats.github.io&#x2F;tera&quot;&gt;Tera&lt;&#x2F;a&gt; templates and this was one of the issues that made me procrastinate the switch to an off-the-shelf generator, but honestly, they&#x27;re fine. The one thing I dislike is that they&#x27;re orthogonal to the text they produce, so a few times during the template writing process I ended up with invalid HTML. I&#x27;m not happy about that, but sometimes you just have to compromise.&lt;&#x2F;p&gt;
+&lt;p&gt;I took some inspiration from &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;wiki.xxiivv.com&#x2F;site&#x2F;home.html&quot;&gt;Devine Lu Linvega&#x27;s website&lt;&#x2F;a&gt; for the top bar. You can find the fonts that I used on the &lt;a href=&quot;&#x2F;meta&#x2F;&quot;&gt;meta&lt;&#x2F;a&gt; page: I think they look nice.&lt;&#x2F;p&gt;
+&lt;p&gt;There are some things that I&#x27;d like to implement in the future:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Footnotes in the sidebar, as I previously mentioned.&lt;&#x2F;li&gt;
+&lt;li&gt;Comments? I wouldn&#x27;t want to use a third-party thing, especially not after I read that &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;ryansouthgate.com&#x2F;goodbye-disqus&#x2F;&quot;&gt;Disqus injects tons of ads into your page&lt;&#x2F;a&gt;, so maybe I&#x27;ll hack some custom solution together.&lt;&#x2F;li&gt;
+&lt;li&gt;I had this idea that I could publish this blog as an &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;anil.recoil.org&#x2F;notes&#x2F;atproto-for-fun-and-blogging&quot;&gt;AT proto&lt;&#x2F;a&gt; thing just because I think it would be cool, but that probably involves changing the whole stack again. Something to think about for the future.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;In conclusion, hats off to Zola for making the migration process very painless, and I hope this improved process will make me more likely to write posts on here.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

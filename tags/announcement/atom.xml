@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <title>steen&#x27;s burrow - announcement</title>
+    <subtitle>steen&#x27;s online burrow</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://sgt.hootr.club/tags/announcement/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://sgt.hootr.club"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2020-05-05T00:00:00+00:00</updated>
+    <id>https://sgt.hootr.club/tags/announcement/atom.xml</id>
+    <entry xml:lang="en-us">
+        <title>Announcing SatouinDp</title>
+        <published>2020-05-05T00:00:00+00:00</published>
+        <updated>2020-05-05T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              steen
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://sgt.hootr.club/blog/announcing-satouindp/"/>
+        <id>https://sgt.hootr.club/blog/announcing-satouindp/</id>
+        
+        <content type="html" xml:base="https://sgt.hootr.club/blog/announcing-satouindp/">&lt;p&gt;My desktop is connected to two monitors and one TV, and for various reasons I find myself needing to switch my primary display more often than most people.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;sgt.hootr.club&#x2F;blog&#x2F;announcing-satouindp&#x2F;battlestation.jpg&quot; alt=&quot;My battlestation&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;This is my monitor setup. There&#x27;s also a TV behind me, which I use to watch movies and play videogames. My laptop is also connected to the central monitor.&lt;&#x2F;p&gt;
+&lt;p&gt;When I&#x27;m working on my laptop I usually have my central monitor rotated by 90° (code looks better on a tall screen) and a music player open on the right monitor, so either I bend my neck 90° every time I need to do something on the central monitor, or I switch the primary display to the right. If I want to play videogames on the TV I need to switch the primary display to the TV, because most games don&#x27;t have an option to change the display they go full screen on.&lt;&#x2F;p&gt;
+&lt;p&gt;To change primary displays on Windows you have to go on a certain control panel section whose name I can never reliably recall when I&#x27;m searching for it from the start menu. (Doesn&#x27;t help that they change the names of the control panel sections every other update.) Then you have to click on the display you want to make primary, scroll down, and click on a checkbox. That&#x27;s usually enough to put me off playing any videogames on the TV.&lt;&#x2F;p&gt;
+&lt;p&gt;I needed something to do this more quickly.&lt;&#x2F;p&gt;
+&lt;p&gt;There&#x27;s probably a bunch of tools that already do this, but I don&#x27;t think any of them are open source. If this was Linux I could easily write a script with xrandr, but this is Windows. Stuff here goes clickety click instead of clickety clack, and opening a terminal breaks the harmony.&lt;&#x2F;p&gt;
+&lt;p&gt;The other day I finally decided to scratch this itch. A couple hours later I emerged with &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;steinuil&#x2F;SatouinDp&quot;&gt;SatouinDp&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;sgt.hootr.club&#x2F;blog&#x2F;announcing-satouindp&#x2F;satouin.jpg&quot; alt=&quot;SatouinDp in action&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;It&#x27;s simply a taskbar icon that shows the list of displays, and when you click on one it sets that one as the primary display. It&#x27;s written in F# and it calls directly to the Win32 API to change the display settings. Maybe I&#x27;ll write a post about how to do that too some other day.&lt;&#x2F;p&gt;
+&lt;p&gt;It&#x27;s been very useful so far.&lt;&#x2F;p&gt;
+&lt;h1 id=&quot;further-reading&quot;&gt;Further reading&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;web.archive.org&#x2F;web&#x2F;20040411202042&#x2F;http:&#x2F;&#x2F;www.shirky.com&#x2F;writings&#x2F;situated_software.html&quot;&gt;Situated software&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;195267&#x2F;use-windows-api-from-c-sharp-to-set-primary-monitor&quot;&gt;Use Windows API from C# to set primary monitor&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
+</feed>

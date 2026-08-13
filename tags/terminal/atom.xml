@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <title>steen&#x27;s burrow - terminal</title>
+    <subtitle>steen&#x27;s online burrow</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://sgt.hootr.club/tags/terminal/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://sgt.hootr.club"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2017-02-10T00:00:00+00:00</updated>
+    <id>https://sgt.hootr.club/tags/terminal/atom.xml</id>
+    <entry xml:lang="en-us">
+        <title>The TTY Protocol</title>
+        <published>2017-02-10T00:00:00+00:00</published>
+        <updated>2017-02-10T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              steen
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://sgt.hootr.club/blog/tty/"/>
+        <id>https://sgt.hootr.club/blog/tty/</id>
+        
+        <content type="html" xml:base="https://sgt.hootr.club/blog/tty/">&lt;p&gt;A few months ago, &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;destroyallsoftware.com&quot;&gt;Gary Bernhardt&lt;&#x2F;a&gt; streamed himself
+writing a text editor. I&#x27;m not sure he ever finished it, and for some reason he took down
+the VoDs on Twitch, but the little I&#x27;ve seen was still very interesting.&lt;&#x2F;p&gt;
+&lt;p&gt;Writing my own text editor (and using it) has always been one of my dreams and, being a
+vim user, I&#x27;d much rather have it run on my terminal. Bernhardt shares my opinion, so he
+started by writing (or rather, copying from one of his previous projects) the terminal
+interaction code. I&#x27;ve always thought terminal interaction would be pretty complicated,
+but it turned out to be a very small amount of code.&lt;&#x2F;p&gt;
+&lt;p&gt;This got me wondering about the protocol.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;a-brief-incomplete-and-mostly-wrong-history-of-the-tty-protocol&quot;&gt;A brief, incomplete, and mostly wrong history of the TTY protocol&lt;&#x2F;h2&gt;
+&lt;p&gt;The TTY protocol predates computers by quite a bit, and hasn&#x27;t changed much since the
+late 19th century. The protocol was created for &lt;strong&gt;teletypewriters&lt;&#x2F;strong&gt;, or teletypes,
+to communicate with each other: it included not only printable characters such as
+numbers, alphabets, and punctuation, but also directives for the teletype that were
+not supposed to be printed called &lt;strong&gt;control characters&lt;&#x2F;strong&gt;, such as Line Feed (&lt;code&gt;\n&lt;&#x2F;code&gt;).&lt;&#x2F;p&gt;
+&lt;p&gt;The character encodings that we still have to deal with nowadays also largely
+come from back then: Unicode later tried to patch them all together, but it was already too late.&lt;&#x2F;p&gt;
+&lt;p&gt;Then computers came along. Printing the result of a computation to a sheet of paper
+was way easier than interpreting a bunch of lights on a front panel, so they stuck
+teletypes to them, and thus computers learnt the TTY protocol too.&lt;&#x2F;p&gt;
+&lt;p&gt;When screens became widespread, the protocol acquired more commands known as
+&lt;strong&gt;escape sequences&lt;&#x2F;strong&gt;, so called because they were prefixed by
+ESC (&lt;code&gt;0x1B&lt;&#x2F;code&gt;). These allowed computers to move the cursor arbitrarily on the screen,
+clearing part of it or applying some effects such as inverting the background and
+the foreground color.&lt;&#x2F;p&gt;
+&lt;p&gt;Some terminals, such as the Tektronix 4010 series, also allowed drawing lines on
+the screen thanks to their vector displays. These unfortunately died an untimely
+death (even though a tek emulation mode still lives on inside xterm), and only the
+text-based VTs stuck.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;summing-up&quot;&gt;Summing up&lt;&#x2F;h2&gt;
+&lt;p&gt;For most intents and purposes, &lt;code&gt;&#x2F;dev&#x2F;tty&lt;&#x2F;code&gt; still behaves a lot like a physical
+typewriter: you can scroll the &quot;sheet of paper&quot;, you can move the cursor
+around, you can imbue its head with colored ink or special effects. You can easily
+find your way around with &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;http:&#x2F;&#x2F;www.xfree86.org&#x2F;4.5.0&#x2F;ctlseqs.html&quot;&gt;a control sequences chart&lt;&#x2F;a&gt;,
+and it&#x27;s not hard to emulate ncurses or readline just by printing a few characters
+in &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Cooked_mode&quot;&gt;raw mode&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The TTY is unfortunately very stateful, but &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;nsf&#x2F;termbox&quot;&gt;termbox&lt;&#x2F;a&gt;
+provides a very nice abstraction: it essentially turns all interactions stateless by printing a few more escape sequences every time you write something.&lt;&#x2F;p&gt;
+&lt;p&gt;I&#x27;m not sure if I&#x27;ll ever write my own text editor, but it&#x27;s certainly fun to play
+with terminal graphics and line editing using nothing but &lt;code&gt;write&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;further-reading&quot;&gt;Further reading&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.destroyallsoftware.com&#x2F;talks&#x2F;a-whole-new-world&quot;&gt;Gary Bernhardt - A Whole New World&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;garbagecollected.org&#x2F;2017&#x2F;01&#x2F;31&#x2F;four-column-ascii&#x2F;&quot;&gt;Four Column ASCII&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;http:&#x2F;&#x2F;www.linusakesson.net&#x2F;programming&#x2F;tty&#x2F;&quot;&gt;The TTY demystified&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;pqwy&#x2F;notty&quot;&gt;Declarative terminal graphics for OCaml&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;http:&#x2F;&#x2F;use.perl.org&#x2F;use.perl.org&#x2F;_scrottie&#x2F;journal&#x2F;39195.html&quot;&gt;Playing with Tektronix emulation for vector graphics!&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;withoutboats&#x2F;notty&quot;&gt;notty: A new kind of terminal&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;http:&#x2F;&#x2F;systemswe.love&#x2F;videos&#x2F;utf-8&quot;&gt;Daniel Morsing - UTF-8&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;utcc.utoronto.ca&#x2F;~cks&#x2F;space&#x2F;blog&#x2F;unix&#x2F;HowUnixBackspaces&quot;&gt;How Unix erases things when you type a backspace while entering text&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;http:&#x2F;&#x2F;denisbider.blogspot.com&#x2F;2015&#x2F;09&#x2F;when-monospace-fonts-arent-unicode.html&quot;&gt;When monospace fonts aren&#x27;t: The Unicode character width nightmare&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+</content>
+        
+    </entry>
+</feed>

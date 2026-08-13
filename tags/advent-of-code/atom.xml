@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <title>steen&#x27;s burrow - advent-of-code</title>
+    <subtitle>steen&#x27;s online burrow</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://sgt.hootr.club/tags/advent-of-code/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://sgt.hootr.club"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2021-12-13T00:00:00+00:00</updated>
+    <id>https://sgt.hootr.club/tags/advent-of-code/atom.xml</id>
+    <entry xml:lang="en-us">
+        <title>Solving Advent of Code 2021 Day 13 with a linear equation</title>
+        <published>2021-12-13T00:00:00+00:00</published>
+        <updated>2021-12-13T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              steen
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://sgt.hootr.club/blog/aoc2021-day13-linear-equation/"/>
+        <id>https://sgt.hootr.club/blog/aoc2021-day13-linear-equation/</id>
+        
+        <content type="html" xml:base="https://sgt.hootr.club/blog/aoc2021-day13-linear-equation/">&lt;p&gt;This year I&#x27;m doing Advent of Code in Erlang. The data structures it provides are all immutable, so I have to be kinda clever if I don&#x27;t want my solutions to run too slowly. This is my solution for &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;adventofcode.com&#x2F;2021&#x2F;day&#x2F;13&quot;&gt;Day 13: Transparent Origami&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The first thing I noticed when I got the input was that all the folds are right down the middle, so I figured that instead of doing all the folds iteratively you could get the final position of a point on the paper just knowing the X and Y of the point and the X and Y offsets of the last folds.&lt;&#x2F;p&gt;
+&lt;p&gt;Imagine that you have a 15x11 piece of paper.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D8DEE9; background-color: #2E3440;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...............&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...............&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...............&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...............&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...............&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...............&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...............&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...............&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...............&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...............&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...............&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And that the instructions tell you to:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;fold along y=5&lt;&#x2F;li&gt;
+&lt;li&gt;fold along x=7&lt;&#x2F;li&gt;
+&lt;li&gt;fold along y=2&lt;&#x2F;li&gt;
+&lt;li&gt;fold along x=3&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;If you were to fold that piece of paper following the instructions and then unfold it, you&#x27;d get a grid of 3x2 rectangles with a line of crease between each of them. Notice that the width and height of the rectangles are the same as the last x and y the paper was folded along.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D8DEE9; background-color: #2E3440;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...|...|...|...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...|...|...|...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;---+---+---+---&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...|...|...|...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...|...|...|...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;---+---+---+---&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...|...|...|...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...|...|...|...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;---+---+---+---&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...|...|...|...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;...|...|...|...&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;The key thing here is understanding how these rectangles will end up looking when the whole piece of paper is folded. The top left rectangle is unchanged, but the next one on the right will be &lt;em&gt;flipped horizontally&lt;&#x2F;em&gt;, and the next one on the right will be unchanged again. The first rectangle down from the top left will be &lt;em&gt;flipped vertically&lt;&#x2F;em&gt;, and the one on its right will end up &lt;em&gt;rotated by 180 degrees&lt;&#x2F;em&gt;, because it&#x27;ll be flipped both horizontally and vertically.&lt;&#x2F;p&gt;
+&lt;p&gt;Here&#x27;s a visualization, where u = unchanged, h = flipped horizontally, v = flipped vertically and r = flipped both directions.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D8DEE9; background-color: #2E3440;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;uuu|hhh|uuu|hhh&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;uuu|hhh|uuu|hhh&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;---+---+---+---&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;vvv|rrr|vvv|rrr&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;vvv|rrr|vvv|rrr&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;---+---+---+---&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;uuu|hhh|uuu|hhh&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;uuu|hhh|uuu|hhh&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;---+---+---+---&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;vvv|rrr|vvv|rrr&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;vvv|rrr|vvv|rrr&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;So if you want to get the final X coordinate of a point in the 3rd rectangle right from the top left (the one at 2,0, if the first rectangle is 0,0), for example 10,0, you&#x27;d have to subtract the number of creases between that and the first rectangle, in this case 2, and then modulo by the width of the rectangle, which is 3, which gives you 2.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D8DEE9; background-color: #2E3440;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;x = 10&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;width = 3&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;creases = 2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;final_x = (x - creases) % width&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If you want to get the final X coordinate of a point in the 2nd rectangle though, for example 0,4, you&#x27;d have to perform the same operations as above and then subtract it from the width of the rectangle minus 1, since the rectangle is flipped horizontally.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D8DEE9; background-color: #2E3440;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;final_x = width - ((x - creases) % width) - 1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;What I did at this point was go on Wolfram Alpha to try and figure out a formula for getting the number of creases given a certain X. I&#x27;m sure you can find that out somehow. I didn&#x27;t, but what I noticed was that the function I described above formed a certain shape...&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D8DEE9; background-color: #2E3440;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt; |&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt; | 2 2     2 2     2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt; |1   1   1   1   1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-0-----0-0-----0-0--&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt; |&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;If you plot the input X as the X of the graph and the expected output numbers as the Y, you get this funny looking graph as a result. If you want to know what position a certain number will end up in, just walk the X that many times and find the number at that position.&lt;&#x2F;p&gt;
+&lt;p&gt;Some X positions are empty because that&#x27;s where the creases are. If you put some pointy tips on those positions you&#x27;d end up with a proper &lt;strong&gt;triangle wave&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D8DEE9; background-color: #2E3440;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt; |&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt; |  ^       ^       ^&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt; | &#x2F; \     &#x2F; \     &#x2F;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt; |&#x2F;   \   &#x2F;   \   &#x2F;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-&#x2F;-----\-&#x2F;-----\-&#x2F;---&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;v|      v       v&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt; |&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;So how do we use this knowledge to solve Day 13 of Advent of Code 2021? Well, you could look at the explanation on Wikipedia and translate the general formula into your favourite language, but that implies you can read math notation. Or you could google &quot;triangle wave function programming&quot; and find &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;stackoverflow.com&#x2F;questions&#x2F;1073606&#x2F;is-there-a-one-line-function-that-generates-a-triangle-wave&#x2F;22400799#22400799&quot;&gt;this StackOverflow answer&lt;&#x2F;a&gt; and then copy and paste that in your code.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D8DEE9; background-color: #2E3440;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;y = (A&#x2F;P) * (P - abs(x % (2*P) - P))&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Since the amplitude and the period of the wave are the same (we always advance by 1) we can get rid of the first division. You&#x27;ll also notice that the graph of the function for the width of the rectangle goes from -1 to 3 (an interval of 4), so we&#x27;ll have to add 1 to both the width and the X to use this, and in the end we&#x27;ll have to subtract 1 from the output to return it to the 0..2 interval we need.&lt;&#x2F;p&gt;
+&lt;p&gt;This is what I ended up with:&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D8DEE9; background-color: #2E3440;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;x += 1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;width += 1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;final_x = (width - abs(x % (2 * width) - width)) - 1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;It runs pretty quickly &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;steinuil&#x2F;code-challenges&#x2F;blob&#x2F;master&#x2F;advent-of-code-2021&#x2F;day_13.erl&quot;&gt;even in Erlang&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
