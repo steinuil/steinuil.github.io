@@ -3,7 +3,7 @@ title = "Hacking on the reMarkable 2"
 date = 2025-11-30
 
 [taxonomies]
-tags = ["remarkable", "reverse-engineering"]
+tags = ["epaper", "remarkable", "reverse-engineering"]
 +++
 
 Since last Wednesday, I am the proud owner of a [reMarkable 2](https://remarkable.com/products/remarkable-2). There was a black friday discount and some refurbished deals that meant I could get the tablet, the Marker Plus and the book cover for a little over the asking price of the base tablet and marker so I decided to take advantage of it.
