@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <title>steen&#x27;s burrow - ruby</title>
+    <subtitle>steen&#x27;s online burrow</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://sgt.hootr.club/tags/ruby/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://sgt.hootr.club"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2024-05-28T00:00:00+00:00</updated>
+    <id>https://sgt.hootr.club/tags/ruby/atom.xml</id>
+    <entry xml:lang="en-us">
+        <title>Do I not like Ruby anymore?</title>
+        <published>2024-05-28T00:00:00+00:00</published>
+        <updated>2024-05-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              steen
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://sgt.hootr.club/blog/maybe-i-like-python-now/"/>
+        <id>https://sgt.hootr.club/blog/maybe-i-like-python-now/</id>
+        
+        <content type="html" xml:base="https://sgt.hootr.club/blog/maybe-i-like-python-now/">&lt;p&gt;I recently started working at a Python shop. The reasons behind this choice of employment are very much unrelated to the technology stack. Python is &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Euphemism&quot;&gt;not my favorite programming language&lt;&#x2F;a&gt;. In fact, allow me to drop the euphemism and express my pure, unadulterated thoughts about it: I never liked Python, I see it as a huge red flag and I think the world would be a better place if we all decided to finally move on from it.&lt;&#x2F;p&gt;
+&lt;p&gt;With that out of the way, let&#x27;s talk about how I&#x27;ve recently started to come around to Python and actually kind of like it in some aspects?&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;i-used-to-love-ruby&quot;&gt;I (used to) love Ruby&lt;&#x2F;h2&gt;
+&lt;p&gt;Ruby was my first love as a programmer. It is a playful, concise, elegant, expressive language that is built out of a handful of simple concepts with a good serving of syntax sugar on top.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;There&#x27;s no distinction between objects and primitives; everything is &lt;em&gt;actually&lt;&#x2F;em&gt; an object, &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;ruby-doc.org&#x2F;3.3.1&#x2F;NilClass.html&quot;&gt;even &lt;code&gt;nil&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;!&lt;&#x2F;li&gt;
+&lt;li&gt;You can &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;yehudakatz.com&#x2F;2009&#x2F;10&#x2F;04&#x2F;emulating-smalltalks-conditionals-in-ruby&quot;&gt;reimplement &lt;code&gt;if&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; using blocks and two additional methods on &lt;code&gt;NilClass&lt;&#x2F;code&gt; and &lt;code&gt;FalseClass&lt;&#x2F;code&gt; if you want!&lt;&#x2F;li&gt;
+&lt;li&gt;Method calls are just &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;ruby-doc.org&#x2F;3.3.1&#x2F;BasicObject.html#method-i-__send__&quot;&gt;syntax sugar for &lt;code&gt;send&lt;&#x2F;code&gt;ing messages to objects&lt;&#x2F;a&gt;!&lt;&#x2F;li&gt;
+&lt;li&gt;You can define new methods on an object at call time &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;ruby-doc.org&#x2F;3.3.1&#x2F;BasicObject.html#method-i-method_missing&quot;&gt;using &lt;code&gt;method_missing&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;!&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;Ruby was clearly &lt;em&gt;designed&lt;&#x2F;em&gt; taking inspiration from such language designer&#x27;s languages as Smalltalk and Lisp, and as a budding Schemer with an interest in programming language design, that inspired me a lot.&lt;&#x2F;p&gt;
+&lt;p&gt;Now, Python and Ruby were the two most popular &quot;scripting&quot; languages at the time. Ruby exploded thanks to Rails, and Python saw a lot of success as a language for data science and a better choice than Perl for command line tools and scripts.&lt;&#x2F;p&gt;
+&lt;p&gt;The two languages were often compared and contrasted, and of course I, as a fan of Ruby, had a lot of opinions about Python.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;python-as-a-worse-ruby-and-an-even-worse-scheme&quot;&gt;Python as a worse Ruby (and an even worse Scheme)&lt;&#x2F;h2&gt;
+&lt;p&gt;I kind of lied earlier when I said that Ruby was my first love as a programmer. The first time I started to really &lt;em&gt;grok&lt;&#x2F;em&gt; programming was when I learned a little bit of Scheme. I learned recursion before &lt;code&gt;for&lt;&#x2F;code&gt; loops, and I learned immutability before mutability.&lt;&#x2F;p&gt;
+&lt;p&gt;As I said in the beginning of this post, I didn&#x27;t like Python. My dislike for it was best exemplified by its choice to make &lt;code&gt;if&lt;&#x2F;code&gt; a &lt;em&gt;statement&lt;&#x2F;em&gt; rather than an expression. If you want to assign a variable conditionally in Python you have to &lt;em&gt;declare&lt;&#x2F;em&gt; it first, and then &lt;em&gt;mutate&lt;&#x2F;em&gt; it from inside the &lt;code&gt;if&lt;&#x2F;code&gt; statement, and this just didn&#x27;t sit right with me.&lt;&#x2F;p&gt;
+&lt;p&gt;(Yes, you can also use the &lt;code&gt;&amp;lt;then-expression&amp;gt; if &amp;lt;condition&amp;gt; else &amp;lt;else-expression&amp;gt;&lt;&#x2F;code&gt; inline conditional, but that looks weird to me even now.)&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;code&gt;lambda&lt;&#x2F;code&gt;s, my bread and butter as a Rubyist and Schemer, are replaced by horrible twisted versions of themselves that don&#x27;t allow statements. Even &lt;code&gt;print&lt;&#x2F;code&gt; was a statement before Python 3.0, so you couldn&#x27;t use it inside of a &lt;code&gt;lambda&lt;&#x2F;code&gt;. The horror!&lt;&#x2F;p&gt;
+&lt;p&gt;In summary, Python to me just felt &lt;em&gt;unpleasant&lt;&#x2F;em&gt; to use. It&#x27;s a language that prides itself on having only one way to do things, and that way was usually not the one I wanted to use.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;type-systems-for-the-untypable&quot;&gt;Type systems for the untypable&lt;&#x2F;h2&gt;
+&lt;p&gt;At some point I found myself writing frontend code. JavaScript is not my favorite language, but TypeScript tried &lt;em&gt;very hard&lt;&#x2F;em&gt; to get me to love it.&lt;&#x2F;p&gt;
+&lt;p&gt;I consider TypeScript to be the gold standard when it comes to type systems on top of dynamic languages. It is powerful enough to model almost all Real World JS, and while this approach introduces a lot of complexity, it also brought the language a lot of success.&lt;&#x2F;p&gt;
+&lt;p&gt;TypeScript does a &lt;em&gt;bit&lt;&#x2F;em&gt; more work than your classic ML (as in &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;ML_(programming_language)&quot;&gt;Meta Language&lt;&#x2F;a&gt;) type system. TypeScript can:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.typescriptlang.org&#x2F;docs&#x2F;handbook&#x2F;2&#x2F;narrowing.html&quot;&gt;Narrow&lt;&#x2F;a&gt; a variable&#x27;s type based on the return type of a function you call on it!&lt;&#x2F;li&gt;
+&lt;li&gt;Manipulate types by &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.typescriptlang.org&#x2F;docs&#x2F;handbook&#x2F;2&#x2F;keyof-types.html&quot;&gt;destructuring&lt;&#x2F;a&gt; and &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.typescriptlang.org&#x2F;docs&#x2F;handbook&#x2F;2&#x2F;mapped-types.html&quot;&gt;constructing&lt;&#x2F;a&gt; them!&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.typescriptlang.org&#x2F;docs&#x2F;handbook&#x2F;2&#x2F;conditional-types.html&quot;&gt;Make choices&lt;&#x2F;a&gt; while constructing a type based on subtyping rules!&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;The last two features in particular unlock some incredible type-level programming potential. TypeScript is one of the few type systems in which you can &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;cassiozen&#x2F;TDungeon&quot;&gt;play a text adventure&lt;&#x2F;a&gt; and &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;codemix&#x2F;ts-sql&quot;&gt;query a database&lt;&#x2F;a&gt;!&lt;&#x2F;p&gt;
+&lt;p&gt;On top of being the most complex (and fun) type system of most languages out there, let alone those topping the TIOBE Index, TypeScript certainly makes JavaScript&#x27;s flaws a lot more bearable. It almost made me &lt;em&gt;enjoy&lt;&#x2F;em&gt; writing frontend code for a living.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;i-changed&quot;&gt;I changed&lt;&#x2F;h2&gt;
+&lt;p&gt;One thing I learned while writing TypeScript was that bad language features can be excused by some static analysis. &lt;em&gt;Maybe&lt;&#x2F;em&gt; not having &lt;code&gt;match&lt;&#x2F;code&gt; is ok when you have type narrowing based on control flow and unions. &lt;em&gt;Maybe&lt;&#x2F;em&gt; not having &lt;code&gt;if&lt;&#x2F;code&gt; expressions is ok when you can statically check that a variable was initialized after an &lt;code&gt;if&lt;&#x2F;code&gt; statement. &lt;em&gt;Maybe&lt;&#x2F;em&gt; &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.hanselman.com&#x2F;blog&#x2F;stringly-typed-vs-strongly-typed&quot;&gt;stringly typed&lt;&#x2F;a&gt; variables are ok when you can statically enumerate the magic strings and ensure they are constructed correctly.&lt;&#x2F;p&gt;
+&lt;p&gt;I also started writing quite a bit of Rust, which is a great language to show your functional programmer friends when you want to tell them that mutability is &lt;em&gt;actually fine&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;python-changed&quot;&gt;Python changed&lt;&#x2F;h2&gt;
+&lt;p&gt;Python is not the same language it used to be. Now it supports type hints! And &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;docs.python.org&#x2F;3&#x2F;tutorial&#x2F;controlflow.html#match-statements&quot;&gt;&lt;code&gt;match&lt;&#x2F;code&gt; statements&lt;&#x2F;a&gt; with destructuring! Even &lt;code&gt;print&lt;&#x2F;code&gt; got turned into a normal function!&lt;&#x2F;p&gt;
+&lt;p&gt;The type hints are easily my favorite feature. Not only do they provide type information to a good ecosystem of type checkers, but they can also be used by libraries to &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;docs.pydantic.dev&#x2F;latest&#x2F;&quot;&gt;validate schemas&lt;&#x2F;a&gt; and &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;fastapi.tiangolo.com&#x2F;&quot;&gt;simplify defining web APIs&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I think they&#x27;re a great case study for integrating types in an existing ecosystem.&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;They are built into the language, so unlike TypeScript where you need to insert a separate build step, there is no cost of adoption.&lt;&#x2F;li&gt;
+&lt;li&gt;They are orthogonal to type checking and inspectable from within the language, so libraries like Pydantic can leverage them to bring benefits even to users who don&#x27;t run a type checker. Everybody wins!&lt;&#x2F;li&gt;
+&lt;li&gt;The aforementioned libraries can serve as a gateway drug into the magical world of types ✨&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;And here are some features of Python that I like which are unrelated to types:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Keyword arguments. You can call any function using the argument names as keywords without any ceremony in the function definition. I wish every language had this feature!&lt;&#x2F;li&gt;
+&lt;li&gt;It has namespaces, which are pretty good.&lt;&#x2F;li&gt;
+&lt;li&gt;The lambdas are bad, but comprehensions and generator functions are neat. They remind me of F#&#x27;s sequence expressions.&lt;&#x2F;li&gt;
+&lt;li&gt;Having preferably only one way to do things is a good feature when you&#x27;re working with many people on a project.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;ruby-didn-t-change&quot;&gt;Ruby didn&#x27;t change&lt;&#x2F;h2&gt;
+&lt;p&gt;So where does that leave Ruby, my former favorite language? Well, Ruby didn&#x27;t change as much in the last 10 years. A bunch of performance work to benefit big applications like Rails, a couple of interesting features that didn&#x27;t seem to catch on, and a handful of new syntax additions that don&#x27;t amount to much. Nothing quite as game-changing as type hints. Matz doesn&#x27;t seem to care for them.&lt;&#x2F;p&gt;
+&lt;p&gt;I still use Ruby for some scripts because I know it like the back of my hand, but... it just doesn&#x27;t feel the same. I get just a bit more irked by its quirks. I miss features from other languages. I long for keyword arguments, type hints, namespaces, I long for... Python!?&lt;&#x2F;p&gt;
+&lt;p&gt;Maybe this is a sign that I&#x27;ve changed too much for Ruby. We had a lot of fun together, but it&#x27;s time to leave it behind. Goodbye Ruby, and thanks for all the chunky bacon.&lt;&#x2F;p&gt;
+&lt;p&gt;And to Python I say: good job! You can have one of my midnight chicken nuggets. You deserve it.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en-us">
+        <title>require_so: DRYer StackOverflow copying</title>
+        <published>2020-05-20T00:00:00+00:00</published>
+        <updated>2020-05-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              steen
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://sgt.hootr.club/blog/announcing-require-so/"/>
+        <id>https://sgt.hootr.club/blog/announcing-require-so/</id>
+        
+        <content type="html" xml:base="https://sgt.hootr.club/blog/announcing-require-so/">&lt;p&gt;Today I was reading &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;stackoverflow.blog&#x2F;2020&#x2F;05&#x2F;20&#x2F;good-coders-borrow-great-coders-steal&#x2F;?cb=1&quot;&gt;a post on the StackOverflow blog&lt;&#x2F;a&gt;
+when I was struck by this passage:&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Copying code from Stack Overflow is a form of code cloning&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Code &lt;strong&gt;cloning&lt;&#x2F;strong&gt;, you say? In &lt;strong&gt;my&lt;&#x2F;strong&gt; DRY Ruby codebase? Not if &lt;em&gt;I&lt;&#x2F;em&gt; can help it!&lt;&#x2F;p&gt;
+&lt;p&gt;And so I got to work. After extensive research, I concluded that deleting the snippet from StackOverflow
+to make my version the canonical one was not a viable option.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;sgt.hootr.club&#x2F;blog&#x2F;announcing-require-so&#x2F;how-to-delete.jpg&quot; alt=&quot;&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;So I flipped the problem on its head: why not make the StackOverflow version the canonical one?
+And thus, &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;steinuil&#x2F;require_so&quot;&gt;require_so&lt;&#x2F;a&gt; was born.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;how-do-i-use-it&quot;&gt;How do I use it?&lt;&#x2F;h2&gt;
+&lt;p&gt;Locate the code snippet&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;sgt.hootr.club&#x2F;blog&#x2F;announcing-require-so&#x2F;answer.jpg&quot; alt=&quot;It&amp;#39;s right there&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Copy the short permalink below the StackOverflow answer&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;sgt.hootr.club&#x2F;blog&#x2F;announcing-require-so&#x2F;share.jpg&quot; alt=&quot;Copy that shit&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Paste it into your code&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D8DEE9; background-color: #2E3440;&quot;&gt;&lt;code data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #81A1C1;&quot;&gt;require&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A3BE8C;&quot;&gt;require_so&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;require_so &lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #A3BE8C;&quot;&gt;https:&#x2F;&#x2F;stackoverflow.com&#x2F;a&#x2F;61879644&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;And voilà, the methods defined in the snippet will be brought into scope.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D8DEE9; background-color: #2E3440;&quot;&gt;&lt;code data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #88C0D0;&quot;&gt;fast_next_smaller&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B48EAD;&quot;&gt;907&lt;&#x2F;span&gt;&lt;span style=&quot;color: #ECEFF4;&quot;&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #616E88;&quot;&gt; #=&amp;gt; 790&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;No more code cloning!&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

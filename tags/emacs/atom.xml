@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-us">
+    <title>steen&#x27;s burrow - emacs</title>
+    <subtitle>steen&#x27;s online burrow</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://sgt.hootr.club/tags/emacs/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://sgt.hootr.club"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2018-01-22T00:00:00+00:00</updated>
+    <id>https://sgt.hootr.club/tags/emacs/atom.xml</id>
+    <entry xml:lang="en-us">
+        <title>What the hell did I do this week, anyway?</title>
+        <published>2018-01-22T00:00:00+00:00</published>
+        <updated>2018-01-22T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              steen
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://sgt.hootr.club/blog/week-001/"/>
+        <id>https://sgt.hootr.club/blog/week-001/</id>
+        
+        <content type="html" xml:base="https://sgt.hootr.club/blog/week-001/">&lt;p&gt;Welcome to the first installation of &lt;strong&gt;What The Hell Did I Do This Week Anyway&lt;&#x2F;strong&gt;,
+the low-effort blog series where I write about random stuff that I did in the
+last few days.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;emacs-strikes-again-or-the-stages-of-software-grief&quot;&gt;Emacs strikes again, or the stages of software grief&lt;&#x2F;h2&gt;
+&lt;p&gt;This week I watched a bunch of Jonathan Blow&#x27;s &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;user&#x2F;jblow888&#x2F;videos&quot;&gt;screencasts&lt;&#x2F;a&gt;,
+where he talks about the language he&#x27;s writing and all that business. It looks
+nice. Lately he&#x27;s working on libraries, and I wish he&#x27;d take a hint from ML
+functors when designing modules and module options, as he&#x27;s talked about in
+the libraries discussion stream. Expose a fucking module for configuration and
+make it return the full thing, using strings for that just feels painful.&lt;&#x2F;p&gt;
+&lt;p&gt;Anyway, he uses emacs for all the programming in his stream, save for debugging
+a bunch of stuff in C++, and looking at emacs for all this time has reawakened
+the little bug in my brain that tells me to start using emacs already. I use
+nvim for everything, but I&#x27;m kind of horrified by the whole vimscript business
+and at the very least elisp is a saner language.&lt;br &#x2F;&gt;
+Screw learning all those keybinds though. I&#x27;ve spent years on vim and I think
+the modal editing business is a much better fit to editing code than the big
+mess of emacs keybinds.
+Screw using evil too, though, because emacs is not vi and I don&#x27;t think it
+should be. Screw all the minor modes that kind of mimic vi but also kind of
+don&#x27;t, and screw a lot of the packages that emacs comes preloaded with.&lt;&#x2F;p&gt;
+&lt;p&gt;I downloaded the emacs source and managed to compile temacs, which is the
+&quot;bare&quot; version of emacs that gets filled in with all the preloaded libraries
+and elisp code, and then gets &quot;dumped&quot; to the final emacs executable we all
+know and fear. I recommend &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;http:&#x2F;&#x2F;emacshorrors.com&#x2F;posts&#x2F;unexecute.html&quot;&gt;this&lt;&#x2F;a&gt;
+for the gory details on this horrifying process.
+I think there might be a few steps in the build process that should happen
+after building temacs but before actually loading temacs and dumping it to
+emacs, because I can&#x27;t get the damn thing to work. I invoke temacs and tell it
+to load &lt;code&gt;loadup.el&lt;&#x2F;code&gt; (the file that loads all the plugins and tells emacs to
+dump itself) but it keeps failing with some error message or another.
+First it&#x27;s pcase, then it&#x27;s require, and who knows what the next will be.
+Despite its reputation for being so hackable, this part of the build process
+sure is not, and if it is it&#x27;s &lt;em&gt;very&lt;&#x2F;em&gt; undocumented.&lt;&#x2F;p&gt;
+&lt;p&gt;I started writing my own loadup file in hopes of getting it right, but I ran
+into some files that supposedly provide Common Lisp support which for some
+reason &lt;code&gt;require&lt;&#x2F;code&gt; each other. At this point I gave up, because I was already way
+past the treshold of time and effort I wanted to allocate to emacs that evening.
+Thanks, jwz.&lt;&#x2F;p&gt;
+&lt;p&gt;The next step in the stages of software grief is starting to implement your own
+version, because you&#x27;re &lt;strong&gt;so&lt;&#x2F;strong&gt; done with whatever you were using before and its
+alternatives and how hard could it possibly be anyway. Which is exactly what I
+did, as soon as I remembered that Racket came with a perfectly good library for
+drawing stuff on the screen, on top of which they implemented a GUI library and
+the very nice editor&#x2F;IDE DrRacket.
+I looked up how Racket implements the editor window, and the results weren&#x27;t
+exactly what I&#x27;d call readable or encouragings, after messing a bit with the
+&lt;code&gt;canvas%&lt;&#x2F;code&gt; class I decided to give up for the moment.&lt;&#x2F;p&gt;
+&lt;p&gt;Which is where I reached the last stage of software grief, in which I changed
+my vim colorscheme to &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;ajmwagar&#x2F;vim-deus&quot;&gt;deus&lt;&#x2F;a&gt; and called
+it a day.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;eight-whole-bytes-of-security&quot;&gt;Eight whole bytes of security&lt;&#x2F;h2&gt;
+&lt;p&gt;I was working on my Ur&#x2F;Web imageboard, when I noticed that I accidentally typed
+&quot;passwords&quot; instead of &quot;password&quot; and still managed to log in. I looked up the
+implementation of &lt;code&gt;crypt&lt;&#x2F;code&gt; (the only password hashing function provided in
+Ur&#x2F;Web) in the runtime library and discovered that it uses OpenSSL&#x27;s
+&lt;code&gt;DES_crypt&lt;&#x2F;code&gt;, which clips passwords to 8 characters (!) and has been deemed
+obsolete for decades now (with good reason). I don&#x27;t know what the
+production-class Ur&#x2F;Web applications do for password hashing, but thankfully
+searching for &lt;code&gt;crypt&lt;&#x2F;code&gt; in both the Bazqux Reader and UPO repos doesn&#x27;t turn
+up any results. Either way, nobody had bothered to write Ur&#x2F;Web bindings to a
+better password hashing algorithm, so I figured I&#x27;d do it.&lt;&#x2F;p&gt;
+&lt;p&gt;The result is &lt;a class=&quot;external-link&quot; rel=&quot;nofollow noreferrer external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;steinuil&#x2F;urweb-bcrypt&quot;&gt;this library&lt;&#x2F;a&gt;, which
+uses Solar Designer&#x27;s implementation of the algorithm. It only exposes two
+functions, so integrating it with my imageboard only took something like two
+minutes. I&#x27;m quite satisfied with it, though it could probably use some tests.&lt;&#x2F;p&gt;
+&lt;p&gt;The other result is that I&#x27;ve submitted a PR with a comment on the &lt;code&gt;crypt&lt;&#x2F;code&gt;
+function in the Ur&#x2F;Web standard library, essentially explaining that it&#x27;s
+insecure and you should probably consider an alternative (such as my library).&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>

@@ -1,0 +1,264 @@
+<!doctype html><html lang=en><head><meta charset=utf-8><meta content="width=device-width,initial-scale=1,viewport-fit=cover" name=viewport><title>Hellpoint breach map</title><meta content="steen's online burrow" name=description><meta content=Zola name=generator><meta content=strict-origin name=referrer><link href=https://sgt.hootr.club/assets/style.css rel=stylesheet><link title="RSS feed" href=/rss.xml rel=alternate type=application/rss+xml><link title="Atom feed" href=/atom.xml rel=alternate type=application/atom+xml><link href=/assets/icon/favicon-152.png rel=apple-touch-icon-precomposed><body class=main-parent><div class=main-parent><header class=main><h1 class=header-title><a href=https://sgt.hootr.club>STEENSBURROW</a></h1><nav><ul class=unstyled><li><a class=unstyled href=https://sgt.hootr.club/me/>me</a><li><a class=unstyled href=https://sgt.hootr.club/blog/>posts</a><li><a class=unstyled href=/rss.xml>rss</a><li><a class=unstyled href=https://sgt.hootr.club/meta/>meta</a></ul></nav></header><main class=main><article><header><h1 class=title>Hellpoint breach map</h1><p class=subtitle>Published by <a href=/><i>steen</i></a> on <time datetime=2021-06-20>2021-06-20</time> tagged <a class=tag href=https://sgt.hootr.club/tags/videogames/>#videogames</a></header><div class=content><p>I just finished playing Hellpoint, an indie soulslike which was surprisingly really good. It has a very deeply interconnected world which I loved exploring, but some areas are kinda confusing to navigate and I quickly realized I needed a map and the ones that were available online were... less than satisfactory. So I made one with Graphviz.<p>I did explore the game thoroughly but I didn't manage to get the true ending due to a bug with an involved NPC, so it might be missing some things or not be entirely accurate (for example some of the edges between the areas are actually one-way, but I didn't want to rewrite it into a digraph), but if you wanna know how to get to a specific breach you might find it useful.<p><img alt="Hellpoint breach map" src=https://sgt.hootr.club/blog/hellpoint-breach-map/hellpoint.svg><pre class=giallo style=color:#d8dee9;background-color:#2e3440><code data-lang=plain><span class=giallo-l><span>graph "Hellpoint breach map" {</span></span>
+<span class=giallo-l><span>  subgraph cluster_Arcology {</span></span>
+<span class=giallo-l><span>    label = "Arcology";</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Breaches</span></span>
+<span class=giallo-l><span>    Funicular [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Customs Bridge" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Celestial Workshop" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "West Square" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Condo Ruins" [shape = diamond];</span></span>
+<span class=giallo-l><span>    </span></span>
+<span class=giallo-l><span>    // Lifts</span></span>
+<span class=giallo-l><span>    subgraph cluster_lift0 {</span></span>
+<span class=giallo-l><span>      label = "Lift";</span></span>
+<span class=giallo-l><span>      l0f1 -- l0f2;</span></span>
+<span class=giallo-l><span>      l0f2 [label = "Floor 2", shape = none];</span></span>
+<span class=giallo-l><span>      l0f1 [label = "Floor 1", shape = none];</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    subgraph cluster_lift1 {</span></span>
+<span class=giallo-l><span>      label = "Lift";</span></span>
+<span class=giallo-l><span>      l1f1 -- l1f2 -- l1f3;</span></span>
+<span class=giallo-l><span>      l1f3 [label = "Floor 3", shape = none];</span></span>
+<span class=giallo-l><span>      l1f2 [label = "Floor 2", shape = none];</span></span>
+<span class=giallo-l><span>      l1f1 [label = "Floor 1", shape = none];</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Links</span></span>
+<span class=giallo-l><span>    l0f1 -- Funicular -- "Customs Bridge";</span></span>
+<span class=giallo-l><span>    "Customs Bridge" -- l1f2 -- "Celestial Workshop";</span></span>
+<span class=giallo-l><span>    "Cosmic theurgist" -- "Celestial Workshop";</span></span>
+<span class=giallo-l><span>    "Eye codes" -- l1f3;</span></span>
+<span class=giallo-l><span>    "Customs Bridge" -- "West Square";</span></span>
+<span class=giallo-l><span>    "West Square" -- "Condo Ruins";</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l><span>  </span></span>
+<span class=giallo-l><span>  subgraph "cluster_Alma Mater Atrium" {</span></span>
+<span class=giallo-l><span>    label = "Alma Mater Atrium";</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Breaches</span></span>
+<span class=giallo-l><span>    "Otsego Mansion" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Shanty Entrance" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Western Skybridge" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Tenements" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Union Park" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Athaneum" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Cabaret Cellar" [shape = diamond];</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Lifts</span></span>
+<span class=giallo-l><span>    subgraph cluster_lift3 {</span></span>
+<span class=giallo-l><span>      label = "Lift";</span></span>
+<span class=giallo-l><span>      l3f1 -- l3f2 -- l3f3;</span></span>
+<span class=giallo-l><span>      l3f3 [label = "Floor 3", shape = none];</span></span>
+<span class=giallo-l><span>      l3f2 [label = "Floor 2", shape = none];</span></span>
+<span class=giallo-l><span>      l3f1 [label = "Floor 1", shape = none];</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    subgraph cluster_lift6 {</span></span>
+<span class=giallo-l><span>      label = "Lift";</span></span>
+<span class=giallo-l><span>      l6f2 -- l6f1;</span></span>
+<span class=giallo-l><span>      l6f2 [label = "Floor 2", shape = none];</span></span>
+<span class=giallo-l><span>      l6f1 [label = "Floor 1", shape = none];</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    subgraph cluster_Lift9 {</span></span>
+<span class=giallo-l><span>      label = "Lift";</span></span>
+<span class=giallo-l><span>      l9f1 -- l9f2 -- l9f3;</span></span>
+<span class=giallo-l><span>      l9f3 [label = "Floor 3", shape = none];</span></span>
+<span class=giallo-l><span>      l9f2 [label = "Floor 2", shape = none];</span></span>
+<span class=giallo-l><span>      l9f1 [label = "Floor 1", shape = none];</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Links</span></span>
+<span class=giallo-l><span>    l3f3 -- "Shanty Entrance" -- "Western Skybridge";</span></span>
+<span class=giallo-l><span>    l3f2 -- "Otsego Mansion";</span></span>
+<span class=giallo-l><span>    l6f2 -- "Tenements";</span></span>
+<span class=giallo-l><span>    l6f1 -- "Union Park";</span></span>
+<span class=giallo-l><span>    l9f2 -- "Otsego Mansion";</span></span>
+<span class=giallo-l><span>    l9f2 -- "Cabaret Cellar";</span></span>
+<span class=giallo-l><span>    "Union Park" -- "Otsego Mansion";</span></span>
+<span class=giallo-l><span>    "Union Park" -- "Athaneum";</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>  subgraph cluster_lift2 {</span></span>
+<span class=giallo-l><span>    label = "Lift";</span></span>
+<span class=giallo-l><span>    l2f1 -- l2f2;</span></span>
+<span class=giallo-l><span>    l2f2 [label = "Floor 2", shape = none];</span></span>
+<span class=giallo-l><span>    l2f1 [label = "Floor 1", shape = none];</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>  subgraph "cluster_Arcology Underside" {</span></span>
+<span class=giallo-l><span>    label = "Arcology Underside";</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Breaches</span></span>
+<span class=giallo-l><span>    "Central Mall" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "SAS" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Outside Platform" [shape = diamond];</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Lifts</span></span>
+<span class=giallo-l><span>    subgraph cluster_lift7 {</span></span>
+<span class=giallo-l><span>      label = "Lift";</span></span>
+<span class=giallo-l><span>      l7f1 -- l7f2;</span></span>
+<span class=giallo-l><span>      l7f2 [label = "Floor 2", shape = none];</span></span>
+<span class=giallo-l><span>      l7f1 [label = "Floor 1", shape = none];</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    "Central Mall" -- l7f2;</span></span>
+<span class=giallo-l><span>    l7f1 -- "SAS"</span></span>
+<span class=giallo-l><span>    "SAS" -- "Outside Platform";</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>  subgraph "cluster_Alma Mater" {</span></span>
+<span class=giallo-l><span>    label = "Alma Mater";</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Breaches</span></span>
+<span class=giallo-l><span>    "Belvedere" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Offices" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Lobby" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Uthos's Agora" [shape = diamond];</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Lifts</span></span>
+<span class=giallo-l><span>    subgraph cluster_lift4 {</span></span>
+<span class=giallo-l><span>      label = "Lift";</span></span>
+<span class=giallo-l><span>      l4f1 -- l4f2;</span></span>
+<span class=giallo-l><span>      l4f2 [label = "Floor 2", shape = none];</span></span>
+<span class=giallo-l><span>      l4f1 [label = "Floor 1", shape = none];</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    subgraph cluster_lift5 {</span></span>
+<span class=giallo-l><span>      label = "Lift";</span></span>
+<span class=giallo-l><span>      l5f1 -- l5f2;</span></span>
+<span class=giallo-l><span>      l5f2 [label = "Floor 2", shape = none];</span></span>
+<span class=giallo-l><span>      l5f1 [label = "Floor 1", shape = none];</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Links</span></span>
+<span class=giallo-l><span>    l4f1 -- "Belvedere";</span></span>
+<span class=giallo-l><span>    "Offices" -- "Belvedere";</span></span>
+<span class=giallo-l><span>    l4f2 -- "Uthos's Agora";</span></span>
+<span class=giallo-l><span>    l5f2 -- "Offices";</span></span>
+<span class=giallo-l><span>    l5f1 -- "Lobby";</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l><span>  </span></span>
+<span class=giallo-l><span>  subgraph "cluster_Sohn District" {</span></span>
+<span class=giallo-l><span>    label = "Sohn District";</span></span>
+<span class=giallo-l><span>    </span></span>
+<span class=giallo-l><span>    // Breaches</span></span>
+<span class=giallo-l><span>    "Corpse Pit" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Balcony" [shape = diamond]</span></span>
+<span class=giallo-l><span>    "Control Center" [shape = diamond];</span></span>
+<span class=giallo-l><span>    </span></span>
+<span class=giallo-l><span>    // Links</span></span>
+<span class=giallo-l><span>    "Corpse Pit" -- "Control Center";</span></span>
+<span class=giallo-l><span>    "Corpse Pit" -- "Balcony" -- "Control Center"</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l><span>  </span></span>
+<span class=giallo-l><span>  subgraph "cluster_Port Issoudun" {</span></span>
+<span class=giallo-l><span>    label = "Port Issoudun";</span></span>
+<span class=giallo-l><span>    </span></span>
+<span class=giallo-l><span>    // Breaches</span></span>
+<span class=giallo-l><span>    "Docking Bay" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Silos" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Ozy's Pit" [shape = diamond];</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Links</span></span>
+<span class=giallo-l><span>    "Docking Bay" -- "Silos";</span></span>
+<span class=giallo-l><span>    "Silos" -- "Ozy's Pit";</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l><span>    </span></span>
+<span class=giallo-l><span>  subgraph cluster_Observatory {</span></span>
+<span class=giallo-l><span>    label = "Observatory";</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Braches</span></span>
+<span class=giallo-l><span>    "Podium" [shape = diamond];</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l><span>  </span></span>
+<span class=giallo-l><span>  subgraph cluster_Embassy {</span></span>
+<span class=giallo-l><span>    label = "Embassy";</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Breaches</span></span>
+<span class=giallo-l><span>    "Great Halls" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Pond" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Admission" [shape = diamond];</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    j0 [shape = point];</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Links</span></span>
+<span class=giallo-l><span>    "Great Halls" -- j0 -- "Pond";</span></span>
+<span class=giallo-l><span>    "Great Halls" -- "Admission";</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l><span>  </span></span>
+<span class=giallo-l><span>  subgraph "cluster_Arisen Dominion" {</span></span>
+<span class=giallo-l><span>    label = "Arisen Dominion";</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Breaches</span></span>
+<span class=giallo-l><span>    "Solar Promenade" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Hall of Remembrance" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Grand Gallery" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Tram Station" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Mine Mausoleum" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Undisturbed Defas Nemundis" [shape = diamond];</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Lifts</span></span>
+<span class=giallo-l><span>    subgraph cluster_lift8 {</span></span>
+<span class=giallo-l><span>      label = "Lift";</span></span>
+<span class=giallo-l><span>      l8f1 -- l8f2 -- l8f3 -- l8f4;</span></span>
+<span class=giallo-l><span>      l8f4 [label = "Ministry Audience Chamber", shape = none];</span></span>
+<span class=giallo-l><span>      l8f3 [label = "Grand Gallery", shape = none];</span></span>
+<span class=giallo-l><span>      l8f2 [label = "Promenade", shape = none];</span></span>
+<span class=giallo-l><span>      l8f1 [label = "Mausoleum", shape = none];</span></span>
+<span class=giallo-l><span>    }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Links</span></span>
+<span class=giallo-l><span>    "Solar Promenade" -- "Hall of Remembrance" -- "Grand Gallery";</span></span>
+<span class=giallo-l><span>    "Tram Station" -- "Grand Gallery";</span></span>
+<span class=giallo-l><span>    "Grand Gallery" -- l8f3;</span></span>
+<span class=giallo-l><span>    "Mine Mausoleum" -- l8f1;</span></span>
+<span class=giallo-l><span>    l8f4 -- "Undisturbed Defas Nemundis";</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>  subgraph "cluster_Ikari Walkways" {</span></span>
+<span class=giallo-l><span>    label = "Ikari Walkways";</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Breaches</span></span>
+<span class=giallo-l><span>    "East Square" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Crashed Tram" [shape = diamond];</span></span>
+<span class=giallo-l><span>    "Underail" [shape = diamond];</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>    // Links</span></span>
+<span class=giallo-l><span>    "East Square" -- "Crashed Tram" -- "Underail";</span></span>
+<span class=giallo-l><span>  }</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>  j0 -- "Solar Promenade";</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>  "Customs Bridge" -- "East Square";</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>  "Tenements" -- "Tram Station";</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>  l2f1 -- "Central Mall";</span></span>
+<span class=giallo-l><span>  l2f2 -- "Otsego Mansion";</span></span>
+<span class=giallo-l><span>  l3f1 -- "Central Mall";</span></span>
+<span class=giallo-l><span>  </span></span>
+<span class=giallo-l><span>  "Otsego Mansion" -- "Celestial Workshop";</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>  "Western Skybridge" -- l4f1;</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>  "Offices" -- "Tenements";</span></span>
+<span class=giallo-l><span>  "Lobby" -- "Otsego Mansion";</span></span>
+<span class=giallo-l><span>  </span></span>
+<span class=giallo-l><span>  "Podium" -- "Great Halls";</span></span>
+<span class=giallo-l><span>  "Podium" -- "Docking Bay";</span></span>
+<span class=giallo-l><span>  "Podium" -- l0f2;</span></span>
+<span class=giallo-l><span>  "Podium" -- "Outside Platform";</span></span>
+<span class=giallo-l><span>  </span></span>
+<span class=giallo-l><span>  "Control Center" -- "Docking Bay";</span></span>
+<span class=giallo-l><span>  </span></span>
+<span class=giallo-l><span>  "Control Center" -- l1f1;</span></span>
+<span class=giallo-l><span>  "Condo Ruins" -- "Corpse Pit";</span></span>
+<span class=giallo-l></span>
+<span class=giallo-l><span>  "Underail" -- "Central Mall";</span></span>
+<span class=giallo-l><span>  "Underail" -- l9f2;</span></span>
+<span class=giallo-l><span>  "Underail" -- "Cabaret Cellar";</span></span>
+<span class=giallo-l><span>  "Ozy's Pit" -- "Pond";</span></span>
+<span class=giallo-l><span>}</span></span></code></pre></div></article></main><footer class=main><a class=logo href=/> <svg viewbox="0 0 79 49" version=1.1 xmlns=http://www.w3.org/2000/svg xmlns:svg=http://www.w3.org/2000/svg><title>Steen's online burrow</title><g fill=currentColor><g><path d="M 17,7 V 9 H 15 V 8 h -1 v 3 h 1 v 1 h 2 v 1 h 4 V 9 H 20 V 8 H 19 V 5 h 1 V 4 h 1 V 3 h 4 v 1 h -3 v 3 h 1 v 1 h 1 v 4 h -1 v 1 h -1 c 0,0 0,1 0,1 H 16 V 13 H 13 V 12 10 H 12 V 8 h 1 V 7 Z"/><path d="m 30,5 v 1 h 2 V 5 h 3 v 1 h -2 v 1 h -2 v 4 h -1 v 1 h -1 v 1 h -1 c 0,0 0,2 0,2 h -1 c 0,0 0,1 0,1 h -1 v -3 h 1 v -2 h 1 V 7 H 26 V 6 H 24 V 5 Z"/><path d="m 39,5 v 2 h -1 c 0,0 0,1 0,1 h -1 c 0,0 0,1 0,1 h -2 v 1 h 4 c 0,0 0,2 0,2 h -2 v -1 h -3 v 1 h -1 v 2 h 2 v -1 h 3 v 1 h 1 v 1 h 1 c 0,0 0,1 0,1 h -2 v -1 h -4 c 0,0 0,1 0,1 h -4 v -1 h 1 v -2 h 1 v -2 h 1 V 8 h 3 V 7 h 1 V 6 h 1 V 5 Z"/><path d="m 42,5 v 1 h 1 v 1 h 1 v 1 h 1 v 1 h 2 v 1 H 44 V 9 h -1 v 2 h 3 v 1 h -2 v 1 h -1 v 1 h 2 v -1 h 2 v 2 h -4 c 0,0 0,1 0,1 h -2 v -2 h 1 V 9 H 41 V 7 H 40 V 5 Z"/><path d="m 48,6 v 2 h 1 v 4 h 1 c 0,0 0,2 0,2 h -1 v 3 c 0,0 1,0 1,0 v -1 h 1 v -2 h 1 v -2 h 1 v 1 h 1 v 1 h 1 v 1 h 2 V 14 H 56 V 9 h 1 V 7 h 1 V 5 h 1 V 4 h 1 V 2 h -1 v 1 h -2 v 1 h -1 v 4 h -1 v 4 H 54 V 11 H 53 V 10 H 51 V 8 H 50 V 7 H 49 V 6 Z"/><path d="m 61,0 v 1 h 1 v 3 h 2 V 2 H 63 V 0 Z"/><path d="m 67,4 v 1 h -1 v 2 h 1 c 0,0 0,3 0,3 h -1 v 1 c 0,0 -4,0 -4,0 v -1 h 2 V 9 h 1 V 8 H 64 V 5 h 1 V 4 Z"/></g><g><path d="m 26,22 h 3 v -1 h -3 z"/><path d="m 31,20 v 1 h 1 v 1 h 1 v -2 z m 1,2 h -1 v -1 h -1 v 2 h 2 z"/><path d="m 34,20 v 3 h 1 v -2 h 1 v 2 h 1 v -2 h -1 v -1 z"/><path d="m 38,19 v 4 h 1 v -4 z"/><path d="m 40,19 v 1 h 1 v -1 z"/><path d="m 40,21 v 2 h 1 v -2 z"/><path d="m 42,23 v -3 h 2 v 1 h 1 c 0,0 0,2 0,2 h -1 v -2 h -1 v 2 z"/><path d="m 46,21 v 2 h 1 v 1 h 1 v -1 h -1 v -2 h 1 v 1 h 1 v -2 h -2 v 1 z"/><path d="m 50,21 c 0,0 0,1 0,1 h 3 v -1 z"/></g><g><path d="m 5,26 v 1 H 4 v 6 H 3 v 7 H 2 v 4 H 1 v 2 H 0 v 3 h 6 v -1 h 2 v -1 h 2 v -1 h 2 v -1 h 2 v -4 h -1 v -1 h -1 v -2 h 1 v -2 h 1 v -1 h 1 v -1 h 1 V 28 H 12 V 27 H 9 v -1 z m 2,4 h 2 v 1 h 3 v 2 h -1 v 1 h -1 v 1 H 9 v 1 H 8 v 1 H 6 V 36 H 7 Z M 6,41 h 2 v 1 h 2 v 1 H 8 v 1 H 6 v 1 H 5 v -2 h 1 z"/><path d="m 17,26 v 3 h 1 v 2 h -1 v 5 h -1 v 4 h -1 v 4 h 1 v 2 h 9 v -1 h 1 v -3 h 1 V 25 h -4 v 5 h 1 v 9 h -1 v 3 h -1 v 1 h -3 v -4 h 1 v -5 h 1 v -8 z"/><path d="m 28,27 v 5 h 1 v 2 h -1 v 14 h 3 V 38 h 1 v 4 h 1 v 4 h 1 v 2 h 3 v -5 h -1 v -4 h -1 v -5 h 3 v -6 h -2 v -1 z m 4,3 h 1 v 1 h -1 z"/><path d="m 40,27 v 21 h 3 V 37 h 1 v 1 h 1 v 1 h 1 v 1 h 1 v 2 h 1 v 1 h 1 v 2 h 4 v -3 h -1 v -1 h -1 v -2 h -1 v -1 h -1 v -1 h -1 v -9 h -2 v -1 z m 3,4 h 2 v 1 h -1 v 1 h -1 z"/><path d="m 52,27 v 1 h -1 v 1 h -1 v 7 h 1 v 1 h 1 v 1 h 1 v 1 h 5 v -1 h 2 v -1 h 1 v -8 h -1 v -1 h -4 v -1 z m 2,4 h 3 v 1 h 1 v 2 h -1 v 1 h -2 v -1 h -1 v -1 h -1 v -1 h 1 z"/><path d="m 63,25 v 4 h 1 v 16 h 4 v -1 h 1 v -1 h 1 v -2 h 2 v 1 h 2 v 1 h 1 v 1 h 4 v -5 h -1 v -3 h -1 v -2 h -1 v -2 h -1 v -2 h -1 v -2 h -1 v -3 h -1 v -1 h -3 v 4 h 1 v 3 h 1 v 2 h 1 v 2 h 1 v 2 h 1 v 1 h -1 v -1 h -4 v 1 H 67 V 26 h -1 v -1 z"/></g></g></svg> </a><div class=blurb>There is no end though there is a start in the past — Infinity.<br> It speaks, it ruins, and it goes though it consumes the soul — Finite.<br> Only the person who has wisdom can read the most foolish one from the history.<br> The daemon that lives in the machine doesn't understand the daemon that lives in the brain.<br> It is funnier that man exceeds the speed of light than machine start writing on a net.<br> It can be said that this is final ultimatum from the people who can think.</div></footer></div>
